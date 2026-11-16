@@ -5,14 +5,19 @@
   /* ---------------- i18n ---------------- */
   const UI = {
     en: {
-      replay: "Replay our story", youEnter: "You enter here", pts: "pts", nameTitle: "Join the fun", nameSub: "Pick a name for the leaderboard.", namePh: "Your name", save: "Save",
+      replay: "Replay our story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
+      tile_agenda: "Agenda", tile_agenda_s: "The timeline of the day", tile_seats: "Find my seat", tile_seats_s: "Floor plan and your table",
+      tile_lyrics: "Sing along", tile_lyrics_s: "Praise and worship lyrics", tile_play: "Quiz and bingo", tile_play_s: "Play and earn points",
+      tile_board: "Leaderboard", tile_board_s: "See who is on top", tile_wishes: "Wish garden", tile_wishes_s: "Plant a blessing",
+      tile_songs: "Song request", tile_songs_s: "Tell the live band", tile_story: "Our story", tile_story_s: "Replay the scroll",
+      tile_map: "Directions", tile_map_s: "Open in maps", tile_cal: "Save the date", tile_cal_s: "Add to calendar", nowHappening: "Happening now", youEnter: "You enter here", pts: "pts", nameTitle: "Join the fun", nameSub: "Pick a name for the leaderboard.", namePh: "Your name", save: "Save",
       soonOnline: "Opens on the wedding day.", boardEmpty: "Be the first on the board!", boardTitle: "Leaderboard", boardSub: "Top players by points. Updates every few seconds.",
       rules: "Quiz: 10 pts per correct answer. Bingo: photo 20, say it 10, do it 10, spot it 5, first line +30.",
       songTitle: "Request a song", songSub: "Tell the live band what you would like to hear. We pass it on to the band.", songPh: "Song and artist", songNote: "A dedication or note (optional)", songSend: "Send to the band",
       songLimit: "That is 3 requests already. Thank you!", songDone: "Sent! The band will see it.", tryAgain: "Could not send. Please try again.",
       gardenTitle: "Wish garden", gardenSub: "Every blessing grows as a flower. Tap a flower to read it.", gardenEmpty: "No flowers yet. Plant the first wish!", tapFlower: "Tap a flower to read a wish.",
       plant: "Plant a wish for the couple", wishPh: "Write a blessing (max 140 characters)", plantBtn: "Plant my wish", wishLimit: "Two wishes planted already. Thank you!", wishDone: "Planted! Your flower is in the garden.",
-      fun_play: "Play", fun_board: "Board", fun_wishes: "Wishes", fun_songs: "Songs", home: "Home", agenda: "Agenda", seats: "Seats", lyrics: "Lyrics", fun: "Fun",
+      fun_play: "Play", fun_board: "Board", fun_wishes: "Wishes", fun_songs: "Songs", home: "Home", agenda: "Agenda", seats: "Seats", lyrics: "Lyrics", fun: "Play",
       weddingOf: "The wedding of", days: "days", hours: "hours", mins: "mins", secs: "secs",
       today: "Today is the day!", thanks: "Thank you for celebrating with us.",
       upNext: "Up next", seeAgenda: "Full agenda", viewSeats: "Find your seat", viewSeatsSub: "Table and floor plan",
@@ -36,7 +41,12 @@
       contact: "Chat with us",
     },
     zh: {
-      replay: "重看我们的故事", youEnter: "从这里入场", pts: "分", nameTitle: "一起来玩", nameSub: "请输入排行榜上的名字。", namePh: "您的名字", save: "保存",
+      replay: "重看我们的故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
+      tile_agenda: "流程", tile_agenda_s: "今天的时间表", tile_seats: "查找座位", tile_seats_s: "平面图与桌号",
+      tile_lyrics: "一起来唱", tile_lyrics_s: "敬拜赞美歌词", tile_play: "问答与宾果", tile_play_s: "玩游戏赚积分",
+      tile_board: "排行榜", tile_board_s: "看看谁领先", tile_wishes: "祝福花园", tile_wishes_s: "种下一个祝福",
+      tile_songs: "点歌", tile_songs_s: "告诉现场乐队", tile_story: "我们的故事", tile_story_s: "重看滚动故事",
+      tile_map: "导航", tile_map_s: "在地图中打开", tile_cal: "记下日期", tile_cal_s: "加入日历", nowHappening: "正在进行", youEnter: "从这里入场", pts: "分", nameTitle: "一起来玩", nameSub: "请输入排行榜上的名字。", namePh: "您的名字", save: "保存",
       soonOnline: "婚礼当天开放。", boardEmpty: "来当第一名吧！", boardTitle: "排行榜", boardSub: "积分最高的玩家，每隔几秒更新。",
       rules: "问答：答对一题10分。宾果：拍照20分、说出来10分、去做10分、看到5分，首次连线加30分。",
       songTitle: "点歌", songSub: "告诉现场乐队您想听什么歌，我们会转达给乐队。", songPh: "歌名和歌手", songNote: "祝福或留言（选填）", songSend: "发送给乐队",
@@ -108,6 +118,20 @@
   const TABS = ["home", "agenda", "seats", "lyrics", "fun"];
 
   /* ---------------- views ---------------- */
+  const TILES = [
+    ["#agenda", "lantern2", "tile_agenda"], ["#seats", "compass", "tile_seats"],
+    ["#lyrics", "lavender2", "tile_lyrics"], ["#fun/play", "bfly_purple", "tile_play"],
+    ["#fun/board", "toast", "tile_board"], ["#fun/wishes", "bouquet_pink", "tile_wishes"],
+    ["#fun/songs", "sparrow_a", "tile_songs"], ["#story", "dove_a", "tile_story"],
+  ];
+  function tileHtml([href, art, key], idx) {
+    const inner = `<img class="tart" src="scenes/web/${art}.webp" alt="" decoding="async" loading="lazy"><b>${u(key)}</b><span>${u(key + "_s")}</span><i class="go" aria-hidden="true">&rarr;</i>`;
+    const style = `style="--i:${idx}"`;
+    if (href === "MAP") return `<a class="tile" ${style} href="${W.venue.mapsUrl}" target="_blank" rel="noopener">${inner}</a>`;
+    if (href === "ICS") return `<button class="tile" ${style} id="ics" type="button">${inner}</button>`;
+    return `<a class="tile" ${style} href="${href}">${inner}</a>`;
+  }
+
   function viewHome() {
     const start = new Date(W.ceremonyStart).getTime();
     const now = myNow();
@@ -119,25 +143,28 @@
     } else {
       status = `<p class="date" style="margin-top:18px">${u("thanks")}</p>`;
     }
+    const fl = (src, cls, st) => `<img class="hs ${cls}" src="scenes/web/${src}.webp" alt="" decoding="async" style="${st || ""}">`;
     return `
-      <section class="hero"><img class="sprig a" src="scenes/web/corner_tl.webp" alt="" decoding="async"><img class="sprig b" src="scenes/web/corner_tr.webp" alt="" decoding="async"><div class="sunmoon"></div>${[0,1,2,3,4].map((i) => `<i class="firefly" style="left:${12 + i * 19}%;top:${30 + (i * 17) % 40}%;animation-delay:${i * 0.7}s"></i>`).join("")}
+      <section class="hero">
+        <img class="sprig a" src="scenes/web/corner_tl.webp" alt="" decoding="async"><img class="sprig b" src="scenes/web/corner_tr.webp" alt="" decoding="async">
+        <div class="sunmoon"></div>${[0,1,2,3,4].map((i) => `<i class="firefly" style="left:${12 + i * 19}%;top:${30 + (i * 17) % 40}%;animation-delay:${i * 0.7}s"></i>`).join("")}
+        ${fl("dove_a", "dove")}${fl("bfly_blue", "bf b1")}${fl("bfly_pink", "bf b2")}${fl("spark_y", "sp s1")}${fl("spark_p", "sp s2")}
+        ${fl("blob_purple", "mound l")}${fl("blob_pink", "mound r")}
         <div class="eyebrow">${u("weddingOf")}</div>
+        <div class="archpic"><img src="scenes/web/home_couple.webp" alt="" decoding="async"></div>
         <h1>${L(W.couple.names).replace(" & ", "<br>&amp; ")}</h1>
         <div class="date">${L(W.dateText)}</div>
         <div class="venue">${L(W.venue.name)}</div>
         ${status}
       </section>
       ${nextUpCard()}
-      <div class="quick">
-        <a href="#seats"><b>${u("viewSeats")}</b><span>${u("viewSeatsSub")}</span></a>
-        <a href="#fun"><b>${u("playFun")}</b><span>${u("playFunSub")}</span></a>
+      <div class="sechead"><img src="scenes/web/garland_lav.webp" alt="" decoding="async"><h2>${u("exploreTitle")}</h2><p>${u("exploreSub")}</p></div>
+      <div class="tiles">${TILES.map(tileHtml).join("")}</div>
+      <div class="actions">
+        <a class="act" href="${W.venue.mapsUrl}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><span><b>${u("tile_map")}</b><i>${u("tile_map_s")}</i></span></a>
+        <button class="act" id="ics" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v4M10 15h4"/></svg><span><b>${u("tile_cal")}</b><i>${u("tile_cal_s")}</i></span></button>
       </div>
-      <a class="replay" href="#story">${u("replay")}</a>
-      <div class="btns" style="margin:0 0 14px">
-        <button class="btn" id="ics">${u("addCal")}</button>
-        <a class="btn" href="${W.venue.mapsUrl}" target="_blank" rel="noopener">${u("directions")}</a>
-        <a class="btn" href="${W.venue.wazeUrl}" target="_blank" rel="noopener">${u("waze")}</a>
-      </div>`;
+      <p class="intro">${u("introLine")}</p>`;
   }
 
   function nextUpCard() {
@@ -187,15 +214,43 @@
         const songs = (i.songs || []).map((x, n) => `<a class="songs" href="#lyrics/${n}">&#9834; ${x}</a>`).join("");
         const desc = i.d ? `<div class="d">${L(i.d)}</div>` : "";
         const who = i.who ? `<div class="who">${i.who}</div>` : "";
-        return `<li class="${cls.join(" ")}">${left}<div style="flex:1"><div class="t">${L(i.t)}</div>${desc}${songs}</div>${who}</li>`;
+        return `<li class="${cls.join(" ")}" style="--i:${idx}">${left}<div style="flex:1"><div class="t">${L(i.t)}</div>${desc}${songs}</div>${who}</li>`;
       }).join("");
       return `
         <div class="session-head">${STK[s.id] ? `<img class="stk" src="scenes/web/${STK[s.id]}.webp" alt="" decoding="async">` : ""}
           <h2>${L(s.title)}${sLive ? `<span class="live">${u("live")}</span>` : ""}</h2>
           <div class="time">${fmtRange(s.start, s.end)}${s.venue ? " &middot; " + L(s.venue) : ""}${s.emcee ? " &middot; " + u("emcee") + ": " + s.emcee : ""}</div>
         </div>
-        <ul class="agenda">${rows}</ul>`;
+        <ul class="agenda tl">${rows}</ul>`;
     }).join("");
+  }
+
+  // scroll-linked agenda: the timeline line draws itself down the page, each row rises in, and the stickers drift
+  let agendaOff = null;
+  function agendaFx() {
+    if (agendaOff) agendaOff();
+    const lists = [...document.querySelectorAll("ul.agenda.tl")];
+    const heads = [...document.querySelectorAll(".session-head .stk, .break .stk")];
+    if (!lists.length) return;
+    const still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    const run = () => {
+      raf = 0;
+      const vh = window.innerHeight, target = vh * 0.66;
+      lists.forEach((ul) => {
+        const r = ul.getBoundingClientRect();
+        ul.style.setProperty("--fh", Math.max(0, Math.min(r.height - 30, target - r.top - 20)) + "px");
+        ul.querySelectorAll("li").forEach((li) => {
+          if (still || li.getBoundingClientRect().top < vh * 0.9) li.classList.add("in");
+        });
+      });
+      heads.forEach((h) => { const r = h.getBoundingClientRect(); h.style.setProperty("--ty", ((r.top - vh / 2) * -0.07).toFixed(1) + "px"); });
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(run); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    run();
+    agendaOff = () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); if (raf) cancelAnimationFrame(raf); agendaOff = null; };
   }
 
   /* ---------- Seats ---------- */
@@ -537,22 +592,23 @@
   /* wish garden: every blessing grows as a flower in one shared garden */
   let wishes = null, wishOpen = -1;
   const FLC2 = ["#c9a6f2", "#9dbaf5", "#f5b3d1", "#b9a8f0", "#8fd0e8", "#f7c98b"];
+  // every wish grows as one of your flower stickers in a watercolour garden
+  const FLW = window.FLW || [];
   function gardenSvg() {
-    const list = (wishes || []).slice(-90);
+    const list = (wishes || []).slice(-80);
     const fl = list.map((w, i) => {
-      const x = 22 + ((i * 97 + 31) % 316), y = 96 + ((i * 53 + 17) % 120), s = 0.9 + ((i * 7) % 5) / 10;
-      const c = FLC2[i % FLC2.length];
-      return `<g class="gf ${i === wishOpen ? "open" : ""}" data-wish="${i}" style="animation-delay:${Math.min(i, 30) * 0.06}s" transform="translate(${x} ${y}) scale(${s})">
-        <path d="M0 0 Q3 -16 0 -34" fill="none" stroke="#6b9f95" stroke-width="2.4" stroke-linecap="round"/><path d="M0 -14 q-9 -3 -11 -10 q9 -1 11 10" fill="#9bd0c4" stroke="#6b9f95" stroke-width="1"/>
-        <g transform="translate(0 -38)">${[0, 60, 120, 180, 240, 300].map((a) => `<ellipse cy="-8" rx="5.2" ry="7.5" fill="${c}" stroke="#3b3560" stroke-width="1.2" transform="rotate(${a})"/>`).join("")}<circle r="4.6" fill="#ffe28a" stroke="#3b3560" stroke-width="1.2"/></g>
-        <circle r="22" cy="-38" fill="transparent"/></g>`;
+      const n = FLW.length ? FLW[Math.floor((i * 7 + 3 + ((i * 0.6180339) % 1) * FLW.length) % FLW.length)] : 0;
+      const src = "flw_" + String(n).padStart(2, "0"), wd = 9 + ((i * 5) % 4);
+      const rnd = (k) => { const v = Math.sin((i + 1) * k) * 43758.5453; return v - Math.floor(v); };
+      const x = 4 + rnd(12.9898) * 82, y = 10 + rnd(78.233) * 50;  // scattered, not in lines
+      return `<img class="gb ${i === wishOpen ? "open" : ""}" data-wish="${i}" src="scenes/web/${src}.webp" alt="" decoding="async" style="left:${x.toFixed(1)}%;bottom:${y.toFixed(1)}%;width:${wd}%;z-index:${Math.round(100 - y)};animation-delay:${Math.min(i, 24) * 0.07}s">`;
     }).join("");
-    return `<svg viewBox="0 0 360 250" class="garden" role="img" aria-label="${u("gardenTitle")}">
-      <rect width="360" height="250" fill="url(#gsky)"/><defs><linearGradient id="gsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcd6fa"/><stop offset="1" stop-color="#f1ecff"/></linearGradient></defs>
-      <path d="M-10 60 Q90 30 180 56 T370 50 V260 H-10Z" fill="#cfe3d9" stroke="#3b3560" stroke-width="2"/>
-      <path d="M-10 130 Q100 100 200 126 T370 118 V260 H-10Z" fill="#bfd8cf" opacity=".7"/>
-      ${[30, 330].map((x, i) => `<g transform="translate(${x} 78) scale(${i ? 0.8 : 1})"><path d="M0 0 V-30" stroke="#3b3560" stroke-width="3"/><circle cy="-44" r="22" fill="#a9b9ea" stroke="#3b3560" stroke-width="2"/></g>`).join("")}
-      ${fl}</svg>`;
+    return `<div class="gard" role="group" aria-label="${u("gardenTitle")}">
+      <img class="gm l" src="scenes/web/blob_purple.webp" alt=""><img class="gm r" src="scenes/web/blob_pink.webp" alt="">
+      <img class="gt" src="scenes/web/garland_pink.webp" alt="">
+      <img class="gf1 float" src="scenes/web/bfly_blue.webp" alt=""><img class="gf2 float b" src="scenes/web/bfly_pink.webp" alt=""><img class="gf3" src="scenes/web/dove_c.webp" alt="">
+      <img class="gs s1" src="scenes/web/spark_y.webp" alt=""><img class="gs s2" src="scenes/web/spark_p.webp" alt="">
+      ${fl}</div>`;
   }
   function wishCard() {
     const w = wishes && wishes[wishOpen];
@@ -571,7 +627,7 @@
     if (!apiOn()) return `<div class="card"><h2>${u("gardenTitle")}</h2><p class="soon">${u("soonOnline")}</p></div>`;
     loadWishes();
     const sent = store.get("wishSent", 0);
-    return `<div class="card"><img class="stk" src="scenes/web/bouquet_pink.webp" alt="" decoding="async"><h2>${u("gardenTitle")}</h2><p class="muted small" style="margin:0 0 8px">${u("gardenSub")}</p>
+    return `<div class="card"><img class="stk" src="scenes/web/flw_09.webp" alt="" decoding="async"><h2>${u("gardenTitle")}</h2><p class="muted small" style="margin:0 0 8px">${u("gardenSub")}</p>
       <div id="gardenWrap" class="gardenWrap">${gardenSvg()}</div>${wishCard()}</div>
       <div class="card"><h3>${u("plant")}</h3>
       <form id="wishForm"><textarea class="search ta" name="message" required maxlength="140" placeholder="${u("wishPh")}"></textarea>
@@ -739,6 +795,8 @@
     view.innerHTML = { home: viewHome, agenda: viewAgenda, seats: viewSeats, lyrics: viewLyrics, fun: viewFun }[name]();
     clearInterval(timer);
     if (name === "home") { tickCountdown(); timer = setInterval(tickCountdown, 1000); }
+    if (agendaOff && name !== "agenda") agendaOff();
+    if (name === "agenda") agendaFx();
     if (name === "seats" && query()) runSearch();
   }
 

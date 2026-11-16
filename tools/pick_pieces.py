@@ -30,3 +30,6 @@ PICK = {
 for name, src in PICK.items():
     shutil.copy(os.path.join(root, "cut", src + ".webp"), os.path.join(root, "web", name + ".webp"))
 print("copied", len(PICK))
+
+# flower stickers for the wish garden: scenes/web/flw_NN.webp are cut from flowers.jpg with
+#   python tools/cut_dark.py flowers.jpg fl     and then copied (leaves and ferns left out); scenes/web/flw.js lists the numbers
