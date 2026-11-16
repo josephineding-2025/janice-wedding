@@ -502,6 +502,8 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
     return `<svg class="scene" viewBox="0 0 360 420" preserveAspectRatio="${cover ? "xMidYMax" : "xMidYMid"} meet" aria-hidden="true">${SCENES[id]()}</svg>`;
   }
 
+  const cueHtml = (lang) => `<div class="scrollcue" aria-hidden="true"><span class="cue-txt">${T(W.storyUi.scroll, lang)}</span><span class="cue-arrow"><svg viewBox="0 0 14 18" width="13" height="17" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2v13 M2.5 10.5 L7 15 L11.5 10.5"/></svg></span></div>`;
+
   function htmlSolo(lang) {
     const ch = W.chapters, t = (k) => T(W.storyUi[k], lang), i = ORDER.indexOf("wedding"), id = "wedding";
     return `${DEFS}<div class="story-bar"><div class="bar-fill"></div>
@@ -509,7 +511,8 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
         <button class="skip" data-act="enter">${t("skip")}</button></div></div>
       <section class="chap imgc solo" data-id="${id}" style="--bg:#fffdfb"><div class="stage">
       ${sceneHtml(id)}${decoHtml(id)}
-      <div class="cap"><h2>${T(ch[i].title, lang)}</h2><p>${T(ch[i].text, lang)}</p><button class="enter" data-act="enter">${t("enter")}</button></div></div></section>`;
+      <div class="cap"><h2>${T(ch[i].title, lang)}</h2><p>${T(ch[i].text, lang)}</p><button class="enter" data-act="enter">${t("enter")}</button></div>
+      ${cueHtml(lang)}</div></section>`;
   }
 
   function html(lang) {
@@ -518,7 +521,7 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
     const cover = `<section class="chap cover ${hasImg("cover") ? "imgc" : ""}" data-id="cover" style="--bg:${hasImg("cover") ? "#fff" : BG.cover}"><div class="stage">
       ${sceneHtml("cover", true)}${decoHtml("cover", true)}
       <div class="cap top"><div class="eyebrow">${t("kicker")}</div><h1>${T(W.couple.names, lang).replace(" & ", " <i>&amp;</i> ")}</h1><p>${t("sub")}</p></div>
-      <div class="scrollcue" aria-hidden="true"><span></span>${t("scroll")}</div></div></section>`;
+      ${cueHtml(lang)}</div></section>`;
     const body = ORDER.map((id, i) => `<section class="chap ${hasImg(id) ? "imgc" : ""}" data-id="${id}" style="--bg:${hasImg(id) ? "#fffdfb" : BG[id]}"><div class="stage">
       ${sceneHtml(id)}${decoHtml(id)}${id === "usa" && window.FIGS && window.FIGS.usa ? `<div class="walker" aria-hidden="true"><img src="scenes/web/fig_usa.webp" alt="" decoding="async"></div>` : ""}
       <div class="cap"><div class="num">${i + 1} / ${ORDER.length}</div><h2>${T(ch[i].title, lang)}</h2><p>${T(ch[i].text, lang)}</p>

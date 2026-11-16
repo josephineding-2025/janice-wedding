@@ -27,9 +27,11 @@ html[lang="zh-Hans"] .cap h2 { font-family: "Noto Serif SC", serif; font-weight:
 .cover h1 i { color: #8b86c9; font-style: normal; }
 html[lang="zh-Hans"] .cover h1 { font-family: "Noto Serif SC", serif; font-weight: 600; font-size: 38px; letter-spacing: .06em; }
 .cover .cap p { font-size: 17px; font-style: italic; color: #6b6880; }
-.scrollcue { position: absolute; bottom: calc(14px + env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; font: 13px "Montserrat", "Noto Sans SC", system-ui, sans-serif; letter-spacing: .3em; text-transform: uppercase; color: #2d2b38; z-index: 3; opacity: calc(1 - var(--p) * 6); }
-.scrollcue span { display: block; margin: 0 auto 4px; width: 2px; height: 22px; background: #2d2b38; border-radius: 1px; transform-origin: top; animation: cue 1.6s ease-in-out infinite; }
-@keyframes cue { 0%, 100% { transform: scaleY(.3); opacity: .4; } 50% { transform: scaleY(1); opacity: 1; } }
+.scrollcue { position: absolute; bottom: calc(16px + env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; font: 500 11px/1.2 "Montserrat", "Noto Sans SC", system-ui, sans-serif; letter-spacing: .28em; text-transform: uppercase; color: #635f78; z-index: 5; pointer-events: none; display: flex; flex-direction: column; align-items: center; gap: 5px; opacity: calc(clamp(0, 1 - var(--p) * 7, 1) * 0.55); }
+.scrollcue .cue-txt { display: block; padding-left: .28em; }
+.scrollcue .cue-arrow { display: flex; justify-content: center; align-items: center; width: 14px; height: 18px; animation: cue-bob 1.8s ease-in-out infinite; }
+.scrollcue .cue-arrow svg { display: block; width: 13px; height: 17px; }
+@keyframes cue-bob { 0%, 100% { transform: translateY(0); opacity: .65; } 50% { transform: translateY(4px); opacity: 1; } }
 
 .enter { margin-top: 14px; border: 1px solid #2d2b38; background: #2d2b38; color: #fff; font: 500 15px "Montserrat", "Noto Sans SC", system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; padding: 13px 30px; border-radius: 999px; opacity: clamp(0, calc((var(--p) - .8) * 8), 1); pointer-events: none; }
 .chap.on .enter { margin-top: 14px; border: 1px solid #2d2b38; background: #2d2b38; color: #fff; font: 500 15px "Montserrat", "Noto Sans SC", system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; padding: 13px 30px; border-radius: 999px; opacity: clamp(0, calc((var(--p) - .8) * 8), 1); pointer-events: none; }
@@ -44,12 +46,13 @@ html[lang="zh-Hans"] .cover h1 { font-family: "Noto Serif SC", serif; font-weigh
 @keyframes flag { 0%, 100% { transform: skewY(0deg); } 50% { transform: skewY(-8deg); } }
 .petal { animation: petal 7s linear infinite; }
 @keyframes petal { from { transform: translate(var(--x, 0), -10px) rotate(0); opacity: 0; } 10% { opacity: .9; } to { transform: translate(var(--x, 0), 340px) rotate(300deg); opacity: 0; } }
-.chap:not(.on) .fly, .chap:not(.on) .steam, .chap:not(.on) .flag, .chap:not(.on) .petal, .chap:not(.on) .scrollcue span { animation-play-state: paused; }
+.chap:not(.on) .fly, .chap:not(.on) .steam, .chap:not(.on) .flag, .chap:not(.on) .petal, .chap:not(.on) .scrollcue .cue-arrow { animation-play-state: paused; }
 
 @media (prefers-reduced-motion: reduce) {
   .chap { height: auto; --p: 1; }
   .chap .stage { position: relative; height: auto; min-height: 90vh; }
-  .fly, .steam, .flag, .petal, .scrollcue span { animation: none; }
+  .fly, .steam, .flag, .petal, .scrollcue .cue-arrow { animation: none; }
+  .scrollcue { display: none; }
   .scene { flex-basis: 360px; }
 }
 @media (min-width: 700px) { .scene { flex-basis: 66%; } }
