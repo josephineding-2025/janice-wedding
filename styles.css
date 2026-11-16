@@ -1,4 +1,4 @@
-@font-face { font-family: "Brittany Signature"; src: local("Brittany Signature"), url("fonts/BrittanySignature.woff2") format("woff2"), url("fonts/BrittanySignature.ttf") format("truetype"); font-display: swap; }
+﻿@font-face { font-family: "Brittany Signature"; src: local("Brittany Signature"), url("fonts/BrittanySignature.woff2") format("woff2"), url("fonts/BrittanySignature.ttf") format("truetype"); font-display: swap; }
 :root {
   --bg: #fbf9fe;
   --paper: #ffffff;
@@ -419,23 +419,34 @@ html[lang="zh-Hans"] .tile b { font: 700 17px/1.2 "Noto Serif SC", serif; }
 @keyframes tilein { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: none; } }
 .intro { text-align: center; font-size: 12.5px; color: var(--muted); margin: 18px 0 4px; }
 @media (prefers-reduced-motion: reduce) { .tile, .hero .dove, .hero .bf, .hero .sp { animation: none; } }
-/* --- agenda timeline --- */
-ul.agenda.tl { position: relative; padding: 8px 18px 8px 44px; list-style: none; overflow: visible; }
-ul.agenda.tl::before { content: ""; position: absolute; left: 21px; top: 22px; bottom: 22px; width: 2px; background: var(--line); border-radius: 2px; }
-ul.agenda.tl::after { content: ""; position: absolute; left: 21px; top: 22px; width: 2px; height: var(--fh, 0px); background: linear-gradient(var(--accent), #8b7fe0 70%, var(--blue)); border-radius: 2px; box-shadow: 0 0 8px rgba(130, 110, 220, .45); transition: height .12s linear; }
-ul.agenda.tl li { position: relative; opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--i, 0) * .04s); }
-ul.agenda.tl li.in { opacity: 1; transform: none; }
-ul.agenda.tl li.past.in { opacity: .45; }
-ul.agenda.tl li::before { content: ""; position: absolute; left: -29px; top: 21px; width: 12px; height: 12px; border-radius: 50%; background: var(--paper); border: 2px solid var(--line); transition: background .4s, border-color .4s, transform .4s; z-index: 1; }
-ul.agenda.tl li.in::before { background: var(--accent); border-color: var(--accent); transform: scale(1.1); box-shadow: 0 0 0 4px var(--accent-soft); }
-ul.agenda.tl li.now { margin: 0; background: linear-gradient(90deg, var(--accent-soft), transparent); border-radius: 8px; padding-left: 8px; }
-ul.agenda.tl li.now::before { animation: pulsedot 1.6s ease-out infinite; }
-@keyframes pulsedot { 0% { box-shadow: 0 0 0 0 rgba(130, 110, 220, .6); } 100% { box-shadow: 0 0 0 12px rgba(130, 110, 220, 0); } }
+/* --- agenda timeline: center spine, left-right alternating cards --- */
+ul.agenda.tl { position: relative; list-style: none; margin: 0 0 24px; padding: 0; background: none; border: none; border-radius: 0; }
+ul.agenda.tl::before { content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 0; bottom: 0; width: 1.5px; background: linear-gradient(var(--accent), color-mix(in srgb, var(--accent) 50%, var(--line))); border-radius: 2px; opacity: .3; }
+ul.agenda.tl li { display: flex; align-items: center; min-height: 60px; margin-bottom: 14px; padding: 0; border-bottom: none; justify-content: flex-start; gap: 0; position: relative; --lit: 0; --r: 0; opacity: clamp(0, calc(var(--r) * 4), 1); transform: translateY(calc((1 - var(--r)) * 28px)); transition: none; }
+ul.agenda.tl li.side-l { flex-direction: row; }
+ul.agenda.tl li.side-l .ag-card { margin-right: 18px; text-align: right; order: 1; }
+ul.agenda.tl li.side-l .ag-dot { order: 2; }
+ul.agenda.tl li.side-r { flex-direction: row-reverse; }
+ul.agenda.tl li.side-r .ag-card { margin-left: 18px; text-align: left; order: 1; }
+ul.agenda.tl li.side-r .ag-dot { order: 2; }
+ul.agenda.tl .ag-card { flex: 0 0 calc(50% - 24px); max-width: calc(50% - 24px); padding: 10px 12px; border-radius: 10px; border: 1px solid color-mix(in srgb, #ffd24d calc(var(--lit) * 60% + 0%), var(--line)); background: color-mix(in srgb, #ffd24d calc(var(--lit) * 10%), var(--paper)); box-shadow: 0 0 calc(var(--lit) * 16px) calc(var(--lit) * 3px) rgba(255, 210, 77, calc(var(--lit) * 0.25)); transition: border-color .25s, background .25s, box-shadow .25s; }
+ul.agenda.tl .ag-title { font-size: 14px; font-weight: 700; color: color-mix(in srgb, #b07800 calc(var(--lit) * 90%), var(--ink)); line-height: 1.35; transition: color .25s; }
+ul.agenda.tl .who { color: var(--accent); font-size: 12px; margin-top: 2px; }
+ul.agenda.tl .d { color: var(--muted); font-size: 12px; margin-top: 2px; }
+ul.agenda.tl .songs { color: var(--muted); font-size: 12px; margin-top: 2px; display: block; }
+ul.agenda.tl .stamp { font: 600 11px var(--serif); color: color-mix(in srgb, #b07800 calc(var(--lit) * 90%), var(--accent)); margin-top: 4px; display: block; letter-spacing: .04em; transition: color .25s; }
+ul.agenda.tl .ag-dot { flex: none; width: 11px; height: 11px; border-radius: 50%; border: 2px solid color-mix(in srgb, #ffd24d calc(var(--lit) * 100%), var(--accent)); background: color-mix(in srgb, #ffd24d calc(var(--lit) * 90%), var(--paper)); box-shadow: 0 0 calc(var(--lit) * 12px) calc(var(--lit) * 2px) rgba(255, 210, 77, calc(var(--lit) * 0.55)); position: absolute; left: calc(50% - 5.5px); transition: border-color .25s, background .25s, box-shadow .25s; z-index: 1; }
+ul.agenda.tl li.now .ag-card { background: color-mix(in srgb, var(--accent-soft) 70%, #ffd24d18); border-color: var(--accent); }
+ul.agenda.tl li.now .ag-dot { animation: pulsedot 1.6s ease-out infinite; border-color: var(--accent); background: var(--accent); }
+ul.agenda.tl li.past { opacity: .42; }
+.ag-break { text-align: center; padding: 16px 20px 22px; color: var(--muted); position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.ag-break b { font: 600 20px var(--serif); color: var(--ink); display: block; margin-bottom: 2px; }
+@keyframes pulsedot { 0% { box-shadow: 0 0 0 0 rgba(130, 110, 220, .65); } 100% { box-shadow: 0 0 0 11px rgba(130, 110, 220, 0); } }
 .session-head .stk, .break .stk { transform: translateY(var(--ty, 0px)) rotate(8deg); transition: transform .15s linear; }
 .break .stk.lamp { transform-origin: 50% 0; animation: lantsw 5s ease-in-out infinite; }
 @keyframes lantsw { 0%, 100% { rotate: -3deg; } 50% { rotate: 3deg; } }
-.session-head { animation: tilein .6s ease-out both; }
-@media (prefers-reduced-motion: reduce) { ul.agenda.tl li { opacity: 1; transform: none; transition: none; } ul.agenda.tl::after { transition: none; } .break .stk.lamp { animation: none; } }
+.session-head { animation: none; }
+@media (prefers-reduced-motion: reduce) { ul.agenda.tl li { opacity: 1; transform: none; } ul.agenda.tl .ag-dot { box-shadow: none; animation: none; } .break .stk.lamp { animation: none; } }
 /* --- sticker wish garden --- */
 .gard { position: relative; width: 100%; aspect-ratio: 360 / 300; overflow: hidden; border-radius: 10px; background: linear-gradient(#fffefd, #faf6fe 60%, #f4eefb); border: 1px solid var(--line); }
 :root[data-mode="night"] .gard { background: linear-gradient(#26224a, #302a5c); }
@@ -501,14 +512,7 @@ html[lang="zh-Hans"] .storycard b { font: 700 19px/1.2 "Noto Serif SC", serif; }
 .storycard .sc-fl { position: absolute; height: auto; pointer-events: none; mix-blend-mode: multiply; }
 .storycard .sc-fl.a { width: 26px; right: 12px; top: 10px; animation: floaty 5s ease-in-out infinite; }
 .storycard .sc-fl.b { width: 38px; right: 40px; bottom: 6px; animation: dovefly 9s ease-in-out infinite; }
-/* agenda: rows rise and their words fade in one after another, driven by how far you have scrolled (--r 0..1) */
-ul.agenda.tl li, ul.agenda.tl li.in { opacity: 1; transform: translateY(calc((1 - var(--r, 0)) * 34px)); transition: none; }
-ul.agenda.tl li.past { opacity: .55; }
-ul.agenda.tl li::before { transform: scale(calc(.5 + var(--r, 0) * .6)); opacity: var(--r, 0); }
-ul.agenda.tl li.in::before { transform: scale(1.1); opacity: 1; }
-.wd { display: inline-block; --k: clamp(0, calc(var(--r, 0) * 2.4 - var(--w, 0) * .17), 1); opacity: var(--k); filter: blur(calc((1 - var(--k)) * 5px)); transform: translateY(calc((1 - var(--k)) * 10px)); }
-ul.agenda.tl .stamp, ul.agenda.tl .who, ul.agenda.tl .songs { opacity: clamp(0, calc(var(--r, 0) * 2 - .5), 1); }
-.session-head h2, .session-head .time { opacity: var(--r, 0); transform: translateY(calc((1 - var(--r, 0)) * 26px)); filter: blur(calc((1 - var(--r, 0)) * 4px)); }
-.session-head { animation: none; }
-.break b, .break { opacity: calc(.15 + var(--r, 0) * .85); }
-@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } .wd { opacity: 1; filter: none; transform: none; } .session-head h2, .session-head .time { opacity: 1; filter: none; transform: none; } }
+/* session header reveal */
+.session-head h2, .session-head .time { opacity: var(--r, 0); transform: translateY(calc((1 - var(--r, 0)) * 26px)); filter: blur(calc((1 - var(--r, 0)) * 4px)); transition: none; }
+.break b, .ag-break { opacity: calc(.15 + var(--r, 0) * .85); }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } .session-head h2, .session-head .time { opacity: 1; filter: none; transform: none; } }

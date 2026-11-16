@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   "use strict";
   const W = window.WEDDING;
 
@@ -41,40 +41,40 @@
       contact: "Chat with us",
     },
     zh: {
-      replay: "重看我们的故事", storyCardTitle: "观看我们的故事", storyCardSub: "从双威大学到婚礼当天，一路往下滑，看完整段旅程。", storyCardBtn: "开始故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
-      tile_agenda: "流程", tile_agenda_s: "今天的时间表", tile_seats: "查找座位", tile_seats_s: "平面图与桌号",
-      tile_lyrics: "一起来唱", tile_lyrics_s: "敬拜赞美歌词", tile_play: "问答与宾果", tile_play_s: "玩游戏赚积分",
-      tile_board: "排行榜", tile_board_s: "看看谁领先", tile_wishes: "祝福花园", tile_wishes_s: "种下一个祝福",
-      tile_songs: "点歌", tile_songs_s: "告诉现场乐队", tile_story: "我们的故事", tile_story_s: "重看滚动故事",
-      tile_map: "导航", tile_map_s: "在地图中打开", tile_cal: "记下日期", tile_cal_s: "加入日历", nowHappening: "正在进行", youEnter: "从这里入场", pts: "分", nameTitle: "一起来玩", nameSub: "请输入排行榜上的名字。", namePh: "您的名字", save: "保存",
-      soonOnline: "婚礼当天开放。", boardEmpty: "来当第一名吧！", boardTitle: "排行榜", boardSub: "积分最高的玩家，每隔几秒更新。",
-      rules: "问答：答对一题10分。宾果：拍照20分、说出来10分、去做10分、看到5分，首次连线加30分。",
-      songTitle: "点歌", songSub: "告诉现场乐队您想听什么歌，我们会转达给乐队。", songPh: "歌名和歌手", songNote: "祝福或留言（选填）", songSend: "发送给乐队",
-      songLimit: "已经点了3首，谢谢！", songDone: "已发送！乐队会看到。", tryAgain: "发送失败，请再试一次。",
-      gardenTitle: "祝福花园", gardenSub: "每一个祝福都会长成一朵花。点一朵花来阅读。", gardenEmpty: "还没有花朵，来种下第一个祝福吧！", tapFlower: "点一朵花来阅读祝福。",
-      plant: "为新人种下一个祝福", wishPh: "写下祝福（最多140字）", plantBtn: "种下我的祝福", wishLimit: "已经种下两个祝福，谢谢！", wishDone: "已种下！您的花朵在花园里了。",
-      fun_play: "游戏", fun_board: "排行榜", fun_wishes: "祝福", fun_songs: "点歌", home: "首页", agenda: "流程", seats: "座位", lyrics: "歌词", fun: "互动",
-      weddingOf: "诚挚邀请您参加", days: "天", hours: "时", mins: "分", secs: "秒",
-      today: "就是今天！", thanks: "感谢您与我们一同庆祝。",
-      upNext: "接下来", seeAgenda: "完整流程", viewSeats: "查找座位", viewSeatsSub: "桌号与平面图",
-      playFun: "来玩游戏", playFunSub: "问答、宾果等",
-      addCal: "加入日历", directions: "Google 地图", waze: "Waze",
-      emcee: "司仪", live: "进行中", venue: "地点",
-      findSeat: "查找我的座位", searchPh: "输入您的名字...", noMatch: "找不到，请向接待处询问。",
-      tapTable: "点击桌子，看看谁坐在这里。",
-      pickTable: "请在地图或下方点选桌号。",
-      table: "第", who: "他们与我们的关系", funFact: "趣味小知识", at: "同桌宾客",
-      soon: "简介即将更新。", entrance: "入口", stage: "舞台", registration: "接待处",
-      store: "储藏室", carpet: "红地毯", screen: "屏幕", cake: "装饰蛋糕", champ: "香槟塔",
-      quizTitle: "你有多了解我们？", question: "第", of: "/", yourScore: "您的得分",
-      again: "再玩一次", next: "下一题", finish: "查看结果",
-      bingoTitle: "婚礼宾果", bingoSub: "看到就点一下，连成3个一线就赢！其中三格是拍照挑战，请选出最棒的一张，每个挑战上传1张照片。", bingoWin: "宾果！恭喜您！", cue_photo: "拍照", cue_say: "说出来", cue_do: "去做", cue_spot: "看到就点", upload: "上传1张照片", uploadFor: "已完成的拍照挑战", lyricsTitle: "一起来唱", lyricsSub: "敬拜赞美诗歌，一起来唱吧！", lyricsMissing: "歌词即将更新。",
-      shuffle: "换一张", storyTitle: "我们的故事",
-      factTitle: "各桌趣味小知识", factBtn: "随机一桌", factNone: "点击按钮认识一桌。",
-      loveTitle: "送我们一点爱", loveBtn: "点一点送爱心",
-      bless: "写下祝福", photos: "分享照片", hashtag: "我们的标签",
-      sample: "示例", sampleNote: "占位内容，请在 data.js 中替换。",
-      contact: "联系我们",
+      replay: "é‡çœ‹æˆ‘ä»¬çš„æ•…äº‹", storyCardTitle: "è§‚çœ‹æˆ‘ä»¬çš„æ•…äº‹", storyCardSub: "ä»ŽåŒå¨å¤§å­¦åˆ°å©šç¤¼å½“å¤©ï¼Œä¸€è·¯å¾€ä¸‹æ»‘ï¼Œçœ‹å®Œæ•´æ®µæ—…ç¨‹ã€‚", storyCardBtn: "å¼€å§‹æ•…äº‹", exploreTitle: "æŽ¢ç´¢ä»Šå¤©", exploreSub: "ç‚¹ä¸€ä¸‹å¡ç‰‡ï¼Œç›´æŽ¥è¿›å…¥ã€‚", introLine: "ä»Šå¤©éœ€è¦çš„ä¸€åˆ‡ï¼Œéƒ½åœ¨è¿™é‡Œã€‚",
+      tile_agenda: "æµç¨‹", tile_agenda_s: "ä»Šå¤©çš„æ—¶é—´è¡¨", tile_seats: "æŸ¥æ‰¾åº§ä½", tile_seats_s: "å¹³é¢å›¾ä¸Žæ¡Œå·",
+      tile_lyrics: "ä¸€èµ·æ¥å”±", tile_lyrics_s: "æ•¬æ‹œèµžç¾Žæ­Œè¯", tile_play: "é—®ç­”ä¸Žå®¾æžœ", tile_play_s: "çŽ©æ¸¸æˆèµšç§¯åˆ†",
+      tile_board: "æŽ’è¡Œæ¦œ", tile_board_s: "çœ‹çœ‹è°é¢†å…ˆ", tile_wishes: "ç¥ç¦èŠ±å›­", tile_wishes_s: "ç§ä¸‹ä¸€ä¸ªç¥ç¦",
+      tile_songs: "ç‚¹æ­Œ", tile_songs_s: "å‘Šè¯‰çŽ°åœºä¹é˜Ÿ", tile_story: "æˆ‘ä»¬çš„æ•…äº‹", tile_story_s: "é‡çœ‹æ»šåŠ¨æ•…äº‹",
+      tile_map: "å¯¼èˆª", tile_map_s: "åœ¨åœ°å›¾ä¸­æ‰“å¼€", tile_cal: "è®°ä¸‹æ—¥æœŸ", tile_cal_s: "åŠ å…¥æ—¥åŽ†", nowHappening: "æ­£åœ¨è¿›è¡Œ", youEnter: "ä»Žè¿™é‡Œå…¥åœº", pts: "åˆ†", nameTitle: "ä¸€èµ·æ¥çŽ©", nameSub: "è¯·è¾“å…¥æŽ’è¡Œæ¦œä¸Šçš„åå­—ã€‚", namePh: "æ‚¨çš„åå­—", save: "ä¿å­˜",
+      soonOnline: "å©šç¤¼å½“å¤©å¼€æ”¾ã€‚", boardEmpty: "æ¥å½“ç¬¬ä¸€åå§ï¼", boardTitle: "æŽ’è¡Œæ¦œ", boardSub: "ç§¯åˆ†æœ€é«˜çš„çŽ©å®¶ï¼Œæ¯éš”å‡ ç§’æ›´æ–°ã€‚",
+      rules: "é—®ç­”ï¼šç­”å¯¹ä¸€é¢˜10åˆ†ã€‚å®¾æžœï¼šæ‹ç…§20åˆ†ã€è¯´å‡ºæ¥10åˆ†ã€åŽ»åš10åˆ†ã€çœ‹åˆ°5åˆ†ï¼Œé¦–æ¬¡è¿žçº¿åŠ 30åˆ†ã€‚",
+      songTitle: "ç‚¹æ­Œ", songSub: "å‘Šè¯‰çŽ°åœºä¹é˜Ÿæ‚¨æƒ³å¬ä»€ä¹ˆæ­Œï¼Œæˆ‘ä»¬ä¼šè½¬è¾¾ç»™ä¹é˜Ÿã€‚", songPh: "æ­Œåå’Œæ­Œæ‰‹", songNote: "ç¥ç¦æˆ–ç•™è¨€ï¼ˆé€‰å¡«ï¼‰", songSend: "å‘é€ç»™ä¹é˜Ÿ",
+      songLimit: "å·²ç»ç‚¹äº†3é¦–ï¼Œè°¢è°¢ï¼", songDone: "å·²å‘é€ï¼ä¹é˜Ÿä¼šçœ‹åˆ°ã€‚", tryAgain: "å‘é€å¤±è´¥ï¼Œè¯·å†è¯•ä¸€æ¬¡ã€‚",
+      gardenTitle: "ç¥ç¦èŠ±å›­", gardenSub: "æ¯ä¸€ä¸ªç¥ç¦éƒ½ä¼šé•¿æˆä¸€æœµèŠ±ã€‚ç‚¹ä¸€æœµèŠ±æ¥é˜…è¯»ã€‚", gardenEmpty: "è¿˜æ²¡æœ‰èŠ±æœµï¼Œæ¥ç§ä¸‹ç¬¬ä¸€ä¸ªç¥ç¦å§ï¼", tapFlower: "ç‚¹ä¸€æœµèŠ±æ¥é˜…è¯»ç¥ç¦ã€‚",
+      plant: "ä¸ºæ–°äººç§ä¸‹ä¸€ä¸ªç¥ç¦", wishPh: "å†™ä¸‹ç¥ç¦ï¼ˆæœ€å¤š140å­—ï¼‰", plantBtn: "ç§ä¸‹æˆ‘çš„ç¥ç¦", wishLimit: "å·²ç»ç§ä¸‹ä¸¤ä¸ªç¥ç¦ï¼Œè°¢è°¢ï¼", wishDone: "å·²ç§ä¸‹ï¼æ‚¨çš„èŠ±æœµåœ¨èŠ±å›­é‡Œäº†ã€‚",
+      fun_play: "æ¸¸æˆ", fun_board: "æŽ’è¡Œæ¦œ", fun_wishes: "ç¥ç¦", fun_songs: "ç‚¹æ­Œ", home: "é¦–é¡µ", agenda: "æµç¨‹", seats: "åº§ä½", lyrics: "æ­Œè¯", fun: "äº’åŠ¨",
+      weddingOf: "è¯šæŒšé‚€è¯·æ‚¨å‚åŠ ", days: "å¤©", hours: "æ—¶", mins: "åˆ†", secs: "ç§’",
+      today: "å°±æ˜¯ä»Šå¤©ï¼", thanks: "æ„Ÿè°¢æ‚¨ä¸Žæˆ‘ä»¬ä¸€åŒåº†ç¥ã€‚",
+      upNext: "æŽ¥ä¸‹æ¥", seeAgenda: "å®Œæ•´æµç¨‹", viewSeats: "æŸ¥æ‰¾åº§ä½", viewSeatsSub: "æ¡Œå·ä¸Žå¹³é¢å›¾",
+      playFun: "æ¥çŽ©æ¸¸æˆ", playFunSub: "é—®ç­”ã€å®¾æžœç­‰",
+      addCal: "åŠ å…¥æ—¥åŽ†", directions: "Google åœ°å›¾", waze: "Waze",
+      emcee: "å¸ä»ª", live: "è¿›è¡Œä¸­", venue: "åœ°ç‚¹",
+      findSeat: "æŸ¥æ‰¾æˆ‘çš„åº§ä½", searchPh: "è¾“å…¥æ‚¨çš„åå­—...", noMatch: "æ‰¾ä¸åˆ°ï¼Œè¯·å‘æŽ¥å¾…å¤„è¯¢é—®ã€‚",
+      tapTable: "ç‚¹å‡»æ¡Œå­ï¼Œçœ‹çœ‹è°ååœ¨è¿™é‡Œã€‚",
+      pickTable: "è¯·åœ¨åœ°å›¾æˆ–ä¸‹æ–¹ç‚¹é€‰æ¡Œå·ã€‚",
+      table: "ç¬¬", who: "ä»–ä»¬ä¸Žæˆ‘ä»¬çš„å…³ç³»", funFact: "è¶£å‘³å°çŸ¥è¯†", at: "åŒæ¡Œå®¾å®¢",
+      soon: "ç®€ä»‹å³å°†æ›´æ–°ã€‚", entrance: "å…¥å£", stage: "èˆžå°", registration: "æŽ¥å¾…å¤„",
+      store: "å‚¨è—å®¤", carpet: "çº¢åœ°æ¯¯", screen: "å±å¹•", cake: "è£…é¥°è›‹ç³•", champ: "é¦™æ§Ÿå¡”",
+      quizTitle: "ä½ æœ‰å¤šäº†è§£æˆ‘ä»¬ï¼Ÿ", question: "ç¬¬", of: "/", yourScore: "æ‚¨çš„å¾—åˆ†",
+      again: "å†çŽ©ä¸€æ¬¡", next: "ä¸‹ä¸€é¢˜", finish: "æŸ¥çœ‹ç»“æžœ",
+      bingoTitle: "å©šç¤¼å®¾æžœ", bingoSub: "çœ‹åˆ°å°±ç‚¹ä¸€ä¸‹ï¼Œè¿žæˆ3ä¸ªä¸€çº¿å°±èµ¢ï¼å…¶ä¸­ä¸‰æ ¼æ˜¯æ‹ç…§æŒ‘æˆ˜ï¼Œè¯·é€‰å‡ºæœ€æ£’çš„ä¸€å¼ ï¼Œæ¯ä¸ªæŒ‘æˆ˜ä¸Šä¼ 1å¼ ç…§ç‰‡ã€‚", bingoWin: "å®¾æžœï¼æ­å–œæ‚¨ï¼", cue_photo: "æ‹ç…§", cue_say: "è¯´å‡ºæ¥", cue_do: "åŽ»åš", cue_spot: "çœ‹åˆ°å°±ç‚¹", upload: "ä¸Šä¼ 1å¼ ç…§ç‰‡", uploadFor: "å·²å®Œæˆçš„æ‹ç…§æŒ‘æˆ˜", lyricsTitle: "ä¸€èµ·æ¥å”±", lyricsSub: "æ•¬æ‹œèµžç¾Žè¯—æ­Œï¼Œä¸€èµ·æ¥å”±å§ï¼", lyricsMissing: "æ­Œè¯å³å°†æ›´æ–°ã€‚",
+      shuffle: "æ¢ä¸€å¼ ", storyTitle: "æˆ‘ä»¬çš„æ•…äº‹",
+      factTitle: "å„æ¡Œè¶£å‘³å°çŸ¥è¯†", factBtn: "éšæœºä¸€æ¡Œ", factNone: "ç‚¹å‡»æŒ‰é’®è®¤è¯†ä¸€æ¡Œã€‚",
+      loveTitle: "é€æˆ‘ä»¬ä¸€ç‚¹çˆ±", loveBtn: "ç‚¹ä¸€ç‚¹é€çˆ±å¿ƒ",
+      bless: "å†™ä¸‹ç¥ç¦", photos: "åˆ†äº«ç…§ç‰‡", hashtag: "æˆ‘ä»¬çš„æ ‡ç­¾",
+      sample: "ç¤ºä¾‹", sampleNote: "å ä½å†…å®¹ï¼Œè¯·åœ¨ data.js ä¸­æ›¿æ¢ã€‚",
+      contact: "è”ç³»æˆ‘ä»¬",
     },
   };
 
@@ -86,7 +86,7 @@
 
   const u = (k) => UI[lang][k] || UI.en[k] || k;
   const L = (o) => (o ? o[lang] || o.en || "" : "");
-  const tableLabel = (t) => (lang === "zh" && typeof t.id === "number" ? "第" + t.id + "桌" : L(t.name));
+  const tableLabel = (t) => (lang === "zh" && typeof t.id === "number" ? "ç¬¬" + t.id + "æ¡Œ" : L(t.name));
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
@@ -102,7 +102,7 @@
   const toMin = (hm) => +hm.slice(0, 2) * 60 + +hm.slice(3, 5);
   const fmt12 = (hm) => {
     let h = +hm.slice(0, 2); const m = hm.slice(3, 5);
-    if (lang === "zh") return (h < 12 ? "上午" : h < 18 ? "下午" : "晚上") + (h % 12 || 12) + ":" + m;
+    if (lang === "zh") return (h < 12 ? "ä¸Šåˆ" : h < 18 ? "ä¸‹åˆ" : "æ™šä¸Š") + (h % 12 || 12) + ":" + m;
     return (h % 12 || 12) + ":" + m + (h < 12 ? "am" : "pm");
   };
   const fmtRange = (s, e) => fmt12(s) + " - " + fmt12(e);
@@ -204,24 +204,27 @@
   function viewAgenda() {
     const now = myNow();
     const onDay = now.date === W.date;
+    let globalIdx = 0; // alternates left/right across all sessions
     return W.agenda.map((s) => {
       const sLive = onDay && now.min >= toMin(s.start) && now.min < toMin(s.end);
       if (s.isBreak) {
-        return `<div class="break"><img class="stk lamp" src="scenes/web/lantern2.webp" alt="" decoding="async"><b>${L(s.title)}</b>${L(s.note)}</div>`;
+        return `<div class="break ag-break"><img class="stk lamp" src="scenes/web/lantern2.webp" alt="" decoding="async"><b>${L(s.title)}</b>${L(s.note)}</div>`;
       }
       const timed = s.items.some((i) => i.time);
       let current = -1;
       if (onDay && timed) s.items.forEach((i, idx) => { if (now.min >= toMin(i.time)) current = idx; });
       const rows = s.items.map((i, idx) => {
-        const cls = [];
+        const side = globalIdx % 2 === 0 ? "side-l" : "side-r";
+        globalIdx++;
+        const cls = [side];
         if (timed) cls.push("timed");
         if (timed && onDay && idx < current) cls.push("past");
         if (timed && idx === current && sLive) cls.push("now");
-        const left = timed ? `<span class="stamp">${fmt12(i.time)}</span>` : "";
+        const timeLabel = timed ? `<span class="stamp">${fmt12(i.time)}</span>` : "";
         const songs = (i.songs || []).map((x, n) => `<a class="songs" href="#lyrics/${n}">&#9834; ${x}</a>`).join("");
-        const desc = i.d ? `<div class="d">${words(L(i.d), 3)}</div>` : "";
+        const desc = i.d ? `<div class="d">${L(i.d)}</div>` : "";
         const who = i.who ? `<div class="who">${i.who}</div>` : "";
-        return `<li class="${cls.join(" ")}" style="--i:${idx}">${left}<div style="flex:1"><div class="t">${words(L(i.t))}</div>${desc}${songs}</div>${who}</li>`;
+        return `<li class="${cls.join(" ")}" style="--i:${idx}"><div class="ag-card"><div class="ag-title">${L(i.t)}</div>${desc}${who}${songs}${timeLabel}</div><div class="ag-dot" aria-hidden="true"></div></li>`;
       }).join("");
       return `
         <div class="session-head">${STK[s.id] ? `<img class="stk" src="scenes/web/${STK[s.id]}.webp" alt="" decoding="async">` : ""}
@@ -248,14 +251,20 @@
     const run = () => {
       raf = 0;
       const vh = window.innerHeight, target = vh * 0.66, y = window.scrollY;
+      const focusBand = vh * 0.22; // half-height of the "lit" window around 50% viewport
       lists.forEach((ul) => {
         const r = ul.getBoundingClientRect();
         ul.style.setProperty("--fh", Math.max(0, Math.min(r.height - 30, target - r.top - 20)) + "px");
         ul.querySelectorAll("li").forEach((li) => {
-          const t = li.getBoundingClientRect().top;
-          const p = still ? 1 : clamp01((vh * 0.96 - t) / (vh * 0.42)); // slow: about 40% of a screen of scrolling per row
+          const rect = li.getBoundingClientRect();
+          const mid = rect.top + rect.height / 2;
+          const p = still ? 1 : clamp01((vh * 0.96 - rect.top) / (vh * 0.42));
+          // lit: peaks at 1 when item centre is at ~50% viewport, falls off within focusBand
+          const lit = still ? 1 : clamp01(1 - Math.abs(mid - vh * 0.5) / focusBand);
           li.style.setProperty("--r", p.toFixed(3));
+          li.style.setProperty("--lit", lit.toFixed(3));
           li.classList.toggle("in", p > 0.35);
+          li.classList.toggle("focus", lit > 0.35);
         });
       });
       heads.forEach((h) => h.style.setProperty("--r", (still ? 1 : clamp01((vh * 0.95 - h.getBoundingClientRect().top) / (vh * 0.35))).toFixed(3)));
@@ -302,7 +311,7 @@
     }
     const filled = t.intro.en || t.intro.zh || t.guests.length;
     const cls = ["tbl", filled ? "filled" : "", String(t.id) === String(selected) ? "sel" : "", hits.includes(String(t.id)) ? "hit" : ""].join(" ");
-    const label = main ? (lang === "zh" ? "主桌" : "Main") : t.id;
+    const label = main ? (lang === "zh" ? "ä¸»æ¡Œ" : "Main") : t.id;
     return `<g class="${cls}" data-table="${t.id}" role="button" tabindex="0" aria-label="${tableLabel(t)}">
       ${chairs}<circle class="top" cx="${x}" cy="${y}" r="${r}"/><text x="${x}" y="${y}" ${main ? 'style="font-size:14px"' : ""}>${label}</text></g>`;
   }
@@ -373,7 +382,7 @@
       <ul class="results" id="results"></ul>
       ${tableCard()}
       <div class="mapwrap" id="map">${floorSvg()}<div class="legend">${u("tapTable")}</div></div>
-      <div class="chips" id="chips">${W.tables.map((t) => `<button data-table="${t.id}" class="${String(t.id) === String(selected) ? "on" : ""}">${t.id === "main" ? (lang === "zh" ? "主桌" : "Main") : t.id}</button>`).join("")}</div>`;
+      <div class="chips" id="chips">${W.tables.map((t) => `<button data-table="${t.id}" class="${String(t.id) === String(selected) ? "on" : ""}">${t.id === "main" ? (lang === "zh" ? "ä¸»æ¡Œ" : "Main") : t.id}</button>`).join("")}</div>`;
   }
 
   function runSearch() {
@@ -428,7 +437,7 @@
          <div class="btns"><button class="btn fill" data-act="quiz-next">${quiz.i === Q.length - 1 ? u("finish") : u("next")}</button></div>` : "";
     return `<div class="card" id="quiz"><h2>${u("quizTitle")}${badge(q.sample)}</h2>
       <div class="progress"><i style="width:${(quiz.i / Q.length) * 100}%"></i></div>
-      <div class="muted small">${lang === "zh" ? u("question") + (quiz.i + 1) + "题 / " + Q.length : u("question") + " " + (quiz.i + 1) + " " + u("of") + " " + Q.length}</div>
+      <div class="muted small">${lang === "zh" ? u("question") + (quiz.i + 1) + "é¢˜ / " + Q.length : u("question") + " " + (quiz.i + 1) + " " + u("of") + " " + Q.length}</div>
       <h3 style="color:var(--ink);font-size:22px">${L(q.q)}</h3>${opts}${after}</div>`;
   }
 
@@ -695,7 +704,7 @@
   let lyricsIdx = 0;
   const lyricsCache = {};
   const CJK = /[\u3400-\u9fff\uf900-\ufaff]/, LATIN = /[A-Za-z]/;
-  const SECTION = /^(pre-?chorus|chorus|verse|bridge|outro|intro|tag|chapter|interlude|ending)\b[\s\d:：]*$/i;
+  const SECTION = /^(pre-?chorus|chorus|verse|bridge|outro|intro|tag|chapter|interlude|ending)\b[\s\d:ï¼š]*$/i;
   const esc = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
   function parseLyrics(txt) {
@@ -706,7 +715,7 @@
       if (!line) { blank = true; continue; }
       if (SECTION.test(line)) {
         close(); titleDropped = true;
-        out += `<div class="sec">${esc(line.replace(/[:：]\s*$/, ""))}</div><div class="stanza">`; open = true; continue;
+        out += `<div class="sec">${esc(line.replace(/[:ï¼š]\s*$/, ""))}</div><div class="stanza">`; open = true; continue;
       }
       if (!titleDropped) { titleDropped = true; continue; } // first line of the file is the song title
       if (!open) { out += '<div class="stanza">'; open = true; }
@@ -811,7 +820,7 @@
     document.body.classList.remove("in-story");
     window.Story.hide();
     appEl.hidden = false;
-    document.title = lang === "zh" ? "Min Zheng & Janice 婚礼 - 2026年11月28日" : "Min Zheng & Janice - 28 Nov 2026";
+    document.title = lang === "zh" ? "Min Zheng & Janice å©šç¤¼ - 2026å¹´11æœˆ28æ—¥" : "Min Zheng & Janice - 28 Nov 2026";
     document.querySelectorAll(".lang button").forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
     document.getElementById("tabs").innerHTML = TABS.map((t) =>
       `<a href="#${t}" class="${t === name ? "on" : ""}" ${t === name ? 'aria-current="page"' : ""}><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[t]}</svg>${u(t)}</a>`).join("");
@@ -891,7 +900,7 @@
       const r = el.getBoundingClientRect();
       for (let i = 0; i < 5; i++) {
         const h = document.createElement("span");
-        h.className = "heart"; h.textContent = ["❤", "💕", "🤍"][i % 3];
+        h.className = "heart"; h.textContent = ["â¤", "ðŸ’•", "ðŸ¤"][i % 3];
         h.style.left = r.left + Math.random() * r.width + "px";
         h.style.top = r.top + "px";
         h.style.animationDelay = i * 0.08 + "s";
