@@ -5,7 +5,7 @@
   /* ---------------- i18n ---------------- */
   const UI = {
     en: {
-      replay: "Replay our story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
+      replay: "Replay our story", storyCardTitle: "View our story", storyCardSub: "From Sunway University to the wedding day. Scroll through the whole journey.", storyCardBtn: "Start the story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
       tile_agenda: "Agenda", tile_agenda_s: "The timeline of the day", tile_seats: "Find my seat", tile_seats_s: "Floor plan and your table",
       tile_lyrics: "Sing along", tile_lyrics_s: "Praise and worship lyrics", tile_play: "Quiz and bingo", tile_play_s: "Play and earn points",
       tile_board: "Leaderboard", tile_board_s: "See who is on top", tile_wishes: "Wish garden", tile_wishes_s: "Plant a blessing",
@@ -41,7 +41,7 @@
       contact: "Chat with us",
     },
     zh: {
-      replay: "重看我们的故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
+      replay: "重看我们的故事", storyCardTitle: "观看我们的故事", storyCardSub: "从双威大学到婚礼当天，一路往下滑，看完整段旅程。", storyCardBtn: "开始故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
       tile_agenda: "流程", tile_agenda_s: "今天的时间表", tile_seats: "查找座位", tile_seats_s: "平面图与桌号",
       tile_lyrics: "一起来唱", tile_lyrics_s: "敬拜赞美歌词", tile_play: "问答与宾果", tile_play_s: "玩游戏赚积分",
       tile_board: "排行榜", tile_board_s: "看看谁领先", tile_wishes: "祝福花园", tile_wishes_s: "种下一个祝福",
@@ -126,9 +126,9 @@
   ];
   function tileHtml([href, art, key], idx) {
     const inner = `<img class="tart" src="scenes/web/${art}.webp" alt="" decoding="async" loading="lazy"><b>${u(key)}</b><span>${u(key + "_s")}</span><i class="go" aria-hidden="true">&rarr;</i>`;
-    const style = `style="--i:${idx}"`;
-    if (href === "MAP") return `<a class="tile" ${style} href="${W.venue.mapsUrl}" target="_blank" rel="noopener">${inner}</a>`;
-    if (href === "ICS") return `<button class="tile" ${style} id="ics" type="button">${inner}</button>`;
+    const style = `style="--i:${idx};--d:${(idx % 2) * 0.16}s"`;
+    if (href === "MAP") return `<a class="tile rv" ${style} href="${W.venue.mapsUrl}" target="_blank" rel="noopener">${inner}</a>`;
+    if (href === "ICS") return `<button class="tile rv" ${style} id="ics" type="button">${inner}</button>`;
     return `<a class="tile" ${style} href="${href}">${inner}</a>`;
   }
 
@@ -157,10 +157,15 @@
         <div class="venue">${L(W.venue.name)}</div>
         ${status}
       </section>
-      ${nextUpCard()}
-      <div class="sechead"><img src="scenes/web/garland_lav.webp" alt="" decoding="async"><h2>${u("exploreTitle")}</h2><p>${u("exploreSub")}</p></div>
+      <div class="rv">${nextUpCard()}</div>
+      <a class="storycard rv" href="#story">
+        <img class="sc-pic" src="scenes/web/cover.webp" alt="" decoding="async">
+        <div class="sc-txt"><b>${u("storyCardTitle")}</b><span>${u("storyCardSub")}</span><em>${u("storyCardBtn")} &rarr;</em></div>
+        <img class="sc-fl a" src="scenes/web/bfly_purple.webp" alt=""><img class="sc-fl b" src="scenes/web/dove_a.webp" alt="">
+      </a>
+      <div class="sechead rv"><img src="scenes/web/garland_lav.webp" alt="" decoding="async"><h2>${u("exploreTitle")}</h2><p>${u("exploreSub")}</p></div>
       <div class="tiles">${TILES.map(tileHtml).join("")}</div>
-      <div class="actions">
+      <div class="actions rv">
         <a class="act" href="${W.venue.mapsUrl}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><span><b>${u("tile_map")}</b><i>${u("tile_map_s")}</i></span></a>
         <button class="act" id="ics" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v4M10 15h4"/></svg><span><b>${u("tile_cal")}</b><i>${u("tile_cal_s")}</i></span></button>
       </div>
@@ -194,6 +199,8 @@
   }
 
   const STK = { morning: "bouquet_lav", evening: "toast" }; // little stickers beside each session title
+  // wraps each word (or each Chinese character) so it can fade in one after another while scrolling
+  const words = (t, off) => (lang === "zh" ? Array.from(String(t)) : String(t).split(" ")).map((w, k) => `<span class="wd" style="--w:${k + (off || 0)}">${w}</span>`).join(lang === "zh" ? "" : " ");
   function viewAgenda() {
     const now = myNow();
     const onDay = now.date === W.date;
@@ -212,9 +219,9 @@
         if (timed && idx === current && sLive) cls.push("now");
         const left = timed ? `<span class="stamp">${fmt12(i.time)}</span>` : "";
         const songs = (i.songs || []).map((x, n) => `<a class="songs" href="#lyrics/${n}">&#9834; ${x}</a>`).join("");
-        const desc = i.d ? `<div class="d">${L(i.d)}</div>` : "";
+        const desc = i.d ? `<div class="d">${words(L(i.d), 3)}</div>` : "";
         const who = i.who ? `<div class="who">${i.who}</div>` : "";
-        return `<li class="${cls.join(" ")}" style="--i:${idx}">${left}<div style="flex:1"><div class="t">${L(i.t)}</div>${desc}${songs}</div>${who}</li>`;
+        return `<li class="${cls.join(" ")}" style="--i:${idx}">${left}<div style="flex:1"><div class="t">${words(L(i.t))}</div>${desc}${songs}</div>${who}</li>`;
       }).join("");
       return `
         <div class="session-head">${STK[s.id] ? `<img class="stk" src="scenes/web/${STK[s.id]}.webp" alt="" decoding="async">` : ""}
@@ -225,32 +232,46 @@
     }).join("");
   }
 
-  // scroll-linked agenda: the timeline line draws itself down the page, each row rises in, and the stickers drift
-  let agendaOff = null;
-  function agendaFx() {
-    if (agendaOff) agendaOff();
-    const lists = [...document.querySelectorAll("ul.agenda.tl")];
-    const heads = [...document.querySelectorAll(".session-head .stk, .break .stk")];
-    if (!lists.length) return;
+  // scroll-linked effects for the agenda (words appear slowly, line draws, rows rise) and the home page (reveals + parallax)
+  let fxOff = null;
+  function pageFx(name) {
+    if (fxOff) fxOff();
+    if (name !== "agenda" && name !== "home") return;
     const still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const clamp01 = (x) => Math.max(0, Math.min(1, x));
+    const lists = [...document.querySelectorAll("ul.agenda.tl")];
+    const heads = [...document.querySelectorAll(".session-head, .break")];
+    const stk = [...document.querySelectorAll(".session-head .stk, .break .stk")];
+    const rv = [...document.querySelectorAll(".rv")];
+    const hero = document.querySelector(".hero");
     let raf = 0;
     const run = () => {
       raf = 0;
-      const vh = window.innerHeight, target = vh * 0.66;
+      const vh = window.innerHeight, target = vh * 0.66, y = window.scrollY;
       lists.forEach((ul) => {
         const r = ul.getBoundingClientRect();
         ul.style.setProperty("--fh", Math.max(0, Math.min(r.height - 30, target - r.top - 20)) + "px");
         ul.querySelectorAll("li").forEach((li) => {
-          if (still || li.getBoundingClientRect().top < vh * 0.9) li.classList.add("in");
+          const t = li.getBoundingClientRect().top;
+          const p = still ? 1 : clamp01((vh * 0.96 - t) / (vh * 0.42)); // slow: about 40% of a screen of scrolling per row
+          li.style.setProperty("--r", p.toFixed(3));
+          li.classList.toggle("in", p > 0.35);
         });
       });
-      heads.forEach((h) => { const r = h.getBoundingClientRect(); h.style.setProperty("--ty", ((r.top - vh / 2) * -0.07).toFixed(1) + "px"); });
+      heads.forEach((h) => h.style.setProperty("--r", (still ? 1 : clamp01((vh * 0.95 - h.getBoundingClientRect().top) / (vh * 0.35))).toFixed(3)));
+      stk.forEach((h) => { const r = h.getBoundingClientRect(); h.style.setProperty("--ty", ((r.top - vh / 2) * -0.07).toFixed(1) + "px"); });
+      rv.forEach((el) => { if (!el.classList.contains("in") && (still || el.getBoundingClientRect().top < vh * 0.92)) el.classList.add("in"); });
+      if (hero) {
+        hero.style.setProperty("--py", (-y * 0.16).toFixed(1) + "px");
+        hero.style.setProperty("--pm", (y * 0.1).toFixed(1) + "px");
+        hero.style.setProperty("--sc", clamp01(y / 420).toFixed(3));
+      }
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(run); };
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     run();
-    agendaOff = () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); if (raf) cancelAnimationFrame(raf); agendaOff = null; };
+    fxOff = () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); if (raf) cancelAnimationFrame(raf); fxOff = null; };
   }
 
   /* ---------- Seats ---------- */
@@ -751,7 +772,8 @@
   const seen = () => { try { return sessionStorage.getItem("storySeen") === "1"; } catch (e) { return false; } };
   function route() {
     const raw = location.hash.replace("#", "");
-    if (raw === "story" || (raw === "" && !seen())) return "story";
+    if (raw === "story") return "story";
+    if (raw === "" && !seen()) return "intro"; // a guest who scans the QR code lands on the last (wedding) scene only
     const [tab, arg] = (raw || "home").split("/");
     const name = TABS.includes(tab) ? tab : "home";
     if (name === "seats" && arg) { selected = decodeURIComponent(arg); routeOn = true; }
@@ -779,10 +801,11 @@
     document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
     document.documentElement.dataset.mode = themeMode();
     const appEl = document.getElementById("app");
-    if (name === "story") {
+    if (name === "story" || name === "intro") {
       appEl.hidden = true;
       document.body.classList.add("in-story");
-      window.Story.show(lang);
+      if (fxOff) fxOff();
+      window.Story.show(lang, name);
       return;
     }
     document.body.classList.remove("in-story");
@@ -795,8 +818,7 @@
     view.innerHTML = { home: viewHome, agenda: viewAgenda, seats: viewSeats, lyrics: viewLyrics, fun: viewFun }[name]();
     clearInterval(timer);
     if (name === "home") { tickCountdown(); timer = setInterval(tickCountdown, 1000); }
-    if (agendaOff && name !== "agenda") agendaOff();
-    if (name === "agenda") agendaFx();
+    pageFx(name);
     if (name === "seats" && query()) runSearch();
   }
 

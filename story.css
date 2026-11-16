@@ -334,3 +334,11 @@ html[lang="zh-Hans"] .cap h2, html[lang="zh-Hans"] .cover h1 { font-family: "Not
 .chap[data-id="wedding"] .scene.img { opacity: calc(1 - clamp(0, calc((var(--p) - .6) / .3), 1) * .6); }
 .chap[data-id="wedding"] .cap { z-index: 9; transform: translateY(calc(var(--up, 0px) * -1 * clamp(0, calc((var(--p) - .6) / .3), 1))); }
 .chap[data-id="wedding"] .enter { opacity: clamp(0, calc((var(--p) - .8) / .1), 1); }
+
+/* ---------- slower scrolling: every chapter takes much more scrolling, so the animation plays gently ---------- */
+.chap { height: 330vh; }
+.chap.cover { height: 340vh; }
+.chap[data-id="wedding"] { height: 440vh; }
+/* what the QR code opens: only the wedding scene, shorter, so guests are not scrolling for long */
+.chap.solo[data-id="wedding"] { height: 280vh; }
+@media (prefers-reduced-motion: reduce) { .chap, .chap.cover, .chap[data-id="wedding"], .chap.solo[data-id="wedding"] { height: auto; } }

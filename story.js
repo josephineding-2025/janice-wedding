@@ -446,7 +446,7 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
      Every transition is built only from your artwork: rose/lavender bush panels that part, a wisteria arch you pass through,
      and flocks of doves and butterflies. The next chapter arrives while the veil is at its fullest, so there is no hard cut. */
   const KINDS = ["rise", "bushA", "flock", "bushB", "plane", "wave", "bushA", "flock", "rise"];
-  const WIN = [2.2, 1, 1, 1, 1, 1, 1, 1, 1.7]; // the cover -> first chapter transition is slow: it lasts 2.2 screens of scrolling // boundary i = chapter i -> i+1 (0 is cover -> first chapter)
+  const WIN = [2.2, 1, 1, 1, 1, 1, 1, 1, 1.7].map((x) => x * 1.4); // the cover -> first chapter transition is slow: it lasts 2.2 screens of scrolling // boundary i = chapter i -> i+1 (0 is cover -> first chapter)
   function rng(seed) { let a = seed; return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
   function veilHtml() {
     const r = rng(11);
@@ -500,6 +500,16 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
   function sceneHtml(id, cover) {
     if (hasImg(id)) return imgScene(id, cover);
     return `<svg class="scene" viewBox="0 0 360 420" preserveAspectRatio="${cover ? "xMidYMax" : "xMidYMid"} meet" aria-hidden="true">${SCENES[id]()}</svg>`;
+  }
+
+  function htmlSolo(lang) {
+    const ch = W.chapters, t = (k) => T(W.storyUi[k], lang), i = ORDER.indexOf("wedding"), id = "wedding";
+    return `${DEFS}<div class="story-bar"><div class="bar-fill"></div>
+        <div class="bar-ctl"><button data-lang="en" class="${lang === "en" ? "on" : ""}">EN</button><button data-lang="zh" class="${lang === "zh" ? "on" : ""}">中文</button>
+        <button class="skip" data-act="enter">${t("skip")}</button></div></div>
+      <section class="chap imgc solo" data-id="${id}" style="--bg:#fffdfb"><div class="stage">
+      ${sceneHtml(id)}${decoHtml(id)}
+      <div class="cap"><h2>${T(ch[i].title, lang)}</h2><p>${T(ch[i].text, lang)}</p><button class="enter" data-act="enter">${t("enter")}</button></div></div></section>`;
   }
 
   function html(lang) {
@@ -585,10 +595,10 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
   }
   const onScroll = () => { if (!raf) raf = requestAnimationFrame(frame); };
 
-  function show(lang) {
+  function show(lang, mode) {
     const root = document.getElementById("story");
     root.hidden = false;
-    root.innerHTML = html(lang);
+    root.innerHTML = mode === "intro" ? htmlSolo(lang) : html(lang);
     chaps = [...root.querySelectorAll(".chap")];
     active = new Set();
     lastY = -1;
