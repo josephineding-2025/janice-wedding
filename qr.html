@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QR code - Min Zheng &amp; Janice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; font: 16px/1.5 Inter, system-ui, sans-serif; background: #eeeafc; color: #2c2848; display: flex; justify-content: center; padding: 24px 16px; }
+    .box { background: #fcfbff; border-radius: 20px; padding: 28px; max-width: 460px; width: 100%; text-align: center; }
+    h1 { font: 600 34px "Great Vibes", cursive; color: #6247c2; margin: 0 0 4px; }
+    p { margin: 4px 0 16px; color: #7a7499; font-size: 14px; }
+    input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid #ddd6f4; font: inherit; }
+    #qr { display: flex; justify-content: center; margin: 22px 0 8px; }
+    #qr img, #qr canvas { max-width: 100%; height: auto; }
+    button { padding: 10px 20px; border-radius: 999px; border: 0; background: #6247c2; color: #fff; font: inherit; cursor: pointer; margin-top: 8px; }
+    .scan { font: 600 20px "Great Vibes", cursive; color: #6247c2; }
+    @media print { body { background: #fff; } input, button, p.help { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Min Zheng &amp; Janice</h1>
+    <div class="scan">Scan for agenda, seating &amp; fun &middot; 扫码查看流程、座位与互动</div>
+    <div id="qr"></div>
+    <p class="help">Paste the public link of your website, then download or print this page.</p>
+    <input id="url" type="url" placeholder="https://your-wedding-site.example" aria-label="Website link">
+    <button id="dl">Download PNG</button>
+    <button id="pr">Print</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const input = document.getElementById("url"), box = document.getElementById("qr");
+    const param = new URLSearchParams(location.search).get("url");
+    // Default: the site this page is hosted on.
+    input.value = param || (location.protocol.startsWith("http") ? location.href.replace(/qr\.html.*$/, "") : "");
+    let qr;
+    function draw() {
+      box.innerHTML = "";
+      if (!input.value) return;
+      qr = new QRCode(box, { text: input.value, width: 512, height: 512, correctLevel: QRCode.CorrectLevel.H, colorDark: "#6247c2", colorLight: "#ffffff" });
+    }
+    input.addEventListener("input", draw);
+    document.getElementById("dl").onclick = () => {
+      const c = box.querySelector("canvas"); if (!c) return;
+      const a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "wedding-qr.png"; a.click();
+    };
+    document.getElementById("pr").onclick = () => print();
+    draw();
+  </script>
+</body>
+</html>
