@@ -567,3 +567,84 @@ ul.agenda.tl .vine { position: absolute; left: 0; top: 0; z-index: 0; pointer-ev
 ul.agenda.tl .tip { left: 50%; margin-left: -19px; }
 .bud { left: calc(50% - 17px + var(--vx, 0px)); width: 34px; top: calc(50% - 27px); }
 ul.agenda.tl .ag-dot { left: calc(50% - 5.5px + var(--vx, 0px)); }
+
+/* ============ smoother agenda: no per-word or per-card blur filters, static shadows, glow without filter changes ============ */
+.wd { filter: none !important; transform: translateY(calc((1 - var(--k)) * 8px)); will-change: opacity; }
+ul.agenda.tl .ag-card { filter: none !important; will-change: transform, opacity; contain: layout style; }
+.session-head h2, .session-head .time { filter: none !important; }
+.bud { filter: drop-shadow(1px 2px 2px rgba(70, 60, 110, .3)) !important; transition: none; will-change: transform, opacity; }
+ul.agenda.tl li::before { display: block; content: ""; position: absolute; left: calc(50% - 26px + var(--vx, 0px)); top: calc(50% - 26px); width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 220, 110, .75), rgba(255, 220, 110, 0) 70%); opacity: calc(var(--lit, 0) * .85); pointer-events: none; z-index: 2; }
+ul.agenda.tl li.in .bud { animation-duration: 7s; }
+ul.agenda.tl .tip { filter: none; }
+.agfx img { will-change: transform; }
+
+/* ceremony theme + scripture */
+.theme-card { position: relative; margin: 6px 0 22px; padding: 22px 20px 18px; text-align: center; border-radius: 16px; border: 1px solid var(--line); background: linear-gradient(160deg, var(--paper), color-mix(in srgb, var(--accent-soft) 70%, var(--paper))); box-shadow: 0 8px 20px rgba(70, 60, 130, .1); }
+.theme-card::before { content: ""; position: absolute; top: -8px; left: 50%; width: 64px; height: 15px; margin-left: -32px; background: rgba(205, 192, 240, .7); background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, .4) 0 3px, transparent 3px 7px); box-shadow: 0 1px 2px rgba(70, 60, 110, .18); transform: rotate(-2deg); }
+.th-fl { position: absolute; top: 10px; width: 34px; height: auto; filter: drop-shadow(1px 2px 2px rgba(70, 60, 110, .25)); }
+.th-fl.l { left: 10px; transform: rotate(-12deg); } .th-fl.r { right: 10px; transform: rotate(12deg); }
+.th-lbl { font: 700 11px var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+.th-txt { margin: 8px 30px 12px; font: 400 29px/1.2 var(--script); color: var(--accent); }
+html[lang="zh-Hans"] .th-txt { font: 600 21px/1.5 "Noto Serif SC", serif; letter-spacing: .08em; margin: 8px 24px 12px; }
+.th-ref { font-size: 13px; font-weight: 700; color: var(--ink); } .th-ref span { color: var(--muted); font-weight: 600; margin-right: 4px; }
+.th-verse { margin: 8px 0 0; font-size: 13px; line-height: 1.65; color: var(--muted); text-align: left; padding-top: 10px; border-top: 1px dashed var(--line); }
+html[lang="zh-Hans"] .th-verse { font-size: 13.5px; line-height: 1.8; }
+.theme-card .niv { margin-top: 8px; font-size: 9.5px; line-height: 1.35; color: var(--muted); opacity: .8; text-align: left; }
+
+/* ============ lyrics: a decorated songbook page ============ */
+.seg.songs { padding: 5px; gap: 6px; background: linear-gradient(90deg, var(--accent-soft), var(--paper)); }
+.seg.songs button { display: flex; align-items: center; justify-content: center; gap: 7px; }
+.seg.songs button svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.seg.songs button.on { box-shadow: 0 4px 12px rgba(98, 71, 194, .3); }
+.card.lyr { position: relative; padding: 26px 20px 12px; overflow: hidden; border-radius: 18px; background: linear-gradient(180deg, var(--paper), color-mix(in srgb, var(--accent-soft) 45%, var(--paper))); }
+.card.lyr::before { content: ""; position: absolute; top: -8px; left: 50%; width: 72px; height: 16px; margin-left: -36px; background: rgba(205, 192, 240, .7); background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, .4) 0 3px, transparent 3px 7px); box-shadow: 0 1px 2px rgba(70, 60, 110, .2); transform: rotate(-2deg); z-index: 2; }
+.lc { position: absolute; top: 0; width: 98px; height: auto; pointer-events: none; opacity: .95; filter: drop-shadow(1px 2px 3px rgba(70, 60, 110, .2)); }
+.lc.a { left: -6px; } .lc.b { right: -6px; }
+.ly-top { position: relative; text-align: center; padding: 6px 28px 6px; z-index: 1; }
+.ly-ico { width: 38px; height: 38px; margin: 0 auto 4px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-soft) 45%, transparent); }
+.card.lyr .ly-top h2 { font-size: 40px; line-height: 1.05; }
+.ly-by { font-size: 12.5px; color: var(--muted); letter-spacing: .04em; margin-top: 2px; }
+.ly-gl { display: block; width: 58%; margin: 8px auto 0; height: auto; filter: drop-shadow(1px 2px 3px rgba(70, 60, 110, .18)); }
+.ly-end { display: block; width: 70px; margin: 10px auto 6px; height: auto; filter: drop-shadow(1px 2px 3px rgba(70, 60, 110, .22)); animation: lantsw 6s ease-in-out infinite; transform-origin: 50% 100%; }
+#lyrics-body { margin-top: 12px; position: relative; z-index: 1; }
+.lyr .sec { display: inline-flex; align-items: center; gap: 8px; margin: 24px 0 8px; padding: 4px 16px 4px 6px; border-radius: 999px; background: linear-gradient(90deg, var(--accent-soft), transparent); font: 700 11px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+.lyr .sf { width: 24px; height: auto; filter: drop-shadow(1px 1px 2px rgba(70, 60, 110, .3)); }
+.lyr .stanza { position: relative; margin: 0 0 6px; padding: 2px 0 6px 16px; border-left: 2px dashed color-mix(in srgb, var(--accent) 35%, var(--line)); }
+.lyr .stanza::before { content: ""; position: absolute; left: -6px; top: 2px; width: 10px; height: 10px; border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); }
+.lyr .zhl { font: 700 18px/1.5 var(--sans); margin-top: 10px; color: var(--ink); letter-spacing: .02em; }
+.lyr .enl { font-size: 13px; line-height: 1.45; color: var(--muted); font-weight: 600; }
+.lyr .sec.rv, .lyr .stanza.rv { transition-duration: 1s; }
+/* ============ bingo: sticker-card squares that get stamped with a flower ============ */
+.bingo-card { position: relative; overflow: hidden; }
+.bgl { display: block; width: 52%; margin: 4px 0 0; height: auto; filter: drop-shadow(1px 2px 3px rgba(70, 60, 110, .18)); }
+.bprog { display: flex; align-items: center; gap: 10px; margin: 12px 0 4px; }
+.bprog .bar { flex: 1; height: 8px; border-radius: 99px; background: var(--accent-soft); overflow: hidden; }
+.bprog .bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #b9a8f0, #8b7fe0, #7ea4ea); transition: width .6s cubic-bezier(.2, .8, .2, 1); }
+.bprog span { font: 700 12px var(--sans); color: var(--accent); }
+.legend2 { gap: 6px 8px; margin: 10px 0 12px; }
+.legend2 .lg { padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); font-size: 11px; color: var(--accent); font-weight: 700; }
+.bingo { gap: 11px 10px; margin-top: 8px; padding: 6px 2px 2px; }
+.bingo button.bt { --tc: #cfc3f3; position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px; min-height: 138px; padding: 16px 7px 10px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--tc) 70%, var(--line)); text-align: center; font-family: var(--sans);
+  background: linear-gradient(170deg, var(--paper) 35%, color-mix(in srgb, var(--tc) 42%, var(--paper))); box-shadow: 0 5px 12px rgba(70, 60, 130, .1); transform: rotate(var(--tilt, 0deg)); transition: transform .25s, box-shadow .25s, background .3s; color: var(--ink); }
+.bingo button.bt[data-type="photo"] { --tc: #cfc3f3; } .bingo button.bt[data-type="say"] { --tc: #f4cfda; } .bingo button.bt[data-type="do"] { --tc: #b9cdf2; } .bingo button.bt[data-type="spot"] { --tc: #cfe3d6; }
+.bingo button.bt::before { content: ""; position: absolute; top: -7px; left: 50%; width: 36px; height: 12px; margin-left: -18px; background: color-mix(in srgb, var(--tc) 85%, #fff); box-shadow: 0 1px 2px rgba(70, 60, 110, .18); background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, .45) 0 3px, transparent 3px 7px); transform: rotate(calc(var(--tilt, 0deg) * -2)); }
+.bingo button.bt:active { transform: rotate(var(--tilt, 0deg)) scale(.96); }
+.bt .ico { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--tc) 80%, var(--paper)); color: var(--accent); flex: none; }
+.bt .ico .ci { width: 16px; height: 16px; margin: 0; }
+.bt .txt { font-size: 11.5px; line-height: 1.35; font-weight: 700; }
+.bingo button.bt.on { background: linear-gradient(170deg, color-mix(in srgb, var(--tc) 55%, var(--paper)), color-mix(in srgb, var(--tc) 85%, var(--paper))); color: var(--ink); border-color: var(--accent); box-shadow: 0 6px 16px rgba(98, 71, 194, .22); }
+.bt .stamp { position: absolute; right: -7px; bottom: -9px; width: 46px; height: auto; transform: rotate(14deg); filter: drop-shadow(1px 2px 3px rgba(70, 60, 110, .35)); pointer-events: none; }
+.bt.new .stamp { animation: stamp .7s cubic-bezier(.2, 1.2, .3, 1) both; }
+@keyframes stamp { 0% { transform: scale(2.4) rotate(-40deg); opacity: 0; } 60% { transform: scale(.9) rotate(18deg); opacity: 1; } 100% { transform: scale(1) rotate(14deg); } }
+.bingo button.bt.line { border-color: #ffc94d; box-shadow: 0 0 0 2px rgba(255, 201, 77, .65), 0 0 18px rgba(255, 214, 90, .65); animation: linepulse 1.8s ease-in-out infinite; }
+@keyframes linepulse { 0%, 100% { box-shadow: 0 0 0 2px rgba(255, 201, 77, .55), 0 0 10px rgba(255, 214, 90, .4); } 50% { box-shadow: 0 0 0 3px rgba(255, 201, 77, .9), 0 0 22px rgba(255, 214, 90, .8); } }
+.bt .stamp { transform-origin: 50% 50%; }
+.uprow { border-radius: 12px; background: var(--accent-soft); padding: 8px 10px; margin-top: 8px; border: 0; }
+.winbox { position: relative; border: 1.5px solid var(--accent); border-radius: 16px; background: linear-gradient(160deg, var(--paper), var(--accent-soft)); padding: 18px 16px; margin: 4px 0 12px; box-shadow: 0 8px 20px rgba(98, 71, 194, .18); }
+.confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 6; }
+.confetti img { position: absolute; top: -50px; width: 30px; height: auto; animation: confall var(--d, 2.4s) ease-in var(--dl, 0s) both; filter: drop-shadow(1px 2px 2px rgba(70, 60, 110, .3)); }
+@keyframes confall { 0% { transform: translateY(0) rotate(0); opacity: 1; } 100% { transform: translateY(620px) rotate(var(--r, 180deg)); opacity: 0; } }
+:root[data-mode="night"] .bingo button.bt { background: linear-gradient(170deg, var(--paper), color-mix(in srgb, var(--tc) 22%, var(--paper))); }
+:root[data-mode="night"] .bingo button.bt.on { background: linear-gradient(170deg, color-mix(in srgb, var(--tc) 28%, var(--paper)), color-mix(in srgb, var(--tc) 40%, var(--paper))); }
+@media (prefers-reduced-motion: reduce) { .bt.new .stamp, .bingo button.bt.line, .confetti img, .ly-end { animation: none; } }
+.session-head .time { padding-right: 72px; }

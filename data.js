@@ -138,6 +138,12 @@ window.WEDDING = {
       end: "12:00",
       title: { en: "Garden Solemnization Ceremony", zh: "花园证婚礼" },
       emcee: "Andre",
+      theme: { en: "Meeting you was grace; choosing you is for a lifetime.", zh: "遇见你，是恩典；选择你，是一生" },
+      verse: {
+        ref: { en: "Ecclesiastes 4:9-12 (NIV)", zh: "传道书 4:9-12（和合本）" },
+        en: "Two are better than one, because they have a good return for their labor: If either of them falls down, one can help the other up. But pity anyone who falls and has no one to help them up. Also, if two lie down together, they will keep warm. But how can one keep warm alone? Though one may be overpowered, two can defend themselves. A cord of three strands is not quickly broken.",
+        zh: "两个人总比一个人好，因为二人劳碌同得美好的果效。若是跌倒，这人可以扶起他的同伴；若是孤身跌倒，没有别人扶起他来，这人就有祸了！再者，两个人同睡就都暖和，一个人独睡怎能暖和呢？有人攻胜孤身一人，若有二人便能敌挡他；三股合成的绳子不容易折断。",
+      },
       items: [
         { t: { en: "Prelude", zh: "序曲" } },
         { t: { en: "Processional", zh: "新人进场" } },
@@ -289,6 +295,18 @@ window.WEDDING = {
     { id: "aunty", type: "spot", en: "Hear an aunty ask \"Next is you?\"", zh: "听到长辈问「下一个就是你了吧？」" },
     { id: "dance", type: "spot", en: "See an uncle bust a dance move", zh: "看到叔叔跳起舞来" },
     { id: "sneak", type: "spot", en: "Catch someone sneaking a bite before the toast", zh: "抓到有人在祝酒前偷吃" },
+    { id: "backdropPhoto", type: "photo", en: "Take a group photo in front of the animated video backdrop", zh: "在动态视频背景墙前拍一张大合照" },
+    { id: "photobomb", type: "photo", en: "Photobomb a picture of Janice and Leow", zh: "在 Janice 和 Leow 拍照时成功抢镜 (Photobomb)" },
+    { id: "yamSengFace", type: "photo", en: "Capture a funny face mid-'Yám sing!' toast", zh: "捕捉某人高喊「饮胜！」时的生动表情" },
+    { id: "foodie", type: "photo", en: "An aesthetic shot of your favorite banquet dish", zh: "拍下婚宴上你最喜欢的一道菜" },
+    { id: "elderPeace", type: "photo", en: "A selfie with an uncle or aunty doing a peace sign ✌️", zh: "和一位比 ✌️ 手势的安娣或安哥自拍" },
+    { id: "clink", type: "photo", en: "An action shot of your whole table clinking glasses", zh: "拍下全桌一起干杯碰杯的动感瞬间" },
+    { id: "bestDressed", type: "photo", en: "Sneak a pic of the best-dressed guest you can find", zh: "拍下一张全场穿得最吸睛/最好看的宾客" },
+    { id: "heartHands", type: "photo", en: "Make a heart shape with your hands framing the couple", zh: "用手比心，把新人框在爱心里拍一张照" },
+    { id: "cheersDrinks", type: "photo", en: "A close-up shot of everyone's drinks during a toast", zh: "祝酒时，给大家的饮料/酒杯拍一张特写照" },
+    { id: "kids", type: "photo", en: "A cute photo of a flower girl, page boy, or any kids running around", zh: "拍下一张小花童或现场满场飞跑的小孩的可爱照片" },
+    { id: "ootd", type: "photo", en: "Your own wedding OOTD (Outfit of the Day) shot with the table centerpiece", zh: "用桌面布置/桌花当背景，拍一张你自己的婚宴穿搭照 (OOTD)" },
+    { id: "laughingLoud", type: "photo", en: "A mid-laugh candid of someone at your table", zh: "抓拍一张同桌朋友开怀大笑的瞬间" }
   ],
 
   // ---- Bingo win: a random blessing + a short verse (NIV in English, 和合本 in Mandarin) ----

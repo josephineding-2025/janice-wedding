@@ -5,7 +5,7 @@
   /* ---------------- i18n ---------------- */
   const UI = {
     en: {
-      replay: "Replay our story", storyCardTitle: "View our story", storyCardSub: "From Sunway University to the wedding day. Scroll through the whole journey.", storyCardBtn: "Start the story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
+      replay: "Replay our story", themeLabel: "Ceremony theme", verseLabel: "Scripture", storyCardTitle: "View our story", storyCardSub: "From Sunway University to the wedding day. Scroll through the whole journey.", storyCardBtn: "Start the story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
       tile_agenda: "Agenda", tile_agenda_s: "The timeline of the day", tile_seats: "Find my seat", tile_seats_s: "Floor plan and your table",
       tile_lyrics: "Sing along", tile_lyrics_s: "Praise and worship lyrics", tile_play: "Quiz and bingo", tile_play_s: "Play and earn points",
       tile_board: "Leaderboard", tile_board_s: "See who is on top", tile_wishes: "Wish garden", tile_wishes_s: "Plant a blessing",
@@ -41,40 +41,40 @@
       contact: "Chat with us",
     },
     zh: {
-      replay: "é‡çœ‹æˆ‘ä»¬çš„æ•…äº‹", storyCardTitle: "è§‚çœ‹æˆ‘ä»¬çš„æ•…äº‹", storyCardSub: "ä»ŽåŒå¨å¤§å­¦åˆ°å©šç¤¼å½“å¤©ï¼Œä¸€è·¯å¾€ä¸‹æ»‘ï¼Œçœ‹å®Œæ•´æ®µæ—…ç¨‹ã€‚", storyCardBtn: "å¼€å§‹æ•…äº‹", exploreTitle: "æŽ¢ç´¢ä»Šå¤©", exploreSub: "ç‚¹ä¸€ä¸‹å¡ç‰‡ï¼Œç›´æŽ¥è¿›å…¥ã€‚", introLine: "ä»Šå¤©éœ€è¦çš„ä¸€åˆ‡ï¼Œéƒ½åœ¨è¿™é‡Œã€‚",
-      tile_agenda: "æµç¨‹", tile_agenda_s: "ä»Šå¤©çš„æ—¶é—´è¡¨", tile_seats: "æŸ¥æ‰¾åº§ä½", tile_seats_s: "å¹³é¢å›¾ä¸Žæ¡Œå·",
-      tile_lyrics: "ä¸€èµ·æ¥å”±", tile_lyrics_s: "æ•¬æ‹œèµžç¾Žæ­Œè¯", tile_play: "é—®ç­”ä¸Žå®¾æžœ", tile_play_s: "çŽ©æ¸¸æˆèµšç§¯åˆ†",
-      tile_board: "æŽ’è¡Œæ¦œ", tile_board_s: "çœ‹çœ‹è°é¢†å…ˆ", tile_wishes: "ç¥ç¦èŠ±å›­", tile_wishes_s: "ç§ä¸‹ä¸€ä¸ªç¥ç¦",
-      tile_songs: "ç‚¹æ­Œ", tile_songs_s: "å‘Šè¯‰çŽ°åœºä¹é˜Ÿ", tile_story: "æˆ‘ä»¬çš„æ•…äº‹", tile_story_s: "é‡çœ‹æ»šåŠ¨æ•…äº‹",
-      tile_map: "å¯¼èˆª", tile_map_s: "åœ¨åœ°å›¾ä¸­æ‰“å¼€", tile_cal: "è®°ä¸‹æ—¥æœŸ", tile_cal_s: "åŠ å…¥æ—¥åŽ†", nowHappening: "æ­£åœ¨è¿›è¡Œ", youEnter: "ä»Žè¿™é‡Œå…¥åœº", pts: "åˆ†", nameTitle: "ä¸€èµ·æ¥çŽ©", nameSub: "è¯·è¾“å…¥æŽ’è¡Œæ¦œä¸Šçš„åå­—ã€‚", namePh: "æ‚¨çš„åå­—", save: "ä¿å­˜",
-      soonOnline: "å©šç¤¼å½“å¤©å¼€æ”¾ã€‚", boardEmpty: "æ¥å½“ç¬¬ä¸€åå§ï¼", boardTitle: "æŽ’è¡Œæ¦œ", boardSub: "ç§¯åˆ†æœ€é«˜çš„çŽ©å®¶ï¼Œæ¯éš”å‡ ç§’æ›´æ–°ã€‚",
-      rules: "é—®ç­”ï¼šç­”å¯¹ä¸€é¢˜10åˆ†ã€‚å®¾æžœï¼šæ‹ç…§20åˆ†ã€è¯´å‡ºæ¥10åˆ†ã€åŽ»åš10åˆ†ã€çœ‹åˆ°5åˆ†ï¼Œé¦–æ¬¡è¿žçº¿åŠ 30åˆ†ã€‚",
-      songTitle: "ç‚¹æ­Œ", songSub: "å‘Šè¯‰çŽ°åœºä¹é˜Ÿæ‚¨æƒ³å¬ä»€ä¹ˆæ­Œï¼Œæˆ‘ä»¬ä¼šè½¬è¾¾ç»™ä¹é˜Ÿã€‚", songPh: "æ­Œåå’Œæ­Œæ‰‹", songNote: "ç¥ç¦æˆ–ç•™è¨€ï¼ˆé€‰å¡«ï¼‰", songSend: "å‘é€ç»™ä¹é˜Ÿ",
-      songLimit: "å·²ç»ç‚¹äº†3é¦–ï¼Œè°¢è°¢ï¼", songDone: "å·²å‘é€ï¼ä¹é˜Ÿä¼šçœ‹åˆ°ã€‚", tryAgain: "å‘é€å¤±è´¥ï¼Œè¯·å†è¯•ä¸€æ¬¡ã€‚",
-      gardenTitle: "ç¥ç¦èŠ±å›­", gardenSub: "æ¯ä¸€ä¸ªç¥ç¦éƒ½ä¼šé•¿æˆä¸€æœµèŠ±ã€‚ç‚¹ä¸€æœµèŠ±æ¥é˜…è¯»ã€‚", gardenEmpty: "è¿˜æ²¡æœ‰èŠ±æœµï¼Œæ¥ç§ä¸‹ç¬¬ä¸€ä¸ªç¥ç¦å§ï¼", tapFlower: "ç‚¹ä¸€æœµèŠ±æ¥é˜…è¯»ç¥ç¦ã€‚",
-      plant: "ä¸ºæ–°äººç§ä¸‹ä¸€ä¸ªç¥ç¦", wishPh: "å†™ä¸‹ç¥ç¦ï¼ˆæœ€å¤š140å­—ï¼‰", plantBtn: "ç§ä¸‹æˆ‘çš„ç¥ç¦", wishLimit: "å·²ç»ç§ä¸‹ä¸¤ä¸ªç¥ç¦ï¼Œè°¢è°¢ï¼", wishDone: "å·²ç§ä¸‹ï¼æ‚¨çš„èŠ±æœµåœ¨èŠ±å›­é‡Œäº†ã€‚",
-      fun_play: "æ¸¸æˆ", fun_board: "æŽ’è¡Œæ¦œ", fun_wishes: "ç¥ç¦", fun_songs: "ç‚¹æ­Œ", home: "é¦–é¡µ", agenda: "æµç¨‹", seats: "åº§ä½", lyrics: "æ­Œè¯", fun: "äº’åŠ¨",
-      weddingOf: "è¯šæŒšé‚€è¯·æ‚¨å‚åŠ ", days: "å¤©", hours: "æ—¶", mins: "åˆ†", secs: "ç§’",
-      today: "å°±æ˜¯ä»Šå¤©ï¼", thanks: "æ„Ÿè°¢æ‚¨ä¸Žæˆ‘ä»¬ä¸€åŒåº†ç¥ã€‚",
-      upNext: "æŽ¥ä¸‹æ¥", seeAgenda: "å®Œæ•´æµç¨‹", viewSeats: "æŸ¥æ‰¾åº§ä½", viewSeatsSub: "æ¡Œå·ä¸Žå¹³é¢å›¾",
-      playFun: "æ¥çŽ©æ¸¸æˆ", playFunSub: "é—®ç­”ã€å®¾æžœç­‰",
-      addCal: "åŠ å…¥æ—¥åŽ†", directions: "Google åœ°å›¾", waze: "Waze",
-      emcee: "å¸ä»ª", live: "è¿›è¡Œä¸­", venue: "åœ°ç‚¹",
-      findSeat: "æŸ¥æ‰¾æˆ‘çš„åº§ä½", searchPh: "è¾“å…¥æ‚¨çš„åå­—...", noMatch: "æ‰¾ä¸åˆ°ï¼Œè¯·å‘æŽ¥å¾…å¤„è¯¢é—®ã€‚",
-      tapTable: "ç‚¹å‡»æ¡Œå­ï¼Œçœ‹çœ‹è°ååœ¨è¿™é‡Œã€‚",
-      pickTable: "è¯·åœ¨åœ°å›¾æˆ–ä¸‹æ–¹ç‚¹é€‰æ¡Œå·ã€‚",
-      table: "ç¬¬", who: "ä»–ä»¬ä¸Žæˆ‘ä»¬çš„å…³ç³»", funFact: "è¶£å‘³å°çŸ¥è¯†", at: "åŒæ¡Œå®¾å®¢",
-      soon: "ç®€ä»‹å³å°†æ›´æ–°ã€‚", entrance: "å…¥å£", stage: "èˆžå°", registration: "æŽ¥å¾…å¤„",
-      store: "å‚¨è—å®¤", carpet: "çº¢åœ°æ¯¯", screen: "å±å¹•", cake: "è£…é¥°è›‹ç³•", champ: "é¦™æ§Ÿå¡”",
-      quizTitle: "ä½ æœ‰å¤šäº†è§£æˆ‘ä»¬ï¼Ÿ", question: "ç¬¬", of: "/", yourScore: "æ‚¨çš„å¾—åˆ†",
-      again: "å†çŽ©ä¸€æ¬¡", next: "ä¸‹ä¸€é¢˜", finish: "æŸ¥çœ‹ç»“æžœ",
-      bingoTitle: "å©šç¤¼å®¾æžœ", bingoSub: "çœ‹åˆ°å°±ç‚¹ä¸€ä¸‹ï¼Œè¿žæˆ3ä¸ªä¸€çº¿å°±èµ¢ï¼å…¶ä¸­ä¸‰æ ¼æ˜¯æ‹ç…§æŒ‘æˆ˜ï¼Œè¯·é€‰å‡ºæœ€æ£’çš„ä¸€å¼ ï¼Œæ¯ä¸ªæŒ‘æˆ˜ä¸Šä¼ 1å¼ ç…§ç‰‡ã€‚", bingoWin: "å®¾æžœï¼æ­å–œæ‚¨ï¼", cue_photo: "æ‹ç…§", cue_say: "è¯´å‡ºæ¥", cue_do: "åŽ»åš", cue_spot: "çœ‹åˆ°å°±ç‚¹", upload: "ä¸Šä¼ 1å¼ ç…§ç‰‡", uploadFor: "å·²å®Œæˆçš„æ‹ç…§æŒ‘æˆ˜", lyricsTitle: "ä¸€èµ·æ¥å”±", lyricsSub: "æ•¬æ‹œèµžç¾Žè¯—æ­Œï¼Œä¸€èµ·æ¥å”±å§ï¼", lyricsMissing: "æ­Œè¯å³å°†æ›´æ–°ã€‚",
-      shuffle: "æ¢ä¸€å¼ ", storyTitle: "æˆ‘ä»¬çš„æ•…äº‹",
-      factTitle: "å„æ¡Œè¶£å‘³å°çŸ¥è¯†", factBtn: "éšæœºä¸€æ¡Œ", factNone: "ç‚¹å‡»æŒ‰é’®è®¤è¯†ä¸€æ¡Œã€‚",
-      loveTitle: "é€æˆ‘ä»¬ä¸€ç‚¹çˆ±", loveBtn: "ç‚¹ä¸€ç‚¹é€çˆ±å¿ƒ",
-      bless: "å†™ä¸‹ç¥ç¦", photos: "åˆ†äº«ç…§ç‰‡", hashtag: "æˆ‘ä»¬çš„æ ‡ç­¾",
-      sample: "ç¤ºä¾‹", sampleNote: "å ä½å†…å®¹ï¼Œè¯·åœ¨ data.js ä¸­æ›¿æ¢ã€‚",
-      contact: "è”ç³»æˆ‘ä»¬",
+      replay: "重看我们的故事", themeLabel: "证婚礼主题", verseLabel: "经文", storyCardTitle: "观看我们的故事", storyCardSub: "从双威大学到婚礼当天，一路往下滑，看完整段旅程。", storyCardBtn: "开始故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
+      tile_agenda: "流程", tile_agenda_s: "今天的时间表", tile_seats: "查找座位", tile_seats_s: "平面图与桌号",
+      tile_lyrics: "一起来唱", tile_lyrics_s: "敬拜赞美歌词", tile_play: "问答与宾果", tile_play_s: "玩游戏赚积分",
+      tile_board: "排行榜", tile_board_s: "看看谁领先", tile_wishes: "祝福花园", tile_wishes_s: "种下一个祝福",
+      tile_songs: "点歌", tile_songs_s: "告诉现场乐队", tile_story: "我们的故事", tile_story_s: "重看滚动故事",
+      tile_map: "导航", tile_map_s: "在地图中打开", tile_cal: "记下日期", tile_cal_s: "加入日历", nowHappening: "正在进行", youEnter: "从这里入场", pts: "分", nameTitle: "一起来玩", nameSub: "请输入排行榜上的名字。", namePh: "您的名字", save: "保存",
+      soonOnline: "婚礼当天开放。", boardEmpty: "来当第一名吧！", boardTitle: "排行榜", boardSub: "积分最高的玩家，每隔几秒更新。",
+      rules: "问答：答对一题10分。宾果：拍照20分、说出来10分、去做10分、看到5分，首次连线加30分。",
+      songTitle: "点歌", songSub: "告诉现场乐队您想听什么歌，我们会转达给乐队。", songPh: "歌名和歌手", songNote: "祝福或留言（选填）", songSend: "发送给乐队",
+      songLimit: "已经点了3首，谢谢！", songDone: "已发送！乐队会看到。", tryAgain: "发送失败，请再试一次。",
+      gardenTitle: "祝福花园", gardenSub: "每一个祝福都会长成一朵花。点一朵花来阅读。", gardenEmpty: "还没有花朵，来种下第一个祝福吧！", tapFlower: "点一朵花来阅读祝福。",
+      plant: "为新人种下一个祝福", wishPh: "写下祝福（最多140字）", plantBtn: "种下我的祝福", wishLimit: "已经种下两个祝福，谢谢！", wishDone: "已种下！您的花朵在花园里了。",
+      fun_play: "游戏", fun_board: "排行榜", fun_wishes: "祝福", fun_songs: "点歌", home: "首页", agenda: "流程", seats: "座位", lyrics: "歌词", fun: "互动",
+      weddingOf: "诚挚邀请您参加", days: "天", hours: "时", mins: "分", secs: "秒",
+      today: "就是今天！", thanks: "感谢您与我们一同庆祝。",
+      upNext: "接下来", seeAgenda: "完整流程", viewSeats: "查找座位", viewSeatsSub: "桌号与平面图",
+      playFun: "来玩游戏", playFunSub: "问答、宾果等",
+      addCal: "加入日历", directions: "Google 地图", waze: "Waze",
+      emcee: "司仪", live: "进行中", venue: "地点",
+      findSeat: "查找我的座位", searchPh: "输入您的名字...", noMatch: "找不到，请向接待处询问。",
+      tapTable: "点击桌子，看看谁坐在这里。",
+      pickTable: "请在地图或下方点选桌号。",
+      table: "第", who: "他们与我们的关系", funFact: "趣味小知识", at: "同桌宾客",
+      soon: "简介即将更新。", entrance: "入口", stage: "舞台", registration: "接待处",
+      store: "储藏室", carpet: "红地毯", screen: "屏幕", cake: "装饰蛋糕", champ: "香槟塔",
+      quizTitle: "你有多了解我们？", question: "第", of: "/", yourScore: "您的得分",
+      again: "再玩一次", next: "下一题", finish: "查看结果",
+      bingoTitle: "婚礼宾果", bingoSub: "看到就点一下，连成3个一线就赢！其中三格是拍照挑战，请选出最棒的一张，每个挑战上传1张照片。", bingoWin: "宾果！恭喜您！", cue_photo: "拍照", cue_say: "说出来", cue_do: "去做", cue_spot: "看到就点", upload: "上传1张照片", uploadFor: "已完成的拍照挑战", lyricsTitle: "一起来唱", lyricsSub: "敬拜赞美诗歌，一起来唱吧！", lyricsMissing: "歌词即将更新。",
+      shuffle: "换一张", storyTitle: "我们的故事",
+      factTitle: "各桌趣味小知识", factBtn: "随机一桌", factNone: "点击按钮认识一桌。",
+      loveTitle: "送我们一点爱", loveBtn: "点一点送爱心",
+      bless: "写下祝福", photos: "分享照片", hashtag: "我们的标签",
+      sample: "示例", sampleNote: "占位内容，请在 data.js 中替换。",
+      contact: "联系我们",
     },
   };
 
@@ -86,7 +86,7 @@
 
   const u = (k) => UI[lang][k] || UI.en[k] || k;
   const L = (o) => (o ? o[lang] || o.en || "" : "");
-  const tableLabel = (t) => (lang === "zh" && typeof t.id === "number" ? "ç¬¬" + t.id + "æ¡Œ" : L(t.name));
+  const tableLabel = (t) => (lang === "zh" && typeof t.id === "number" ? "第" + t.id + "桌" : L(t.name));
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
@@ -102,7 +102,7 @@
   const toMin = (hm) => +hm.slice(0, 2) * 60 + +hm.slice(3, 5);
   const fmt12 = (hm) => {
     let h = +hm.slice(0, 2); const m = hm.slice(3, 5);
-    if (lang === "zh") return (h < 12 ? "ä¸Šåˆ" : h < 18 ? "ä¸‹åˆ" : "æ™šä¸Š") + (h % 12 || 12) + ":" + m;
+    if (lang === "zh") return (h < 12 ? "上午" : h < 18 ? "下午" : "晚上") + (h % 12 || 12) + ":" + m;
     return (h % 12 || 12) + ":" + m + (h < 12 ? "am" : "pm");
   };
   const fmtRange = (s, e) => fmt12(s) + " - " + fmt12(e);
@@ -235,15 +235,18 @@
           <div class="time">${fmtRange(s.start, s.end)}${s.venue ? " &middot; " + L(s.venue) : ""}${s.emcee ? " &middot; " + u("emcee") + ": " + s.emcee : ""}</div>
         </div>
         <img class="gl" src="scenes/web/garland_lav.webp" alt="" decoding="async">
+        ${s.theme ? `<div class="theme-card rv"><img class="th-fl l" src="scenes/web/flw_09.webp" alt=""><img class="th-fl r" src="scenes/web/flw_03.webp" alt="">
+          <div class="th-lbl">${u("themeLabel")}</div><div class="th-txt">${L(s.theme)}</div>
+          ${s.verse ? `<div class="th-ref"><span>${u("verseLabel")}</span> ${L(s.verse.ref)}</div><p class="th-verse">${L(s.verse)}</p>${lang === "en" ? `<div class="niv">${W.nivNotice}</div>` : ""}` : ""}</div>` : ""}
         <ul class="agenda tl"><img class="tip" src="scenes/web/spark_y.webp" alt="">${rows}</ul>`;
     }).join("");
   }
 
   // scroll-linked effects for the agenda (words appear slowly, line draws, rows rise) and the home page (reveals + parallax)
-  let fxOff = null;
+  let fxOff = null, fxKick = null;
   function pageFx(name) {
     if (fxOff) fxOff();
-    if (name !== "agenda" && name !== "home") return;
+    if (name !== "agenda" && name !== "home" && name !== "lyrics" && name !== "fun") return;
     const still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const clamp01 = (x) => Math.max(0, Math.min(1, x));
     const lists = [...document.querySelectorAll("ul.agenda.tl")];
@@ -279,40 +282,56 @@
       });
     };
     let raf = 0;
+    const gls = [...document.querySelectorAll(".gl")];
+    const set = (el, k, v, eps) => { const c = el["_" + k]; if (c === undefined || Math.abs(c - v) > (eps || 0.004)) { el["_" + k] = v; el.style.setProperty("--" + k, v.toFixed(3)); } };
+    // reads and writes are batched (all layout reads first, then all style writes) so scrolling stays smooth on long pages like the evening reception
     const run = () => {
       raf = 0;
       const vh = window.innerHeight, target = vh * 0.66, y = window.scrollY;
       const focusBand = vh * 0.22; // half-height of the "lit" window around 50% viewport
-      lists.forEach((ul, vi) => {
-        const r = ul.getBoundingClientRect();
+      const reads = lists.map((ul) => ({ ul, r: ul.getBoundingClientRect(), lis: [...ul.children].filter((c) => c.tagName === "LI").map((li) => ({ li, rect: li.getBoundingClientRect() })) }));
+      const hr = heads.map((h) => h.getBoundingClientRect().top);
+      const sr = stk.map((h) => h.getBoundingClientRect().top);
+      const rvNow = [...document.querySelectorAll(".rv:not(.in)")];
+      const rvr = rvNow.map((el) => el.getBoundingClientRect().top);
+      const glr = gls.map((g) => g.getBoundingClientRect().top);
+      reads.forEach(({ ul, r, lis }, vi) => {
         const fh = Math.max(0, Math.min(r.height - 30, target - r.top - 20));
-        ul.style.setProperty("--fh", fh + "px");
-        const v = vines[vi];
-        if (v) {
-          v.grow.style.strokeDashoffset = (v.L * (1 - Math.min(1, fh / v.H))).toFixed(1);
-          v.leaves.forEach((l) => {
-            const s = still ? 1 : clamp01((fh - l.y + 4) / 70), e = 1 - Math.pow(1 - s, 3);
-            l.g.setAttribute("transform", `translate(${l.x.toFixed(1)} ${l.y}) rotate(${l.rot}) scale(${(l.side * l.sz * e).toFixed(3)} ${(l.sz * e).toFixed(3)})`);
-            l.g.style.opacity = e.toFixed(2);
-          });
-          if (v.tip) { v.tip.style.left = `calc(50% + ${v.fx(fh).toFixed(1)}px)`; v.tip.style.top = fh + "px"; }
+        if (r.bottom > -200 && r.top < vh + 200) {
+          ul.style.setProperty("--fh", fh.toFixed(1) + "px");
+          const v = vines[vi];
+          if (v) {
+            v.grow.style.strokeDashoffset = (v.L * (1 - Math.min(1, fh / v.H))).toFixed(1);
+            v.leaves.forEach((l) => {
+              const s = still ? 1 : clamp01((fh - l.y + 4) / 70), e = 1 - Math.pow(1 - s, 3);
+              if (l.e === undefined || Math.abs(l.e - e) > 0.004) {
+                l.e = e;
+                l.g.setAttribute("transform", `translate(${l.x.toFixed(1)} ${l.y}) rotate(${l.rot}) scale(${(l.side * l.sz * e).toFixed(3)} ${(l.sz * e).toFixed(3)})`);
+                l.g.style.opacity = e.toFixed(2);
+              }
+            });
+            if (v.tip) { v.tip.style.left = `calc(50% + ${v.fx(fh).toFixed(1)}px)`; v.tip.style.top = fh.toFixed(1) + "px"; }
+          }
         }
-        ul.querySelectorAll("li").forEach((li) => {
-          const rect = li.getBoundingClientRect();
-          const mid = rect.top + rect.height / 2;
-          const p = still ? 1 : clamp01((vh * 0.96 - rect.top) / (vh * 0.42));
-          // lit: peaks at 1 when item centre is at ~50% viewport, falls off within focusBand
-          const lit = still ? 1 : clamp01(1 - Math.abs(mid - vh * 0.5) / focusBand);
-          li.style.setProperty("--r", p.toFixed(3));
-          li.style.setProperty("--lit", lit.toFixed(3));
-          li.classList.toggle("in", p > 0.35);
-          li.classList.toggle("focus", lit > 0.35);
+        lis.forEach(({ li, rect }) => {
+          let p, lit;
+          if (still) { p = 1; lit = 1; }
+          else if (rect.bottom < -120) { p = 1; lit = 0; }          // already scrolled past: settled, nothing to update
+          else if (rect.top > vh + 120) { p = 0; lit = 0; }         // not reached yet
+          else {
+            p = clamp01((vh * 0.96 - rect.top) / (vh * 0.42));
+            lit = clamp01(1 - Math.abs(rect.top + rect.height / 2 - vh * 0.5) / focusBand);
+          }
+          set(li, "r", p); set(li, "lit", lit, 0.01);
+          const inn = p > 0.35, foc = lit > 0.35;
+          if (li._in !== inn) { li._in = inn; li.classList.toggle("in", inn); }
+          if (li._foc !== foc) { li._foc = foc; li.classList.toggle("focus", foc); }
         });
       });
-      heads.forEach((h) => h.style.setProperty("--r", (still ? 1 : clamp01((vh * 0.95 - h.getBoundingClientRect().top) / (vh * 0.35))).toFixed(3)));
-      stk.forEach((h) => { const r = h.getBoundingClientRect(); h.style.setProperty("--ty", ((r.top - vh / 2) * -0.07).toFixed(1) + "px"); });
-      rv.forEach((el) => { if (!el.classList.contains("in") && (still || el.getBoundingClientRect().top < vh * 0.92)) el.classList.add("in"); });
-      document.querySelectorAll(".gl").forEach((g) => g.style.setProperty("--sg", (still ? 1 : clamp01((vh * 0.92 - g.getBoundingClientRect().top) / (vh * 0.3))).toFixed(3)));
+      heads.forEach((h, k) => set(h, "r", still ? 1 : clamp01((vh * 0.95 - hr[k]) / (vh * 0.35))));
+      stk.forEach((h, k) => h.style.setProperty("--ty", ((sr[k] - vh / 2) * -0.07).toFixed(1) + "px"));
+      rvNow.forEach((el, k) => { if (still || rvr[k] < vh * 0.92) el.classList.add("in"); });
+      gls.forEach((g, k) => set(g, "sg", still ? 1 : clamp01((vh * 0.92 - glr[k]) / (vh * 0.3))));
       const ag = document.querySelector(".agfx");
       if (ag) ag.style.setProperty("--sy", y.toFixed(0));
       if (hero) {
@@ -322,8 +341,10 @@
       }
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(run); };
+    fxKick = onScroll;
     window.addEventListener("scroll", onScroll, { passive: true });
-    const onResize = () => { build(); onScroll(); };
+    let lastW = window.innerWidth;
+    const onResize = () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; build(); onScroll(); };
     window.addEventListener("resize", onResize);
     build();
     run();
@@ -360,7 +381,7 @@
     }
     const filled = t.intro.en || t.intro.zh || t.guests.length;
     const cls = ["tbl", filled ? "filled" : "", String(t.id) === String(selected) ? "sel" : "", hits.includes(String(t.id)) ? "hit" : ""].join(" ");
-    const label = main ? (lang === "zh" ? "ä¸»æ¡Œ" : "Main") : t.id;
+    const label = main ? (lang === "zh" ? "主桌" : "Main") : t.id;
     return `<g class="${cls}" data-table="${t.id}" role="button" tabindex="0" aria-label="${tableLabel(t)}">
       ${chairs}<circle class="top" cx="${x}" cy="${y}" r="${r}"/><text x="${x}" y="${y}" ${main ? 'style="font-size:14px"' : ""}>${label}</text></g>`;
   }
@@ -431,7 +452,7 @@
       <ul class="results" id="results"></ul>
       ${tableCard()}
       <div class="mapwrap" id="map">${floorSvg()}<div class="legend">${u("tapTable")}</div></div>
-      <div class="chips" id="chips">${W.tables.map((t) => `<button data-table="${t.id}" class="${String(t.id) === String(selected) ? "on" : ""}">${t.id === "main" ? (lang === "zh" ? "ä¸»æ¡Œ" : "Main") : t.id}</button>`).join("")}</div>`;
+      <div class="chips" id="chips">${W.tables.map((t) => `<button data-table="${t.id}" class="${String(t.id) === String(selected) ? "on" : ""}">${t.id === "main" ? (lang === "zh" ? "主桌" : "Main") : t.id}</button>`).join("")}</div>`;
   }
 
   function runSearch() {
@@ -486,7 +507,7 @@
          <div class="btns"><button class="btn fill" data-act="quiz-next">${quiz.i === Q.length - 1 ? u("finish") : u("next")}</button></div>` : "";
     return `<div class="card" id="quiz"><h2>${u("quizTitle")}${badge(q.sample)}</h2>
       <div class="progress"><i style="width:${(quiz.i / Q.length) * 100}%"></i></div>
-      <div class="muted small">${lang === "zh" ? u("question") + (quiz.i + 1) + "é¢˜ / " + Q.length : u("question") + " " + (quiz.i + 1) + " " + u("of") + " " + Q.length}</div>
+      <div class="muted small">${lang === "zh" ? u("question") + (quiz.i + 1) + "题 / " + Q.length : u("question") + " " + (quiz.i + 1) + " " + u("of") + " " + Q.length}</div>
       <h3 style="color:var(--ink);font-size:22px">${L(q.q)}</h3>${opts}${after}</div>`;
   }
 
@@ -536,6 +557,8 @@
     const on = new Set(bingo.on);
     return lineIdx().filter((l) => l.every((i) => on.has(i)));
   }
+  let bingoNew = -1;
+  const TILT = [-1.4, 1.1, -0.8, 1.3, -1.1, 0.9, -1.2, 1.4, -0.9];
   function bingoHtml() {
     if (W.bingo.length < N * N) return "";
     if (!bingo) initBingo(false);
@@ -553,17 +576,24 @@
         <div class="winhead">${u("bingoWin")}</div>
         ${bl ? `<p class="bless">${L(bl)}</p>` : ""}
         ${vs ? `<blockquote>${L(vs)}<cite>${L(vs.ref)}</cite></blockquote><div class="niv">${W.nivNotice}</div>` : ""}</div>` : "";
+    const fl = window.FLW || [0];
     const cells = bingo.cells.map((id, i) => {
-      const b = bItem(id);
-      return `<button data-act="bingo" data-i="${i}" data-type="${b.type}" class="${inLine.has(i) ? "line" : bingo.on.includes(i) ? "on" : ""}" aria-pressed="${bingo.on.includes(i)}"><span>${CUE_ICON[b.type] || ""}${L(b).replace("{hashtag}", W.couple.hashtag)}</span></button>`;
+      const b = bItem(id), on = bingo.on.includes(i);
+      const fid = String(fl[(i * 7 + 3) % fl.length]).padStart(2, "0");
+      const cls = ["bt", on ? "on" : "", inLine.has(i) ? "line" : "", bingoNew === i ? "new" : ""].join(" ");
+      return `<button type="button" data-act="bingo" data-i="${i}" data-type="${b.type}" class="${cls}" style="--tilt:${TILT[i % 9]}deg" aria-pressed="${on}"><span class="ico">${CUE_ICON[b.type] || ""}</span><span class="txt">${L(b).replace("{hashtag}", W.couple.hashtag)}</span>${on ? `<img class="stamp" src="scenes/web/flw_${fid}.webp" alt="">` : ""}</button>`;
     }).join("");
+    bingoNew = -1;
+    const confetti = win.length && !bingo.celebrated ? (bingo.celebrated = true, store.set("bingo", bingo), `<div class="confetti" aria-hidden="true">${Array.from({ length: 16 }, (_, k) => `<img src="scenes/web/flw_${String(fl[(k * 3) % fl.length]).padStart(2, "0")}.webp" alt="" style="left:${(k * 6.4 + 2) % 96}%;--d:${(1.8 + (k % 5) * 0.35).toFixed(2)}s;--dl:${((k % 7) * 0.12).toFixed(2)}s;--r:${(k % 2 ? 1 : -1) * (90 + k * 14)}deg">`).join("")}</div>`) : "";
+    const done = bingo.on.length;
     // a card can lose its win if a square is un-tapped, so only keep the blessing while the win stands
     const ups = bingo.on.map((i) => bItem(bingo.cells[i])).filter((b) => b.type === "photo" && uploadUrl(b.id));
     const upHtml = ups.length ? `<div class="lbl2" style="margin-top:14px">${u("uploadFor")}</div>` + ups.map((b) =>
       `<div class="uprow"><span>${L(b)}</span><a class="btn fill" href="${uploadUrl(b.id)}" target="_blank" rel="noopener">${u("upload")}</a></div>`).join("") : "";
-    return `<div class="card" id="bingo"><img class="stk" src="scenes/web/bfly_purple.webp" alt="" decoding="async"><h2>${u("bingoTitle")}</h2><div class="muted small">${u("bingoSub")}</div>
-      ${winHtml}
+    return `<div class="card bingo-card" id="bingo">${confetti}<img class="stk" src="scenes/web/bfly_purple.webp" alt="" decoding="async"><img class="bgl" src="scenes/web/garland_lav.webp" alt=""><h2>${u("bingoTitle")}</h2><div class="muted small">${u("bingoSub")}</div>
+      <div class="bprog"><div class="bar"><i style="width:${(done / (N * N)) * 100}%"></i></div><span>${done} / ${N * N}</span></div>
       <div class="legend2">${legendHtml()}</div>
+      ${winHtml}
       <div class="bingo">${cells}</div>${upHtml}
       <div class="btns"><button class="btn" data-act="bingo-new">${u("shuffle")}</button></div></div>`;
   }
@@ -753,21 +783,22 @@
   let lyricsIdx = 0;
   const lyricsCache = {};
   const CJK = /[\u3400-\u9fff\uf900-\ufaff]/, LATIN = /[A-Za-z]/;
-  const SECTION = /^(pre-?chorus|chorus|verse|bridge|outro|intro|tag|chapter|interlude|ending)\b[\s\d:ï¼š]*$/i;
+  const SECTION = /^(pre-?chorus|chorus|verse|bridge|outro|intro|tag|chapter|interlude|ending)\b[\s\d:：]*$/i;
   const esc = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
   function parseLyrics(txt) {
     const lines = txt.replace(/^\uFEFF/, "").split(/\r?\n|\u000b/).map((l) => l.trim());
-    let out = "", open = false, titleDropped = false, blank = false;
+    let out = "", open = false, titleDropped = false, blank = false, secN = 0;
     const close = () => { if (open) out += "</div>"; open = false; };
     for (const line of lines) {
       if (!line) { blank = true; continue; }
       if (SECTION.test(line)) {
         close(); titleDropped = true;
-        out += `<div class="sec">${esc(line.replace(/[:ï¼š]\s*$/, ""))}</div><div class="stanza">`; open = true; continue;
+        const fl = window.FLW || [0], fid = fl[(secN++ * 7 + 4) % fl.length];
+        out += `<div class="sec rv"><img class="sf" src="scenes/web/flw_${String(fid).padStart(2, "0")}.webp" alt="">${esc(line.replace(/[:：]\s*$/, ""))}</div><div class="stanza rv">`; open = true; continue;
       }
       if (!titleDropped) { titleDropped = true; continue; } // first line of the file is the song title
-      if (!open) { out += '<div class="stanza">'; open = true; }
+      if (!open) { out += '<div class="stanza rv">'; open = true; }
       let zh = "", en = "";
       if (CJK.test(line) && LATIN.test(line)) {
         const m = line.match(/^(.*?[\u3400-\u9fff\uf900-\ufaff][^A-Za-z]*?)\s+([A-Za-z].*)$/);
@@ -793,12 +824,17 @@
     setTimeout(() => {
       loadLyrics(i).then((html) => {
         const el = document.getElementById("lyrics-body");
-        if (el && lyricsIdx === i) el.innerHTML = html || `<p class="soon">${u("lyricsMissing")}</p>`;
+        if (el && lyricsIdx === i) { el.innerHTML = html || `<p class="soon">${u("lyricsMissing")}</p>`; if (fxKick) setTimeout(fxKick, 30); }
       });
     }, 0);
-    return `<div class="session-head"><h2>${u("lyricsTitle")}</h2><div class="time">${u("lyricsSub")}</div></div><img class="gar" src="scenes/web/garland_lav.webp" alt="" decoding="async">
-      <div class="seg" role="tablist">${W.lyrics.map((s, n) => `<button role="tab" aria-selected="${n === i}" class="${n === i ? "on" : ""}" data-act="lyric-tab" data-i="${n}">${L(s.short || s.title)}</button>`).join("")}</div>
-      <div class="card lyr"><h2>${L(W.lyrics[i].title)}</h2><div class="muted small">${W.lyrics[i].by}</div><div id="lyrics-body" style="margin-top:12px"><span class="muted small">...</span></div></div>`;
+    const ly = W.lyrics[i];
+    const bg = `<div class="agfx" aria-hidden="true"><img class="f1" src="scenes/web/bfly_purple.webp" alt=""><img class="f2" src="scenes/web/bfly_blue.webp" alt=""><img class="f3" src="scenes/web/dove_a.webp" alt=""></div>`;
+    return `${bg}<div class="session-head"><img class="stk" src="scenes/web/lavender2.webp" alt="" decoding="async"><h2>${u("lyricsTitle")}</h2><div class="time">${u("lyricsSub")}</div></div><img class="gl" src="scenes/web/garland_lav.webp" alt="" decoding="async" style="--sg:1">
+      <div class="seg songs" role="tablist">${W.lyrics.map((s, n) => `<button role="tab" aria-selected="${n === i}" class="${n === i ? "on" : ""}" data-act="lyric-tab" data-i="${n}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>${L(s.short || s.title)}</button>`).join("")}</div>
+      <div class="card lyr"><img class="lc a" src="scenes/web/corner_tl.webp" alt=""><img class="lc b" src="scenes/web/corner_tr.webp" alt="">
+        <div class="ly-top"><div class="ly-ico" aria-hidden="true">&#9834;</div><h2>${L(ly.title)}</h2><div class="ly-by">${ly.by}</div><img class="ly-gl" src="scenes/web/garland_pink.webp" alt=""></div>
+        <div id="lyrics-body"><span class="muted small">...</span></div>
+        <img class="ly-end" src="scenes/web/bouquet_lav.webp" alt=""></div>`;
   }
 
   /* ---------------- calendar file ---------------- */
@@ -869,7 +905,7 @@
     document.body.classList.remove("in-story");
     window.Story.hide();
     appEl.hidden = false;
-    document.title = lang === "zh" ? "Min Zheng & Janice å©šç¤¼ - 2026å¹´11æœˆ28æ—¥" : "Min Zheng & Janice - 28 Nov 2026";
+    document.title = lang === "zh" ? "Min Zheng & Janice 婚礼 - 2026年11月28日" : "Min Zheng & Janice - 28 Nov 2026";
     document.querySelectorAll(".lang button").forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
     document.getElementById("tabs").innerHTML = TABS.map((t) =>
       `<a href="#${t}" class="${t === name ? "on" : ""}" ${t === name ? 'aria-current="page"' : ""}><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[t]}</svg>${u(t)}</a>`).join("");
@@ -931,6 +967,8 @@
     } else if (act === "bingo") {
       const i = +el.dataset.i, k = bingo.on.indexOf(i);
       k >= 0 ? bingo.on.splice(k, 1) : bingo.on.push(i);
+      bingoNew = k < 0 ? i : -1;
+      if (!bingoLines().length) bingo.celebrated = false;
       store.set("bingo", bingo);
       if (k < 0) {
         const p = prog(); p.done[bingo.cells[i]] = true;
@@ -949,7 +987,7 @@
       const r = el.getBoundingClientRect();
       for (let i = 0; i < 5; i++) {
         const h = document.createElement("span");
-        h.className = "heart"; h.textContent = ["â¤", "ðŸ’•", "ðŸ¤"][i % 3];
+        h.className = "heart"; h.textContent = ["❤", "💕", "🤍"][i % 3];
         h.style.left = r.left + Math.random() * r.width + "px";
         h.style.top = r.top + "px";
         h.style.animationDelay = i * 0.08 + "s";
