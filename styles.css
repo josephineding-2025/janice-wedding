@@ -517,3 +517,53 @@ html[lang="zh-Hans"] .storycard b { font: 700 19px/1.2 "Noto Serif SC", serif; }
 .session-head h2, .session-head .time { opacity: var(--r, 0); transform: translateY(calc((1 - var(--r, 0)) * 26px)); filter: blur(calc((1 - var(--r, 0)) * 4px)); transition: none; }
 .break b, .ag-break { opacity: calc(.15 + var(--r, 0) * .85); }
 @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } .session-head h2, .session-head .time { opacity: 1; filter: none; transform: none; } }
+
+/* ============ agenda, beautified (soft lavender glow, cards fly in from their side, blooming flowers on the spine) ============ */
+ul.agenda.tl::before { opacity: .55; background: linear-gradient(#cfc3f3, #b9cdf2 60%, #e8d3df); width: 2px; }
+ul.agenda.tl::after { width: 3px; background: linear-gradient(#d9c6ff, #a692ef 55%, #7ea4ea); box-shadow: 0 0 12px 2px rgba(150, 130, 235, .5); }
+ul.agenda.tl .tip { position: absolute; left: 50%; top: var(--fh, 0px); width: 38px; height: 38px; margin: -19px 0 0 -19px; z-index: 4; pointer-events: none; mix-blend-mode: multiply; animation: twinkle 2.4s ease-in-out infinite; filter: drop-shadow(0 0 7px rgba(255, 214, 90, .9)); }
+:root[data-mode="night"] ul.agenda.tl .tip { mix-blend-mode: screen; }
+ul.agenda.tl li { transform: none; opacity: 1; }
+ul.agenda.tl li.past { opacity: .55; }
+ul.agenda.tl .ag-card { position: relative; border-radius: 14px; padding: 13px 14px 11px; background: linear-gradient(160deg, var(--paper), color-mix(in srgb, var(--accent-soft) 55%, var(--paper))); border: 1px solid color-mix(in srgb, var(--accent) calc(var(--lit) * 55%), var(--line));
+  box-shadow: 0 6px 16px rgba(70, 60, 130, calc(.08 + var(--lit) * .1)), 0 0 calc(var(--lit) * 20px) calc(var(--lit) * 3px) rgba(165, 145, 240, calc(var(--lit) * .45));
+  opacity: clamp(0, calc(var(--r, 0) * 2.2), 1); transform: translateX(calc((1 - var(--r, 0)) * var(--fly, -46px))) rotate(calc((1 - var(--r, 0)) * var(--tilt, -3deg))) scale(calc(.94 + var(--r, 0) * .06 + var(--lit, 0) * .035)); filter: blur(calc((1 - var(--r, 0)) * 4px)); transition: border-color .3s, box-shadow .3s; }
+ul.agenda.tl li.side-l .ag-card { --fly: -46px; --tilt: -3deg; }
+ul.agenda.tl li.side-r .ag-card { --fly: 46px; --tilt: 3deg; }
+ul.agenda.tl .ag-card::before { content: ""; position: absolute; top: -7px; width: 38px; height: 13px; background: rgba(205, 192, 240, .68); box-shadow: 0 1px 2px rgba(70, 60, 110, .18); background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, .4) 0 3px, transparent 3px 7px); }
+ul.agenda.tl li.side-l .ag-card::before { right: 14px; transform: rotate(4deg); }
+ul.agenda.tl li.side-r .ag-card::before { left: 14px; transform: rotate(-4deg); background-color: rgba(185, 205, 242, .7); }
+ul.agenda.tl .ag-title { font-size: 14.5px; color: color-mix(in srgb, var(--accent) calc(var(--lit) * 85%), var(--ink)); }
+ul.agenda.tl .stamp { display: inline-block; margin-top: 7px; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font: 700 11px var(--sans); letter-spacing: .06em; opacity: clamp(0, calc(var(--r, 0) * 2 - .5), 1); }
+ul.agenda.tl .who, ul.agenda.tl .songs { opacity: clamp(0, calc(var(--r, 0) * 2 - .4), 1); }
+ul.agenda.tl .ag-dot { opacity: 0; }
+ul.agenda.tl li.now .ag-dot { opacity: 1; }
+.bud { position: absolute; left: calc(50% - 15px); top: calc(50% - 22px); width: 30px; height: auto; z-index: 3; transform-origin: 50% 100%; transform: scale(calc(.15 + var(--r, 0) * .85 + var(--lit, 0) * .25)) rotate(calc((1 - var(--r, 0)) * var(--rot, -10deg) * 5)); opacity: var(--r, 0); filter: drop-shadow(1px 2px 2px rgba(70, 60, 110, .3)) drop-shadow(0 0 calc(var(--lit, 0) * 9px) rgba(255, 214, 90, .95)); pointer-events: none; transition: filter .3s; }
+ul.agenda.tl li.in .bud { animation: budsway 5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -.7s); }
+@keyframes budsway { 0%, 100% { rotate: -5deg; } 50% { rotate: 5deg; } }
+.gl { display: block; width: 60%; margin: 0 0 6px 2px; height: auto; clip-path: inset(0 calc((1 - var(--sg, 0)) * 100%) 0 0); filter: drop-shadow(1px 2px 3px rgba(70, 60, 110, .2)); }
+.session-head { margin-top: 22px; }
+.agfx { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.agfx img { position: absolute; height: auto; mix-blend-mode: multiply; opacity: .7; }
+.agfx .f1 { width: 32px; left: 5%; top: calc(34% - var(--sy, 0) * .06px); animation: floaty 6s ease-in-out infinite; }
+.agfx .f2 { width: 28px; right: 5%; top: calc(62% - var(--sy, 0) * .1px); animation: floaty 7.5s ease-in-out infinite; animation-delay: -2s; }
+.agfx .f3 { width: 52px; right: 12%; top: calc(16% - var(--sy, 0) * .04px); animation: dovefly 11s ease-in-out infinite; }
+:root[data-mode="night"] .agfx img { mix-blend-mode: screen; opacity: .5; }
+.ag-break { padding: 20px 18px 26px; margin: 8px 0; border: 1px dashed var(--line); border-radius: 18px; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent-soft) 55%, transparent)); }
+.ag-break b { font: 400 30px/1.1 var(--script); color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { ul.agenda.tl .ag-card { transform: none; filter: none; opacity: 1; } .bud, ul.agenda.tl .tip, .agfx img { animation: none; } .gl { clip-path: none; } .bud { opacity: 1; transform: none; } }
+
+/* ============ the agenda spine is now a vine that grows down the page ============ */
+:root { --leaf: #bfd8c6; --leafink: #5d7d6a; --vine: #7fa58d; }
+:root[data-mode="night"] { --leaf: #4d7a63; --leafink: #a9d7bb; --vine: #8fcfae; }
+ul.agenda.tl::before, ul.agenda.tl::after { display: none; }
+ul.agenda.tl .vine { position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; overflow: visible; }
+.vine .vt { fill: none; stroke: color-mix(in srgb, var(--vine) 35%, transparent); stroke-width: 1.4; stroke-dasharray: 3 5; }
+.vine .vg { fill: none; stroke: var(--vine); stroke-width: 3.2; stroke-linecap: round; filter: drop-shadow(0 1px 1px rgba(60, 80, 70, .25)); }
+.vine .lfp { fill: var(--leaf); stroke: var(--leafink); stroke-width: .9; stroke-linejoin: round; }
+.vine .lfr { fill: none; stroke: var(--leafink); stroke-width: .6; opacity: .55; }
+.vine .cl { fill: none; stroke: var(--vine); stroke-width: 1.4; stroke-linecap: round; }
+.vine g { opacity: 0; }
+ul.agenda.tl .tip { left: 50%; margin-left: -19px; }
+.bud { left: calc(50% - 17px + var(--vx, 0px)); width: 34px; top: calc(50% - 27px); }
+ul.agenda.tl .ag-dot { left: calc(50% - 5.5px + var(--vx, 0px)); }

@@ -205,7 +205,8 @@
     const now = myNow();
     const onDay = now.date === W.date;
     let globalIdx = 0; // alternates left/right across all sessions
-    return W.agenda.map((s) => {
+    const bg = `<div class="agfx" aria-hidden="true"><img class="f1" src="scenes/web/bfly_blue.webp" alt=""><img class="f2" src="scenes/web/bfly_pink.webp" alt=""><img class="f3" src="scenes/web/dove_c.webp" alt=""></div>`;
+    return bg + W.agenda.map((s) => {
       const sLive = onDay && now.min >= toMin(s.start) && now.min < toMin(s.end);
       if (s.isBreak) {
         return `<div class="break ag-break"><img class="stk lamp" src="scenes/web/lantern2.webp" alt="" decoding="async"><b>${L(s.title)}</b>${L(s.note)}</div>`;
@@ -222,16 +223,19 @@
         if (timed && idx === current && sLive) cls.push("now");
         const timeLabel = timed ? `<span class="stamp">${fmt12(i.time)}</span>` : "";
         const songs = (i.songs || []).map((x, n) => `<a class="songs" href="#lyrics/${n}">&#9834; ${x}</a>`).join("");
-        const desc = i.d ? `<div class="d">${L(i.d)}</div>` : "";
+        const desc = i.d ? `<div class="d">${words(L(i.d), 3)}</div>` : "";
         const who = i.who ? `<div class="who">${i.who}</div>` : "";
-        return `<li class="${cls.join(" ")}" style="--i:${idx}"><div class="ag-card"><div class="ag-title">${L(i.t)}</div>${desc}${who}${songs}${timeLabel}</div><div class="ag-dot" aria-hidden="true"></div></li>`;
+        const flw = window.FLW || [0], fn = flw[(globalIdx * 5 + (s.id === "evening" ? 11 : 2)) % flw.length];
+        const bud = `<img class="bud" src="scenes/web/flw_${String(fn).padStart(2, "0")}.webp" alt="" style="--rot:${(globalIdx % 2 ? 1 : -1) * (8 + (globalIdx * 7) % 14)}deg">`;
+        return `<li class="${cls.join(" ")}" style="--i:${idx}"><div class="ag-card"><div class="ag-title">${words(L(i.t))}</div>${desc}${who}${songs}${timeLabel}</div><div class="ag-dot" aria-hidden="true"></div>${bud}</li>`;
       }).join("");
       return `
         <div class="session-head">${STK[s.id] ? `<img class="stk" src="scenes/web/${STK[s.id]}.webp" alt="" decoding="async">` : ""}
           <h2>${L(s.title)}${sLive ? `<span class="live">${u("live")}</span>` : ""}</h2>
           <div class="time">${fmtRange(s.start, s.end)}${s.venue ? " &middot; " + L(s.venue) : ""}${s.emcee ? " &middot; " + u("emcee") + ": " + s.emcee : ""}</div>
         </div>
-        <ul class="agenda tl">${rows}</ul>`;
+        <img class="gl" src="scenes/web/garland_lav.webp" alt="" decoding="async">
+        <ul class="agenda tl"><img class="tip" src="scenes/web/spark_y.webp" alt="">${rows}</ul>`;
     }).join("");
   }
 
@@ -247,14 +251,52 @@
     const stk = [...document.querySelectorAll(".session-head .stk, .break .stk")];
     const rv = [...document.querySelectorAll(".rv")];
     const hero = document.querySelector(".hero");
+    // a vine that grows down the agenda: a wavy stem that draws itself as you scroll, with leaves sprouting along it and tendrils
+    const NS = "http://www.w3.org/2000/svg", mk = (n, at) => { const e = document.createElementNS(NS, n); Object.keys(at || {}).forEach((k) => e.setAttribute(k, at[k])); return e; };
+    const LEAF = "M0 0 Q9 -13 22 -6 Q12 6 0 0Z", RIB = "M1 0 Q10 -4 18 -5", CURL = "M0 0 c7 -2 12 5 7 10 c-4 4 -10 0 -7 -5";
+    let vines = [];
+    const build = () => {
+      vines = lists.map((ul) => {
+        const old = ul.querySelector(":scope > svg.vine"); if (old) old.remove();
+        const W = ul.clientWidth, H = ul.scrollHeight, A = 7;
+        const fx = (y) => A * Math.sin(y / 38) + A * 0.45 * Math.sin(y / 17 + 1);
+        const svg = mk("svg", { class: "vine", width: W, height: H, viewBox: `0 0 ${W} ${H}`, "aria-hidden": "true" });
+        let d = ""; for (let y = 0; y <= H; y += 8) d += (y ? " L" : "M") + (W / 2 + fx(y)).toFixed(1) + " " + y;
+        svg.appendChild(mk("path", { class: "vt", d }));
+        const grow = mk("path", { class: "vg", d }); svg.appendChild(grow);
+        const L = grow.getTotalLength(); grow.style.strokeDasharray = L; grow.style.strokeDashoffset = L;
+        const leaves = [];
+        for (let y = 26, k = 0; y < H - 8; y += 40, k++) {
+          const side = k % 2 ? 1 : -1, x = W / 2 + fx(y), rot = side * (-28 - ((k * 37) % 26)), sz = 0.8 + ((k * 13) % 5) / 10;
+          const g = mk("g"), lf = mk("path", { class: "lfp", d: LEAF }), rb = mk("path", { class: "lfr", d: RIB });
+          g.appendChild(lf); g.appendChild(rb);
+          if (k % 3 === 2) g.appendChild(mk("path", { class: "cl", d: CURL, transform: "translate(18 -4) rotate(" + (side * 20) + ")" }));
+          svg.appendChild(g); leaves.push({ g, x, y, side, rot, sz });
+        }
+        ul.insertBefore(svg, ul.firstChild);
+        ul.querySelectorAll("li").forEach((li) => { const cy = li.offsetTop + li.offsetHeight / 2; li.style.setProperty("--vx", fx(cy).toFixed(1) + "px"); });
+        return { ul, grow, L, H, W, fx, leaves, tip: ul.querySelector(":scope > img.tip") };
+      });
+    };
     let raf = 0;
     const run = () => {
       raf = 0;
       const vh = window.innerHeight, target = vh * 0.66, y = window.scrollY;
       const focusBand = vh * 0.22; // half-height of the "lit" window around 50% viewport
-      lists.forEach((ul) => {
+      lists.forEach((ul, vi) => {
         const r = ul.getBoundingClientRect();
-        ul.style.setProperty("--fh", Math.max(0, Math.min(r.height - 30, target - r.top - 20)) + "px");
+        const fh = Math.max(0, Math.min(r.height - 30, target - r.top - 20));
+        ul.style.setProperty("--fh", fh + "px");
+        const v = vines[vi];
+        if (v) {
+          v.grow.style.strokeDashoffset = (v.L * (1 - Math.min(1, fh / v.H))).toFixed(1);
+          v.leaves.forEach((l) => {
+            const s = still ? 1 : clamp01((fh - l.y + 4) / 70), e = 1 - Math.pow(1 - s, 3);
+            l.g.setAttribute("transform", `translate(${l.x.toFixed(1)} ${l.y}) rotate(${l.rot}) scale(${(l.side * l.sz * e).toFixed(3)} ${(l.sz * e).toFixed(3)})`);
+            l.g.style.opacity = e.toFixed(2);
+          });
+          if (v.tip) { v.tip.style.left = `calc(50% + ${v.fx(fh).toFixed(1)}px)`; v.tip.style.top = fh + "px"; }
+        }
         ul.querySelectorAll("li").forEach((li) => {
           const rect = li.getBoundingClientRect();
           const mid = rect.top + rect.height / 2;
@@ -270,6 +312,9 @@
       heads.forEach((h) => h.style.setProperty("--r", (still ? 1 : clamp01((vh * 0.95 - h.getBoundingClientRect().top) / (vh * 0.35))).toFixed(3)));
       stk.forEach((h) => { const r = h.getBoundingClientRect(); h.style.setProperty("--ty", ((r.top - vh / 2) * -0.07).toFixed(1) + "px"); });
       rv.forEach((el) => { if (!el.classList.contains("in") && (still || el.getBoundingClientRect().top < vh * 0.92)) el.classList.add("in"); });
+      document.querySelectorAll(".gl").forEach((g) => g.style.setProperty("--sg", (still ? 1 : clamp01((vh * 0.92 - g.getBoundingClientRect().top) / (vh * 0.3))).toFixed(3)));
+      const ag = document.querySelector(".agfx");
+      if (ag) ag.style.setProperty("--sy", y.toFixed(0));
       if (hero) {
         hero.style.setProperty("--py", (-y * 0.16).toFixed(1) + "px");
         hero.style.setProperty("--pm", (y * 0.1).toFixed(1) + "px");
@@ -278,9 +323,13 @@
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(run); };
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    const onResize = () => { build(); onScroll(); };
+    window.addEventListener("resize", onResize);
+    build();
     run();
-    fxOff = () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); if (raf) cancelAnimationFrame(raf); fxOff = null; };
+    setTimeout(() => { build(); run(); }, 700); // once fonts and sticker images have settled
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { build(); run(); });
+    fxOff = () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onResize); if (raf) cancelAnimationFrame(raf); fxOff = null; };
   }
 
   /* ---------- Seats ---------- */
