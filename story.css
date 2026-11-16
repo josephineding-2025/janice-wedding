@@ -315,3 +315,7 @@ html[lang="zh-Hans"] .cap h2, html[lang="zh-Hans"] .cover h1 { font-family: "Not
 .deco.big .p-s1 { bottom: 36px; left: 28%; width: 9%; } .deco.big .p-s2 { bottom: 36px; right: 28%; width: 10%; }
 .deco .dtl, .deco .dtr, .deco .dbl, .deco .dbr, .deco .dlv, .deco .ddy { display: none; }
 .deco.big { --e: calc(1 - clamp(0, calc((var(--p) - .25) / .35), 1)); }
+/* USA: the walking couple pass in front of the title and caption, fully visible (nothing clips their heads) */
+.walker { overflow: visible; bottom: calc(11svh + env(safe-area-inset-bottom)); height: min(215px, 28svh); z-index: 6; }
+.walker img { bottom: 0; }
+.imgc[data-id="usa"] .cap { z-index: 4; }

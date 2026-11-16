@@ -342,11 +342,12 @@
       L("wave2", -6, 8, 50, { blend: 1, cls: "drift" }), L("crest1", 8, 3, 13, { blend: 1 }),
       L("compass", 80, 7, 14, { cls: "spin" }), L("bfly_blue2", 70, 70, 6, { blend: 1, cls: "float" }),
     ] },
-    // the new painting of the key hand-over; the key also arcs across between them
-    keys: { layers: [
-      L("key_fob", 38, 54, 9, { fx: `transform:translate(calc(${S(0.3, 0.85)} * 260%), calc((1 - (2 * ${S(0.3, 0.85)} - 1) * (2 * ${S(0.3, 0.85)} - 1)) * -70px)) rotate(calc(${S(0.3, 0.85)} * 20deg));opacity:calc(${S(0.25, 0.35)} * (1 - ${S(0.86, 0.95)}))` }),
-      L("prop", 60, 90, 22, { fx: `transform:translateX(calc(${S(0.5, 1)} * -420% + 40%));opacity:${S(0.5, 0.6)}` }),
-      spark("spark_y", 46, 66, 9), spark("spark_b", 70, 80, 8, "b"),
+    // the car painting; the key hand-over couple stands at the right side of the car, and the key arcs over the car
+    keys: { view: [60, 0, 1340, 1102], fullCoords: 1, layers: [
+      ...FIGL("keys", 53, 1, 34, { fx: FX.rise(36, 0.04, 0.38) }),
+      L("key_fob", 68, 44, 7, { fx: `transform:translate(calc(${S(0.55, 0.92)} * -720%), calc((1 - (2 * ${S(0.55, 0.92)} - 1) * (2 * ${S(0.55, 0.92)} - 1)) * -90px)) rotate(calc(${S(0.55, 0.92)} * -24deg));opacity:calc(${S(0.5, 0.58)} * (1 - ${S(0.93, 0.98)}))` }),
+      L("prop", 62, 90, 20, { fx: `transform:translateX(calc(${S(0.5, 1)} * -460% + 40%));opacity:${S(0.5, 0.6)}` }),
+      spark("spark_y", 30, 66, 8), spark("spark_b", 52, 80, 7, "b"),
     ] },
     // the couple really travel: they walk the whole width of the scene from left to right as you scroll, with a walking bob
     usa: { view: [420, 0, 1320, 770], fullCoords: 1, scale: 1.02, layers: [
@@ -385,7 +386,8 @@
     ] },
     // walk the wedding couple up the aisle (needs fig_wedding.webp)
     wedding: { zoom: { o: "50% 46%", k: 0.5 }, layers: [
-      ...FIGL("wedding", 32, 1, 36, { fx: `transform-origin:50% 100%;transform:translateY(calc(${S(0.05, 0.92)} * -92%)) translateY(var(--bob, 0px)) scale(calc(1 - ${S(0.05, 0.92)} * 0.6)) rotate(var(--sway, 0deg));opacity:${S(0, 0.08)}` }),
+      // a smooth, eased glide (no walking bob) that ends with the couple standing on the carpet in front of the arch
+      ...FIGL("wedding", 32, 1, 36, { fx: `transform-origin:50% 100%;transform:translateY(calc(calc(${S(0.05, 0.92)} * ${S(0.05, 0.92)} * (3 - 2 * ${S(0.05, 0.92)})) * -77%)) scale(calc(1 - calc(${S(0.05, 0.92)} * ${S(0.05, 0.92)} * (3 - 2 * ${S(0.05, 0.92)})) * 0.5));opacity:${S(0, 0.08)}` }),
       L("dove_a", 2, 78, 14, { blend: 1, fx: across(180, -20) }),
       L("dove_e", 82, 84, 12, { blend: 1, fx: across(-150, 30) }),
       L("bfly_purple", 70, 50, 6, { blend: 1, cls: "float b" }),
@@ -414,11 +416,6 @@
     return `<div class="scene img" data-ar="${cw / ch}" style="--ar:${cw / ch}"><div class="stack" style="${z}"><div class="crop"><img class="bg" src="${W.sceneImages[id]}" alt="" decoding="async" loading="${cover ? "eager" : "lazy"}" style="${bgStyle}"></div>${layers}${route}</div></div>`;
   }
   // walking bob for the travelling couple: two steps for every little bit of scrolling, so they only "walk" while you scroll
-  HOOKS.wedding_img = (p, root) => {
-    const ph = p * 36;
-    root.style.setProperty("--bob", (-Math.abs(Math.sin(ph)) * 3).toFixed(1) + "px");
-    root.style.setProperty("--sway", (Math.sin(ph) * 0.8).toFixed(2) + "deg");
-  };
   HOOKS.usa_img = (p, root) => {
     const ph = p * 46;
     root.style.setProperty("--bob", (-Math.abs(Math.sin(ph)) * 7).toFixed(1) + "px");
