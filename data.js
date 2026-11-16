@@ -127,7 +127,7 @@ window.WEDDING = {
 
   // ---- Shared features backend (leaderboard, song requests, wish garden). See backend/README.txt ----
   // Paste the Google Apps Script web app URL here. Leave "" to keep these features switched off.
-  api: { url: "" },
+  api: { url: "https://script.google.com/macros/s/AKfycbytLMPei1WuGWM8BtS5S9SG9b7npjSzJ5MPVl8YrFrVNbxfkgM4YaPeTNCP9INyANNE/exec" },
 
   // ---- Agenda ----
   // Items with a `time` get highlighted live on the wedding day.
