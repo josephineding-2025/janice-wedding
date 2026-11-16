@@ -1,12 +1,12 @@
 /* ---------- Scroll story ---------- */
-#story { background: #fffdfb; font-family: "Times New Roman", Times, "Noto Serif SC", serif; color: #2d2b38; }
+#story { background: #fffdfb; font-family: "Montserrat", "Noto Sans SC", system-ui, sans-serif; color: #2d2b38; }
 #story[hidden] { display: none; }
-.sk, #story text { font-family: "Great Vibes", cursive; }
+.sk, #story text { font-family: "Brittany Signature", "Allura", cursive; }
 
 .story-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 20; padding: calc(8px + env(safe-area-inset-top)) 12px 0; pointer-events: none; }
 .bar-fill { height: 1.5px; background: #2d2b38; transform-origin: 0 50%; transform: scaleX(0); }
 .bar-ctl { display: flex; justify-content: flex-end; align-items: center; gap: 6px; margin-top: 8px; pointer-events: auto; }
-.bar-ctl button { border: 0; background: rgba(255, 255, 255, .7); color: #6b6880; font: 13px "Times New Roman", serif; border: 1px solid #e0dcee; padding: 4px 10px; border-radius: 999px; }
+.bar-ctl button { border: 0; background: rgba(255, 255, 255, .7); color: #6b6880; font: 13px "Montserrat", "Noto Sans SC", system-ui, sans-serif; border: 1px solid #e0dcee; padding: 4px 10px; border-radius: 999px; }
 .bar-ctl button.on { background: #2d2b38; color: #fff; border-color: #2d2b38; }
 .bar-ctl .skip { background: none; border: 0; opacity: .45; text-decoration: underline; padding: 4px 6px; font-size: 12px; }
 
@@ -15,24 +15,24 @@
 .chap .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; flex-direction: column; }
 .scene { flex: 0 0 62%; width: 100%; min-height: 0; margin-top: 34px; }
 .cap { flex: 1; padding: 6px 24px calc(20px + env(safe-area-inset-bottom)); max-width: 520px; margin: 0 auto; text-align: center; opacity: clamp(0, calc(var(--p) * 8), 1); transform: translateY(calc((1 - clamp(0, calc(var(--p) * 8), 1)) * 16px)); }
-.cap .num { font: italic 14px "Times New Roman", serif; letter-spacing: .12em; color: #8a87a0; }
-.cap h2 { font: 400 50px/1.05 "Great Vibes", cursive; color: #2d2b38; margin: 2px 0 6px; }
+.cap .num { font: italic 14px "Montserrat", "Noto Sans SC", system-ui, sans-serif; letter-spacing: .12em; color: #8a87a0; }
+.cap h2 { font: 400 50px/1.05 "Brittany Signature", "Allura", cursive; color: #2d2b38; margin: 2px 0 6px; }
 html[lang="zh-Hans"] .cap h2 { font-family: "Noto Serif SC", serif; font-weight: 600; font-size: 28px; letter-spacing: .08em; }
 .cap p { margin: 0; font-size: 17.5px; line-height: 1.5; color: #46435a; }
 
 .cover .scene { position: absolute; left: 0; right: 0; bottom: 34px; height: 80%; margin: 0; }
 .cover .cap { position: relative; z-index: 2; flex: none; margin-top: calc(48px + env(safe-area-inset-top)); opacity: 1; transform: none; }
-.cover .eyebrow { font: 14px "Times New Roman", serif; letter-spacing: .3em; text-transform: uppercase; color: #7a7790; }
-.cover h1 { font: 400 66px/1 "Great Vibes", cursive; color: #2d2b38; margin: 10px 0 6px; }
+.cover .eyebrow { font: 14px "Montserrat", "Noto Sans SC", system-ui, sans-serif; letter-spacing: .3em; text-transform: uppercase; color: #7a7790; }
+.cover h1 { font: 400 66px/1 "Brittany Signature", "Allura", cursive; color: #2d2b38; margin: 10px 0 6px; }
 .cover h1 i { color: #8b86c9; font-style: normal; }
 html[lang="zh-Hans"] .cover h1 { font-family: "Noto Serif SC", serif; font-weight: 600; font-size: 38px; letter-spacing: .06em; }
 .cover .cap p { font-size: 17px; font-style: italic; color: #6b6880; }
-.scrollcue { position: absolute; bottom: calc(14px + env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; font: 13px "Times New Roman", serif; letter-spacing: .3em; text-transform: uppercase; color: #2d2b38; z-index: 3; opacity: calc(1 - var(--p) * 6); }
+.scrollcue { position: absolute; bottom: calc(14px + env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; font: 13px "Montserrat", "Noto Sans SC", system-ui, sans-serif; letter-spacing: .3em; text-transform: uppercase; color: #2d2b38; z-index: 3; opacity: calc(1 - var(--p) * 6); }
 .scrollcue span { display: block; margin: 0 auto 4px; width: 2px; height: 22px; background: #2d2b38; border-radius: 1px; transform-origin: top; animation: cue 1.6s ease-in-out infinite; }
 @keyframes cue { 0%, 100% { transform: scaleY(.3); opacity: .4; } 50% { transform: scaleY(1); opacity: 1; } }
 
-.enter { margin-top: 14px; border: 1px solid #2d2b38; background: #2d2b38; color: #fff; font: 500 15px "Times New Roman", serif; letter-spacing: .14em; text-transform: uppercase; padding: 13px 30px; border-radius: 999px; opacity: clamp(0, calc((var(--p) - .8) * 8), 1); pointer-events: none; }
-.chap.on .enter { margin-top: 14px; border: 1px solid #2d2b38; background: #2d2b38; color: #fff; font: 500 15px "Times New Roman", serif; letter-spacing: .14em; text-transform: uppercase; padding: 13px 30px; border-radius: 999px; opacity: clamp(0, calc((var(--p) - .8) * 8), 1); pointer-events: none; }
+.enter { margin-top: 14px; border: 1px solid #2d2b38; background: #2d2b38; color: #fff; font: 500 15px "Montserrat", "Noto Sans SC", system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; padding: 13px 30px; border-radius: 999px; opacity: clamp(0, calc((var(--p) - .8) * 8), 1); pointer-events: none; }
+.chap.on .enter { margin-top: 14px; border: 1px solid #2d2b38; background: #2d2b38; color: #fff; font: 500 15px "Montserrat", "Noto Sans SC", system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; padding: 13px 30px; border-radius: 999px; opacity: clamp(0, calc((var(--p) - .8) * 8), 1); pointer-events: none; }
 .enter:active { transform: scale(.97); }
 
 /* ambient loops only run while the chapter is on screen */
@@ -128,7 +128,7 @@ html[lang="zh-Hans"] .cover h1 { font-family: "Noto Serif SC", serif; font-weigh
 .v-plane .c3 { width: 70vw; left: 8vw; bottom: 8%; transform: translateX(calc(var(--t) * 30vw)); }
 .v-plane .c4 { width: 90vw; right: 0; bottom: 22%; transform: translateX(calc(var(--t) * 18vw)); }
 .v-plane .jet { position: absolute; left: 0; top: 36%; width: 78vw; max-width: 640px; height: auto; transform: translate3d(calc(-70vw + var(--t) * 190vw), calc(var(--t) * -9vh), 0) rotate(-3deg); filter: drop-shadow(0 10px 14px rgba(60, 80, 120, .18)); }
-.v-plane .elev { position: absolute; left: 16px; top: 52%; padding-left: 10px; border-left: 1.5px solid #2d2b38; font-family: "Times New Roman", serif; color: #2d2b38; line-height: 1.25; }
+.v-plane .elev { position: absolute; left: 16px; top: 52%; padding-left: 10px; border-left: 1.5px solid #2d2b38; font-family: "Montserrat", "Noto Sans SC", system-ui, sans-serif; color: #2d2b38; line-height: 1.25; }
 .v-plane .elev span { display: block; font-size: 11px; letter-spacing: .2em; color: #6b6880; }
 .v-plane .elev b { font-weight: 500; font-size: 18px; letter-spacing: .06em; }
 .deco .bl { top: auto; bottom: calc(38svh - 34px); }
@@ -161,3 +161,34 @@ html[lang="zh-Hans"] .cover h1 { font-family: "Noto Serif SC", serif; font-weigh
 .cover .scene.img { order: 1; }
 .cover .scrollcue { z-index: 4; }
 .cap .num { font-family: "Courier New", ui-monospace, monospace; letter-spacing: .12em; font-style: normal; font-size: 13px; color: #8a87a0; }
+
+/* fonts: Brittany Signature titles, Montserrat Bold text */
+#story, #story p, #story button { font-weight: 700; }
+.cap h2, .cover h1, .sk, #story text { font-weight: 400; }
+.cap h2 { font-size: 58px; } .cover h1 { font-size: 74px; }
+.cover .cap.top h1 { font-size: 64px; }
+.cap p { font-size: 14.5px; line-height: 1.55; }
+.cover .cap p { font-size: 14px; }
+.cap .num, .cover .eyebrow, .scrollcue, .enter { font-family: "Montserrat", "Noto Sans SC", sans-serif; }
+.cover .eyebrow { font-size: 11px; letter-spacing: .26em; }
+.enter { font-size: 13px; }
+.bar-ctl button { font-size: 12px; }
+html[lang="zh-Hans"] .cap h2, html[lang="zh-Hans"] .cover h1 { font-family: "Noto Serif SC", serif; font-weight: 600; }
+
+/* portrait crops: the painting sits inside a clipped window */
+.stack > .crop { position: absolute; inset: 0; overflow: hidden; }
+.stack > .crop > .bg { display: block; }
+.scene.img.wide { justify-content: center; }
+
+/* smaller corner foliage so it frames the painting without hiding the people */
+.deco .bl { width: 32%; left: -9%; }
+.deco .tr { width: 36%; right: -12%; }
+.deco .lav { width: 8%; left: 1%; }
+.deco .blu { width: 10%; right: 2%; }
+
+/* paintings are shown whole; painting + caption are centred together with no empty gap */
+.imgc:not(.cover) .stage { justify-content: center; padding-top: 38px; }
+.imgc:not(.cover) .scene.img { margin-top: 0; flex: 0 0 auto; }
+.imgc:not(.cover) .cap { flex: 0 0 auto; padding-top: 16px; }
+.deco .bl, .deco .lav, .deco .blu { bottom: var(--sbb, calc(38svh - 34px)); }
+.deco .tr { top: calc(var(--sbt, 34px) - 70px); }

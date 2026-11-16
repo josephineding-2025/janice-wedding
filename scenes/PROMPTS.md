@@ -52,8 +52,7 @@
 > [Shared style block] [The two characters.] Each shown in full, white background, nothing overlapping.
 
 ## 7. Library (scene `library`)
-> [Shared style block] [The two characters.] Min Zheng stands holding a book and explaining with one hand raised, like a friendly
-> tutor. Janice sits at a small desk resting her chin on her hand, listening. Full length including the chair and desk, white background.
+> [Shared style block] [The two characters.] Min Zheng and Janice sits closely at a small desk , with the boy guiding Janice while Janice resting her chin on her hand, listening. Full length including the chair and desk, white background.
 
 ---
 

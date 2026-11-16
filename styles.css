@@ -1,3 +1,4 @@
+@font-face { font-family: "Brittany Signature"; src: local("Brittany Signature"), url("fonts/BrittanySignature.woff2") format("woff2"), url("fonts/BrittanySignature.ttf") format("truetype"); font-display: swap; }
 :root {
   --bg: #fbf9fe;
   --paper: #ffffff;
@@ -9,9 +10,9 @@
   --ok: #3f7d6d;
   --warn: #b5683a;
   --blue: #6f90cc;
-  --script: "Great Vibes", "Noto Serif SC", cursive;
-  --serif: "Times New Roman", Times, "Noto Serif SC", serif;
-  --sans: "Times New Roman", Times, "Noto Serif SC", serif;
+  --script: "Brittany Signature", "Allura", "Noto Serif SC", cursive;
+  --serif: "Montserrat", "Noto Sans SC", system-ui, sans-serif;
+  --sans: "Montserrat", "Noto Sans SC", system-ui, sans-serif;
 }
 :root[data-mode="night"] {
   --bg: #14132b;
@@ -330,3 +331,24 @@ form .search { margin-bottom: 8px; }
 .hero { padding-bottom: 54px; }
 .hero .sprig { width: 92px; height: 92px; }
 .wishbubble { border-radius: 6px; } .wishbubble p { font-style: italic; }
+
+/* ---------- fonts: Brittany Signature titles, Montserrat Bold body ---------- */
+body, body * { font-weight: 700; }
+* { font-style: normal !important; }
+html[lang="zh-Hans"] body { font-family: "Montserrat", "Noto Sans SC", system-ui, sans-serif; }
+body { font-size: 15px; line-height: 1.6; }
+h1, h2, .brand, .quick b, .count b, .next .when, .winhead, .score, .hero h1, .hero .date, .session-head h2, .card h2 { font-weight: 400; }
+h3 { font-weight: 700; font-size: 17px; }
+.hero h1 { font-size: 76px; } .card h2 { font-size: 40px; } .session-head h2 { font-size: 44px; } .brand { font-size: 36px; }
+.hero .date { font-family: var(--script); font-size: 30px; }
+html[lang="zh-Hans"] .hero .date { font-family: "Noto Sans SC", sans-serif; font-size: 18px; font-weight: 700; }
+.quick b { font-size: 32px; } .count b { font-size: 36px; } .next .when { font-size: 34px; }
+.tabs a { font-size: 11px; letter-spacing: 0; }
+.btn { font-size: 12.5px; padding: 9px 15px; }
+.search { font-size: 15px; }
+.agenda .t { font-size: 15px; } .agenda .who { font-size: 13px; } .agenda .songs, .agenda .d { font-size: 12.5px; }
+.opt { font-size: 15px; } .bingo button { font-size: 12.5px; }
+.hero h1 { font-size: 58px; line-height: 1.02; }
+.hero .date { font-size: 24px; }
+.count b { font-size: 30px; } .quick b { font-size: 28px; } .next .when { font-size: 28px; white-space: nowrap; }
+.card h2 { font-size: 36px; } .session-head h2 { font-size: 38px; }
