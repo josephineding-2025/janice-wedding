@@ -5,7 +5,7 @@
   /* ---------------- i18n ---------------- */
   const UI = {
     en: {
-      replay: "Replay our story", themeLabel: "Ceremony theme", verseLabel: "Scripture", storyCardTitle: "View our story", storyCardSub: "From Sunway University to the wedding day. Scroll through the whole journey.", storyCardBtn: "Start the story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
+      replay: "Replay our story", readVerse: "Read the passage", themeLabel: "Ceremony theme", verseLabel: "Scripture", storyCardTitle: "View our story", storyCardSub: "From Sunway University to the wedding day. Scroll through the whole journey.", storyCardBtn: "Start the story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
       tile_agenda: "Agenda", tile_agenda_s: "The timeline of the day", tile_seats: "Find my seat", tile_seats_s: "Floor plan and your table",
       tile_lyrics: "Sing along", tile_lyrics_s: "Praise and worship lyrics", tile_play: "Quiz and bingo", tile_play_s: "Play and earn points",
       tile_board: "Leaderboard", tile_board_s: "See who is on top", tile_wishes: "Wish garden", tile_wishes_s: "Plant a blessing",
@@ -41,7 +41,7 @@
       contact: "Chat with us",
     },
     zh: {
-      replay: "重看我们的故事", themeLabel: "证婚礼主题", verseLabel: "经文", storyCardTitle: "观看我们的故事", storyCardSub: "从双威大学到婚礼当天，一路往下滑，看完整段旅程。", storyCardBtn: "开始故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
+      replay: "重看我们的故事", readVerse: "阅读经文", themeLabel: "证婚礼主题", verseLabel: "经文", storyCardTitle: "观看我们的故事", storyCardSub: "从双威大学到婚礼当天，一路往下滑，看完整段旅程。", storyCardBtn: "开始故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
       tile_agenda: "流程", tile_agenda_s: "今天的时间表", tile_seats: "查找座位", tile_seats_s: "平面图与桌号",
       tile_lyrics: "一起来唱", tile_lyrics_s: "敬拜赞美歌词", tile_play: "问答与宾果", tile_play_s: "玩游戏赚积分",
       tile_board: "排行榜", tile_board_s: "看看谁领先", tile_wishes: "祝福花园", tile_wishes_s: "种下一个祝福",
@@ -210,6 +210,20 @@
       const sLive = onDay && now.min >= toMin(s.start) && now.min < toMin(s.end);
       if (s.isBreak) {
         return `<div class="break ag-break"><img class="stk lamp" src="scenes/web/lantern2.webp" alt="" decoding="async"><b>${L(s.title)}</b>${L(s.note)}</div>`;
+      }
+      if (s.compact) {
+        // compact program: a two-column grid of numbered cards, the theme with the passage folded away
+        const cells = s.items.map((i, idx) => {
+          const songs = (i.songs || []).length ? `<a class="songs" href="#lyrics/0">&#9834; ${u("lyricsTitle")} (${i.songs.length})</a>` : "";
+          return `<li class="rv" style="--d:${((idx % 2) * 0.07 + Math.floor(idx / 2) * 0.04).toFixed(2)}s"><span class="cn" aria-hidden="true"></span><div class="cb"><b>${L(i.t)}</b>${i.who ? `<i>${i.who}</i>` : ""}${songs}</div></li>`;
+        }).join("");
+        const th = s.theme ? `<div class="theme-card compact rv"><img class="th-fl l" src="scenes/web/flw_09.webp" alt=""><img class="th-fl r" src="scenes/web/flw_03.webp" alt="">
+          <div class="th-lbl">${u("themeLabel")}</div><div class="th-txt">${L(s.theme)}</div>
+          ${s.verse ? `<details class="th-more"><summary><span>${u("verseLabel")}</span> ${L(s.verse.ref)} <em>${u("readVerse")}</em></summary><p class="th-verse">${L(s.verse)}</p>${lang === "en" ? `<div class="niv">${W.nivNotice}</div>` : ""}</details>` : ""}</div>` : "";
+        return `<div class="session-head compact">${STK[s.id] ? `<img class="stk" src="scenes/web/${STK[s.id]}.webp" alt="" decoding="async">` : ""}
+          <h2>${L(s.title)}${sLive ? `<span class="live">${u("live")}</span>` : ""}</h2>
+          <div class="time">${fmtRange(s.start, s.end)}${s.venue ? " &middot; " + L(s.venue) : ""}${s.emcee ? " &middot; " + u("emcee") + ": " + s.emcee : ""}</div></div>
+          ${th}<ol class="cgrid">${cells}</ol>`;
       }
       const timed = s.items.some((i) => i.time);
       let current = -1;
@@ -831,7 +845,7 @@
     const bg = `<div class="agfx" aria-hidden="true"><img class="f1" src="scenes/web/bfly_purple.webp" alt=""><img class="f2" src="scenes/web/bfly_blue.webp" alt=""><img class="f3" src="scenes/web/dove_a.webp" alt=""></div>`;
     return `${bg}<div class="session-head"><img class="stk" src="scenes/web/lavender2.webp" alt="" decoding="async"><h2>${u("lyricsTitle")}</h2><div class="time">${u("lyricsSub")}</div></div><img class="gl" src="scenes/web/garland_lav.webp" alt="" decoding="async" style="--sg:1">
       <div class="seg songs" role="tablist">${W.lyrics.map((s, n) => `<button role="tab" aria-selected="${n === i}" class="${n === i ? "on" : ""}" data-act="lyric-tab" data-i="${n}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>${L(s.short || s.title)}</button>`).join("")}</div>
-      <div class="card lyr"><img class="lc a" src="scenes/web/corner_tl.webp" alt=""><img class="lc b" src="scenes/web/corner_tr.webp" alt="">
+      <div class="card lyr">
         <div class="ly-top"><div class="ly-ico" aria-hidden="true">&#9834;</div><h2>${L(ly.title)}</h2><div class="ly-by">${ly.by}</div><img class="ly-gl" src="scenes/web/garland_pink.webp" alt=""></div>
         <div id="lyrics-body"><span class="muted small">...</span></div>
         <img class="ly-end" src="scenes/web/bouquet_lav.webp" alt=""></div>`;

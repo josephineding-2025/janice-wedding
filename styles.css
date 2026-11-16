@@ -648,3 +648,50 @@ html[lang="zh-Hans"] .th-verse { font-size: 13.5px; line-height: 1.8; }
 :root[data-mode="night"] .bingo button.bt.on { background: linear-gradient(170deg, color-mix(in srgb, var(--tc) 28%, var(--paper)), color-mix(in srgb, var(--tc) 40%, var(--paper))); }
 @media (prefers-reduced-motion: reduce) { .bt.new .stamp, .bingo button.bt.line, .confetti img, .ly-end { animation: none; } }
 .session-head .time { padding-right: 72px; }
+
+/* ============ compact morning program: about one screen, no long scrolling ============ */
+.session-head.compact { margin-top: 8px; padding-bottom: 2px; }
+.session-head.compact h2 { font-size: 32px; line-height: 1.05; }
+.session-head.compact .time { font-size: 12.5px; }
+.theme-card.compact { margin: 8px 0 12px; padding: 16px 14px 10px; }
+.theme-card.compact .th-txt { font-size: 24px; margin: 4px 22px 8px; }
+html[lang="zh-Hans"] .theme-card.compact .th-txt { font-size: 17.5px; margin: 4px 20px 6px; }
+.theme-card.compact .th-fl { width: 26px; top: 8px; }
+.th-more { text-align: center; }
+.th-more summary { list-style: none; cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink); }
+.th-more summary::-webkit-details-marker { display: none; }
+.th-more summary span { color: var(--muted); font-weight: 600; }
+.th-more summary em { display: inline-block; margin-left: 6px; padding: 2px 10px; border-radius: 999px; font-style: normal; font-size: 11px; background: var(--accent-soft); color: var(--accent); }
+.th-more summary em::after { content: " +"; }
+.th-more[open] summary em::after { content: " \2212"; }
+.th-more .th-verse { margin-top: 10px; }
+.cgrid { list-style: none; margin: 0 0 14px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; counter-reset: none; }
+.cgrid li { display: flex; align-items: flex-start; gap: 9px; padding: 9px 10px; border-radius: 12px; background: linear-gradient(160deg, var(--paper), color-mix(in srgb, var(--accent-soft) 50%, var(--paper))); border: 1px solid var(--line); box-shadow: 0 3px 8px rgba(70, 60, 130, .06); min-width: 0; }
+.cgrid li.wide { grid-column: 1 / -1; }
+.cgrid .cn { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--sans); color: #fff; background: linear-gradient(135deg, #a692ef, #7ea4ea); margin-top: 1px; }
+:root[data-mode="night"] .cgrid .cn { color: #1b1838; }
+.cgrid .cb { min-width: 0; }
+.cgrid b { display: block; font-size: 13px; line-height: 1.3; color: var(--ink); }
+.cgrid i { display: block; font-style: normal; font-size: 11px; font-weight: 700; color: var(--accent); margin-top: 1px; }
+.cgrid .songs { display: block; font-size: 11.5px; color: var(--muted); margin-top: 3px; text-decoration: none; line-height: 1.35; }
+
+.cgrid { gap: 7px; margin-bottom: 10px; }
+.cgrid li { padding: 7px 9px; gap: 8px; }
+.cgrid .songs { display: inline-block; margin-top: 3px; padding: 1px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 10.5px; }
+.theme-card.compact { margin: 6px 0 10px; padding: 14px 12px 8px; }
+.theme-card.compact .th-txt { font-size: 22px; margin: 2px 20px 6px; }
+.session-head.compact h2 { font-size: 30px; }
+
+.lc { display: none; }
+.card.lyr { padding-top: 22px; }
+
+/* morning program as one straight, un-numbered list on a straight line */
+.cgrid { display: block; position: relative; margin: 4px 0 16px; padding: 4px 0 4px 26px; }
+.cgrid::before { content: ""; position: absolute; left: 7px; top: 14px; bottom: 14px; width: 2px; border-radius: 2px; background: linear-gradient(#cfc3f3, #b9cdf2 60%, #e8d3df); }
+.cgrid li, .cgrid li.wide { display: block; position: relative; background: none; border: 0; border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); border-radius: 0; box-shadow: none; padding: 12px 2px 12px 0; margin: 0; }
+.cgrid li:last-child { border-bottom: 0; }
+.cgrid .cn { position: absolute; left: -26px; top: 17px; width: 13px; height: 13px; margin: 0; border-radius: 50%; background: var(--paper); border: 2.5px solid var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); display: block; }
+.cgrid .cb { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; column-gap: 12px; row-gap: 4px; }
+.cgrid b { display: block; flex: 1 1 auto; font-size: 15px; line-height: 1.35; }
+.cgrid i { flex: none; font-size: 12.5px; text-align: right; }
+.cgrid .songs { flex-basis: auto; margin-top: 0; font-size: 11.5px; padding: 2px 10px; }

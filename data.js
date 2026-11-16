@@ -138,6 +138,7 @@ window.WEDDING = {
       end: "12:00",
       title: { en: "Garden Solemnization Ceremony", zh: "花园证婚礼" },
       emcee: "Andre",
+      compact: true, // shown as a compact two-column program (no timeline), so it fits on about one screen
       theme: { en: "Meeting you was grace; choosing you is for a lifetime.", zh: "遇见你，是恩典；选择你，是一生" },
       verse: {
         ref: { en: "Ecclesiastes 4:9-12 (NIV)", zh: "传道书 4:9-12（和合本）" },
