@@ -334,11 +334,13 @@
       ...tuft(3, 22, FX.fade(0.2, 0.5)), ...tuft(68, 22, FX.fade(0.2, 0.5)),
       { src: PIECE("plane"), x: 52, b: 86, w: 36, fx: `transform:translateX(calc(${S(0.5, 1)} * -190% + 120%));opacity:${S(0.5, 0.6)}` },
     ] },
-    usa: { crop: [600, 0, 1300, 770], layers: [
-      { src: PIECE("couple"), x: 14, b: 4, w: 36, cls: "cropfade", fx: FX.rise(40, 0.1, 0.55) },
-      ...tuft(10, 20, FX.fade(0.2, 0.5)), ...tuft(36, 18, FX.fade(0.2, 0.5)),
-      { src: PIECE("plane"), x: 0, b: 82, w: 38, fx: `transform:translateX(calc(${S(0, 1)} * 200%));opacity:${S(0, 0.08)}` },
-      { src: PIECE("dove1"), x: 40, b: 70, w: 14, fx: `transform:translate(calc(${S(0, 1)} * 60px), calc(${S(0, 1)} * -20px))` },
+    // the couple really travel: they walk the whole width of the scene from left to right as you scroll, with a walking bob
+    usa: { crop: [0, 0, 1400, 770], layers: [
+      ...(FIGSLOT("usa", { x: 0, b: 9, w: 20, fx: `transform:translateX(calc(-125% + ${S(0.04, 0.96)} * 650%)) translateY(var(--bob, 0px)) rotate(var(--sway, 0deg));opacity:${S(0, 0.04)}` }) || [
+        { src: PIECE("couple"), x: 10, b: 14, w: 22, cls: "cropfade", fx: FX.rise(40, 0.1, 0.55) },
+      ]),
+      { src: PIECE("plane"), x: 2, b: 84, w: 26, fx: `transform:translateX(calc(${S(0, 1)} * 300%));opacity:${S(0, 0.08)}` },
+      { src: PIECE("dove1"), x: 52, b: 76, w: 9, fx: `transform:translate(calc(${S(0, 1)} * 80px), calc(${S(0, 1)} * -20px))` },
     ] },
     // moving in: luggage arrives. A generated "moving in" figure (fig_sg) walks in as well.
     sg: { crop: [450, 0, 1130, 770], layers: [
@@ -383,6 +385,12 @@
     const bgStyle = `width:${(m.w / cw) * 100}%;height:auto;left:${(-cr[0] / cw) * 100}%;top:${(-cr[1] / ch) * 100}%;max-width:none;position:absolute`;
     return `<div class="scene img" data-ar="${cw / ch}" style="--ar:${cw / ch}"><div class="stack" style="${z}"><div class="crop"><img class="bg" src="${W.sceneImages[id]}" alt="" decoding="async" loading="${cover ? "eager" : "lazy"}" style="${bgStyle}"></div>${layers}${route}</div></div>`;
   }
+  // walking bob for the travelling couple: two steps for every little bit of scrolling, so they only "walk" while you scroll
+  HOOKS.usa_img = (p, root) => {
+    const ph = p * 46;
+    root.style.setProperty("--bob", (-Math.abs(Math.sin(ph)) * 7).toFixed(1) + "px");
+    root.style.setProperty("--sway", (Math.sin(ph) * 1.1).toFixed(2) + "deg");
+  };
   HOOKS.map_img = (p, root) => {
     const path = root.querySelector("#imgRoute"), bus = root.querySelector("#imgBus"), svg = root.querySelector(".routeSvg");
     if (!path || !bus || !svg) return;
