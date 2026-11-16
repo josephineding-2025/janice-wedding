@@ -1,1 +1,1 @@
-window.FIGS = {"sunway": {"w": 489, "h": 900}, "usa": {"w": 533, "h": 900}, "sg": {"w": 716, "h": 900}};
+window.FIGS = {"sunway": {"w": 489, "h": 900}, "usa": {"w": 533, "h": 900}, "sg": {"w": 716, "h": 900}, "library": {"w": 685, "h": 900}, "proposal": {"w": 780, "h": 900}, "wedding": {"w": 581, "h": 900}, "life_him": {"w": 483, "h": 683}, "life_her": {"w": 447, "h": 659}, "life_dine": {"w": 796, "h": 761}};

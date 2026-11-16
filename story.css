@@ -251,9 +251,67 @@ html[lang="zh-Hans"] .cap h2, html[lang="zh-Hans"] .cover h1 { font-family: "Not
 /* ---------- watercolour washes behind the paintings (fills the empty space on a phone) ---------- */
 .chap.imgc:not(.cover) { background: none; }
 .imgc:not(.cover) .stage { background: var(--bg); }
-.scene.img .stack { mix-blend-mode: multiply; }
+.scene.img .stack { mix-blend-mode: normal; }
 /* the couple walk along the strip below the title (USA chapter) */
 .walker { position: absolute; left: 0; right: 0; bottom: calc(6px + env(safe-area-inset-bottom)); height: min(158px, 20svh); z-index: 3; pointer-events: none; overflow: hidden; }
 .walker::before { content: ""; position: absolute; left: -10%; right: -10%; bottom: 2px; height: 30px; background: radial-gradient(ellipse at 50% 60%, rgba(150, 165, 220, .38), rgba(200, 180, 235, .16) 55%, transparent 72%); }
 .walker img { position: absolute; left: 0; bottom: 6px; height: 100%; width: auto; transform: translateX(calc(-30vw + clamp(0, calc((var(--p) - .04) / .9), 1) * 150vw)) translateY(var(--bob, 0px)) rotate(var(--sway, 0deg)); transform-origin: 50% 100%; filter: drop-shadow(2px 4px 5px rgba(70, 60, 110, .28)); will-change: transform; }
 .imgc[data-id="usa"] .cap { position: relative; z-index: 4; }
+
+/* ---------- round 3: plain white pages, stains, corners at the screen edge, fixed waves, original plane look ---------- */
+.imgc:not(.cover) .stage { background: #fffdfb; }
+.chap.imgc { background: #fffdfb; }
+.scene.img .stack { mix-blend-mode: normal; }
+.scene.img { overflow: visible; }
+.cap, .scene.img { position: relative; }
+.cap { z-index: 3; }
+.scene.img { z-index: 1; }
+/* flowers sit on the screen corners, not the painting corners */
+.deco .dtl { top: 0; left: -3%; width: 36%; }
+.deco .dtr { top: 0; right: -3%; width: 38%; }
+.deco .dbl { bottom: 0; left: -7%; width: 26%; top: auto; }
+.deco .dbr { bottom: 0; right: -7%; width: 26%; top: auto; }
+.deco .dlv { bottom: 0; left: 18%; width: 7%; top: auto; }
+.deco .ddy { bottom: 0; right: 19%; width: 8%; top: auto; }
+.deco.big .dbl { width: 40%; left: -10%; bottom: 40px; } .deco.big .dbr { width: 40%; right: -10%; bottom: 40px; }
+.chap .stage { opacity: calc(1 - var(--hide, 0)); }
+/* the wave transition: a soft blue sea underneath and overlapping rows, so no gaps or white margins show */
+.v-wave::before { content: ""; position: absolute; inset: 0; background: linear-gradient(#dbe6f6, #b9cdee 50%, #c9d3f2); opacity: calc(var(--c) * 1.4); }
+.v-wave > img { bottom: calc(var(--i) * 6.4vh - 8vh); }
+/* the airplane transition looks as it did before: its own clouds with a dotted print, a yellow paper-cut outline */
+.v-plane .cl { mix-blend-mode: normal; opacity: .95; filter: contrast(1.05) drop-shadow(0 6px 0 rgba(255, 255, 255, .5)); -webkit-mask-image: radial-gradient(circle, #000 55%, transparent 56%); -webkit-mask-size: 4px 4px; mask-image: radial-gradient(circle, #000 55%, transparent 56%); mask-size: 4px 4px; mask-mode: alpha; }
+
+/* pure white pages so the paintings have no faint box, and soft feathered painting edges (no straight cut lines) */
+#story, .chap.imgc, .imgc:not(.cover) .stage { background: #fff; }
+.stack > .crop {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%), linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%), linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+  mask-composite: intersect;
+}
+/* the wave strips fade out at their lower edge instead of ending in a straight line */
+.stack > .ov.drift { -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 100%); mask-image: linear-gradient(to bottom, #000 45%, transparent 100%); }
+
+/* ---------- flowers at the screen edges: different for each scene, they grow in when the scene arrives and wither away as it leaves ---------- */
+.deco { --e: calc(clamp(0, calc(var(--p) / .2), 1) * (1 - clamp(0, calc((var(--p) - .86) / .14), 1))); }
+.deco .d { position: absolute; transform: translate(calc((1 - var(--e)) * var(--dx)), calc((1 - var(--e)) * var(--dy))) scale(calc(.55 + .45 * var(--e))) rotate(calc((1 - var(--e)) * var(--dr))); opacity: calc(.15 + .85 * var(--e)); transform-origin: 50% 100%; will-change: transform, opacity; }
+.deco .d img { display: block; width: 100%; height: auto; }
+.deco .p-tl { top: 0; left: -3%; width: 36%; }
+.deco .p-tr { top: 0; right: -3%; width: 38%; }
+.deco .p-tl2 { top: -2%; left: -6%; width: 44%; }
+.deco .p-tr2 { top: -2%; right: -6%; width: 44%; }
+.deco .p-bl { bottom: 0; left: -7%; width: 28%; }
+.deco .p-br { bottom: 0; right: -7%; width: 28%; }
+.deco .p-bl2 { bottom: 0; left: -2%; width: 25%; }
+.deco .p-br2 { bottom: 0; right: -2%; width: 25%; }
+.deco .p-ml { left: -9%; top: 14%; width: 24%; }
+.deco .p-mr { right: -9%; top: 14%; width: 24%; }
+.deco .p-top { top: -1%; left: 2%; width: 96%; }
+.deco .p-bot { bottom: -1%; left: 2%; width: 96%; }
+.deco .p-s1 { bottom: 0; left: 18%; width: 8%; }
+.deco .p-s2 { bottom: 0; right: 19%; width: 9%; }
+.deco .c-bl { bottom: 40px; left: -10%; width: 40%; }
+.deco .c-br { bottom: 40px; right: -10%; width: 40%; }
+.deco.big .p-s1 { bottom: 36px; left: 28%; width: 9%; } .deco.big .p-s2 { bottom: 36px; right: 28%; width: 10%; }
+.deco .dtl, .deco .dtr, .deco .dbl, .deco .dbr, .deco .dlv, .deco .ddy { display: none; }
+.deco.big { --e: calc(1 - clamp(0, calc((var(--p) - .25) / .35), 1)); }

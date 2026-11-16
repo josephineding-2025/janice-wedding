@@ -6,9 +6,10 @@ import numpy as np
 from PIL import Image, ImageFilter
 from scipy import ndimage as ndi
 src, scene = sys.argv[1], sys.argv[2]
+thr = int(sys.argv[3]) if len(sys.argv) > 3 else 236   # raise to 250 for white dresses so they stay solid
 web = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scenes", "web")
 im = Image.open(src).convert("RGB"); a = np.array(im).astype(int)
-near_white = a.min(axis=2) > 236
+near_white = a.min(axis=2) > thr
 lab, n = ndi.label(near_white)
 border = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
 bg = np.isin(lab, list(border))                      # only white that touches the picture edge is background

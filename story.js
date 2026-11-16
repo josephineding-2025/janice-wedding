@@ -314,6 +314,8 @@
   const L = (src, x, b, w, o) => Object.assign({ src: PIECE(src), x, b, w, full: 1 }, o || {}); // positions in % of the whole picture
   const spark = (src, x, b, w, cls) => L(src, x, b, w, { blend: 1, cls: "twinkle " + (cls || "") });
   const across = (px, py) => `transform:translate(calc(${S(0, 1)} * ${px}px), calc(${S(0, 1)} * ${py}px))`;
+  // a generated full-length figure (scenes/web/fig_<name>.webp); empty list if it has not been added
+  const FIGL = (name, x, b, w, o) => (window.FIGS && window.FIGS[name] ? [Object.assign({ src: `scenes/web/fig_${name}.webp`, x, b, w, full: 1, fig: 1 }, o || {})] : []);
   const IMG_ART = {
     cover: { layers: [
       L("dove_a", 3, 74, 17, { blend: 1, fx: across(90, 40) }),
@@ -325,64 +327,65 @@
       spark("spark_y", 40, 80, 13), spark("spark_b", 68, 22, 12, "b"), spark("spark_p", 14, 16, 12),
       L("bluebell2", 1, -1, 10, { cls: "sway" }), L("daisy", 88, -1, 9, { cls: "sway b" }),
     ] },
-    sunway: { crop: [340, 0, 1080, 815], layers: FIGSLOT("sunway", { x: 22, b: 2, w: 56, fx: FX.rise(40, 0.05, 0.5) }) || [
-      { src: PIECE("grads"), x: 25, b: 4, w: 50, cls: "cropfade", fx: FX.rise(40, 0.05, 0.5) },
-      ...tuft(18, 22, FX.fade(0.2, 0.5)), ...tuft(60, 22, FX.fade(0.2, 0.5)),
+    sunway: { view: [250, 0, 1150, 815], fullCoords: 1, layers: [
+      ...(FIGL("sunway", 33, 1, 33, { fx: FX.rise(40, 0.05, 0.5) }).length ? FIGL("sunway", 33, 1, 33, { fx: FX.rise(40, 0.05, 0.5) }) : [L("grads", 36, 4, 28, { cls: "cropfade", fx: FX.rise(40, 0.05, 0.5) })]),
       L("dove_b", 76, 80, 9, { blend: 1, fx: across(-170, 26) }),
-      L("bfly_blue", 58, 70, 5, { blend: 1, cls: "float" }), L("sparrow_c", 8, 62, 6, { blend: 1, fx: across(120, -10) }),
+      L("bfly_blue", 58, 70, 5, { blend: 1, cls: "float" }), L("sparrow_c", 24, 62, 6, { blend: 1, fx: across(120, -10) }),
       spark("spark_y", 46, 60, 8),
     ] },
-    library: { crop: [170, 0, 1090, 1141], layers: [
-      L("bfly_pink", 6, 62, 6, { blend: 1, cls: "float" }), spark("spark_y", 70, 58, 8), spark("spark_p", 22, 74, 7, "b"),
+    // the study: the old library painting stays as a faint background and the new study couple sits in front of it
+    library: { view: [170, 0, 1090, 1141], bg: 0.34, layers: [
+      ...FIGL("library", 16, 4, 68, { fx: FX.rise(30, 0.04, 0.4) }),
+      L("bfly_pink", 6, 70, 6, { blend: 1, cls: "float" }), spark("spark_y", 80, 74, 9), spark("spark_p", 12, 82, 8, "b"),
     ] },
     map: { crop: [0, 0, 1010, 1233], route: { d: "M345 288 C430 372 468 440 505 500 S590 730 650 918", s: 1, sprite: PIECE("bus_side"), w: 15 }, layers: [
       L("wave2", -6, 8, 50, { blend: 1, cls: "drift" }), L("crest1", 8, 3, 13, { blend: 1 }),
       L("compass", 80, 7, 14, { cls: "spin" }), L("bfly_blue2", 70, 70, 6, { blend: 1, cls: "float" }),
     ] },
-    keys: { crop: [180, 0, 1150, 1102], layers: [
-      { src: PIECE("him_key"), x: 5, b: 10, w: 22, cls: "cropfade", fx: FX.slide(-130, 0.05, 0.5) },
-      { src: PIECE("her_case"), x: 70, b: 10, w: 21, cls: "cropfade", fx: FX.slide(130, 0.05, 0.5) },
-      ...tuft(3, 22, FX.fade(0.2, 0.5)), ...tuft(68, 22, FX.fade(0.2, 0.5)),
-      L("prop", 70, 82, 16, { fx: `transform:translateX(calc(${S(0.5, 1)} * -520% + 40%));opacity:${S(0.5, 0.6)}` }),
-      // the car key hands over from him to her
-      L("key_fob", 16, 30, 11, { fx: `transform:translate(calc(${S(0.3, 0.85)} * 380%), calc((1 - (2 * ${S(0.3, 0.85)} - 1) * (2 * ${S(0.3, 0.85)} - 1)) * -70px)) rotate(calc(${S(0.3, 0.85)} * 18deg));opacity:${S(0.25, 0.35)}` }),
-      L("bfly_purple", 40, 62, 5, { blend: 1, cls: "float" }), L("sparrow_b", 62, 64, 6, { blend: 1, cls: "float b" }),
+    // the new painting of the key hand-over; the key also arcs across between them
+    keys: { layers: [
+      L("key_fob", 38, 54, 9, { fx: `transform:translate(calc(${S(0.3, 0.85)} * 260%), calc((1 - (2 * ${S(0.3, 0.85)} - 1) * (2 * ${S(0.3, 0.85)} - 1)) * -70px)) rotate(calc(${S(0.3, 0.85)} * 20deg));opacity:calc(${S(0.25, 0.35)} * (1 - ${S(0.86, 0.95)}))` }),
+      L("prop", 60, 90, 22, { fx: `transform:translateX(calc(${S(0.5, 1)} * -420% + 40%));opacity:${S(0.5, 0.6)}` }),
+      spark("spark_y", 46, 66, 9), spark("spark_b", 70, 80, 8, "b"),
     ] },
     // the couple really travel: they walk the whole width of the scene from left to right as you scroll, with a walking bob
-    usa: { crop: [0, 0, 1400, 770], scale: 1.16, layers: [
+    usa: { view: [420, 0, 1320, 770], fullCoords: 1, scale: 1.02, layers: [
       ...(window.FIGS && window.FIGS.usa ? [] : [
         { src: PIECE("couple"), x: 10, b: 14, w: 22, cls: "cropfade", fx: FX.rise(40, 0.1, 0.55) },
       ]),
       L("airliner", 0, 80, 22, { fx: `transform:translateX(calc(${S(0, 1)} * 480%));opacity:${S(0, 0.08)}` }),
       L("dove_c", 46, 72, 10, { blend: 1, fx: across(80, -20) }),
-      L("wave1", -8, -1, 118, { blend: 1, cls: "drift" }), L("crest2", 2, 2, 12, { blend: 1 }),
-      L("compass", 86, 66, 9, { cls: "spin" }), spark("spark_b", 40, 50, 8),
+      L("wave1", -8, -1, 118, { blend: 1, cls: "drift" }), L("crest2", 34, 2, 12, { blend: 1 }),
+      L("compass", 84, 66, 9, { cls: "spin" }), spark("spark_b", 40, 50, 8),
     ] },
     // moving in: luggage arrives. A generated "moving in" figure (fig_sg) walks in as well.
-    sg: { layers: [
-      ...(FIGSLOT("sg", { x: 4, b: 2, w: 40, fx: FX.slide(-120, 0.05, 0.6) }) || []),
-      L("suitcase2", 52, 2, 15, { fx: FX.slide(260, 0.05, 0.55) }),
-      L("rollcase", 68, 2, 9, { fx: FX.slide(320, 0.1, 0.6) }),
-      L("books", 44, 2, 6, { fx: FX.slide(260, 0.15, 0.6) }),
+    sg: { view: [0, 0, 950, 770], fullCoords: 1, layers: [
+      ...FIGL("sg", 4, 2, 38, { fx: FX.slide(-120, 0.05, 0.6) }),
+      L("suitcase2", 46, 2, 15, { fx: FX.slide(260, 0.05, 0.55) }),
+      L("rollcase", 58, 2, 9, { fx: FX.slide(320, 0.1, 0.6) }),
+      L("books", 41, 2, 6, { fx: FX.slide(260, 0.15, 0.6) }),
       L("wave3", -8, -1, 118, { blend: 1, cls: "drift" }),
-      L("bfly_blue2", 20, 64, 5, { blend: 1, cls: "float" }), spark("spark_p", 46, 62, 9), spark("spark_y", 24, 50, 7, "b"),
+      L("bfly_blue2", 20, 64, 5, { blend: 1, cls: "float" }), spark("spark_p", 44, 62, 9), spark("spark_y", 24, 50, 7, "b"),
     ] },
-    life: { crop: [320, 0, 1040, 758], layers: [
-      L("lantern2", 2, 56, 15, { cls: "lant" }),
-      L("bfly_pink", 88, 60, 5, { blend: 1, cls: "float b" }), L("bfly_blue", 78, 36, 4, { blend: 1, cls: "float" }),
-      spark("spark_y", 22, 40, 8), spark("spark_b", 62, 16, 8, "b"),
+    // work hard, then eat: the old painting is only a faint backdrop; the new couple work first, then dine
+    life: { view: [320, 0, 1040, 758], bg: 0.3, layers: [
+      ...FIGL("life_him", 1, 6, 49, { fx: `transform:translateY(calc((1 - ${S(0, 0.2)}) * 14%));opacity:calc(${S(0, 0.2)} * (1 - ${S(0.42, 0.56)}))` }),
+      ...FIGL("life_her", 50, 6, 48, { fx: `transform:translateY(calc((1 - ${S(0.04, 0.24)}) * 14%));opacity:calc(${S(0.04, 0.24)} * (1 - ${S(0.42, 0.56)}))` }),
+      ...FIGL("life_dine", 5, 4, 90, { fx: `transform:translateY(calc((1 - ${S(0.5, 0.7)}) * 12%));opacity:${S(0.5, 0.68)}` }),
+      L("lantern2", 2, 62, 14, { cls: "lant" }),
+      L("bfly_pink", 88, 66, 5, { blend: 1, cls: "float b" }), spark("spark_y", 84, 40, 8), spark("spark_b", 14, 24, 8, "b"),
     ] },
-    proposal: { layers: FIGSLOT("proposal", { x: 8, b: 4, w: 52, fx: FX.rise(30, 0.1, 0.6) }) || [
-      { src: PIECE("kneel"), x: 6, b: 6, w: 24, fx: FX.slide(-90, 0.1, 0.6) },
-      { src: PIECE("her_hands"), x: 34, b: 6, w: 13, fx: FX.slide(120, 0.1, 0.6) },
-      ...tuft(4, 14, FX.fade(0.3, 0.6)),
+    proposal: { layers: [
+      ...(FIGL("proposal", 7, 3, 86, { fx: FX.rise(30, 0.08, 0.55) }).length ? FIGL("proposal", 7, 3, 86, { fx: FX.rise(30, 0.08, 0.55) }) : [
+        L("kneel", 6, 6, 24, { fx: FX.slide(-90, 0.1, 0.6) }), L("her_hands", 34, 6, 13, { fx: FX.slide(120, 0.1, 0.6) }),
+      ]),
       L("dove_d", 60, 76, 14, { blend: 1, fx: across(-140, 40) }),
       spark("spark_y", 50, 16, 16), spark("spark_p", 72, 28, 12, "b"), spark("spark_b", 20, 48, 10),
       L("bfly_pink2", 80, 56, 7, { blend: 1, cls: "float" }),
     ] },
     // walk the wedding couple up the aisle (needs fig_wedding.webp)
-    wedding: { crop: [140, 0, 1260, 1394], zoom: { o: "50% 44%", k: 0.5 }, layers: [
-      ...(FIGSLOT("wedding", { x: 30, b: 2, w: 40, fx: `transform-origin:50% 100%;transform:translateY(calc(${S(0.05, 0.9)} * -44%)) scale(calc(1 - ${S(0.05, 0.9)} * 0.55));opacity:${S(0, 0.1)}` }) || []),
+    wedding: { zoom: { o: "50% 46%", k: 0.5 }, layers: [
+      ...FIGL("wedding", 32, 1, 36, { fx: `transform-origin:50% 100%;transform:translateY(calc(${S(0.05, 0.92)} * -92%)) translateY(var(--bob, 0px)) scale(calc(1 - ${S(0.05, 0.92)} * 0.6)) rotate(var(--sway, 0deg));opacity:${S(0, 0.08)}` }),
       L("dove_a", 2, 78, 14, { blend: 1, fx: across(180, -20) }),
       L("dove_e", 82, 84, 12, { blend: 1, fx: across(-150, 30) }),
       L("bfly_purple", 70, 50, 6, { blend: 1, cls: "float b" }),
@@ -390,25 +393,14 @@
       L("toast", 70, 1, 20, { cls: "clink" }), L("bucket", 6, 1, 17),
     ] },
   };
-  const tint = (a, b, c, base) => `radial-gradient(ellipse 80% 38% at 15% 10%, ${a} 0, transparent 70%), radial-gradient(ellipse 70% 34% at 90% 38%, ${b} 0, transparent 70%), radial-gradient(ellipse 90% 40% at 25% 96%, ${c} 0, transparent 72%), radial-gradient(ellipse 60% 30% at 85% 88%, ${a} 0, transparent 70%), ${base}`;
-  const WASH = {
-    cover: "#fff",
-    sunway: tint("#e3d9f4", "#f8dfe4", "#d9e6f6", "#fffdfb"),
-    library: tint("#f3e4d6", "#ead9ee", "#e6e9f4", "#fffdfa"),
-    map: tint("#d9ebdb", "#d8e5f5", "#f3ecd0", "#fffefb"),
-    keys: tint("#dcd6f0", "#f5dde4", "#d9e4f2", "#fffdfb"),
-    usa: tint("#cfe3f6", "#f6d9e3", "#e1d9f3", "#fffdfb"),
-    sg: tint("#fbdcc6", "#e3d6f1", "#d8e3f6", "#fffcf8"),
-    life: tint("#f6e1cc", "#d8e4f5", "#f4dbe3", "#fffcf8"),
-    proposal: tint("#e2d6f4", "#fcdcc9", "#f6d6e0", "#fffcfa"),
-    wedding: tint("#d6e6d4", "#e2daf5", "#f3dbe6", "#fffdfb"),
-  };
   const hasImg = (id) => !!(W.sceneImages && W.sceneImages[id] && window.SCENE_META && window.SCENE_META[id]);
   function imgScene(id, cover) {
     const m = window.SCENE_META[id], art = IMG_ART[id] || { layers: [] };
     const ref = art.crop || [0, 0, m.w, m.h], rw = ref[2] - ref[0];
     const cr = art.view || [0, 0, m.w, m.h], cw = cr[2] - cr[0], ch = cr[3] - cr[1];
-    const remap = (l) => (l.full ? l : { ...l, x: ((ref[0] + (l.x / 100) * rw - cr[0]) / cw) * 100, w: ((l.w / 100) * rw / cw) * 100 });
+    const remap = (l) => (l.full
+      ? (art.fullCoords ? { ...l, x: (((l.x / 100) * m.w - cr[0]) / cw) * 100, w: (((l.w / 100) * m.w) / cw) * 100 } : l)
+      : { ...l, x: ((ref[0] + (l.x / 100) * rw - cr[0]) / cw) * 100, w: ((l.w / 100) * rw / cw) * 100 });
     const base = art.scale || (cw / ch > 1.4 ? 1.08 : 1);
     const z = art.zoom ? `transform-origin:${art.zoom.o};transform:scale(calc(1 + var(--p) * ${art.zoom.k}))` : `transform:translateY(calc(var(--p) * -1.5%)) scale(calc(${base} + var(--p) * .06))`;
     const layers = (art.layers || []).map(remap).map((l) => `<img class="ov ${l.blend ? "mul" : ""} ${l.cls || ""}" src="${l.src}" alt="" decoding="async" style="left:${l.x}%;bottom:${l.b}%;width:${l.w}%;${l.fx || ""}">`).join("");
@@ -418,10 +410,15 @@
       route = `<svg class="routeSvg" viewBox="${cr[0]} ${cr[1]} ${cw} ${ch}" aria-hidden="true"><path id="imgRoute" d="${r.d}" fill="none" stroke="none"/></svg>
         <img id="imgBus" class="ov" src="${r.sprite}" alt="" style="width:${r.w}%;left:0;top:0">`;
     }
-    const bgStyle = `width:${(m.w / cw) * 100}%;height:auto;left:${(-cr[0] / cw) * 100}%;top:${(-cr[1] / ch) * 100}%;max-width:none;position:absolute`;
+    const bgStyle = `width:${(m.w / cw) * 100}%;height:auto;left:${(-cr[0] / cw) * 100}%;top:${(-cr[1] / ch) * 100}%;max-width:none;position:absolute;opacity:${art.bg == null ? 1 : art.bg}`;
     return `<div class="scene img" data-ar="${cw / ch}" style="--ar:${cw / ch}"><div class="stack" style="${z}"><div class="crop"><img class="bg" src="${W.sceneImages[id]}" alt="" decoding="async" loading="${cover ? "eager" : "lazy"}" style="${bgStyle}"></div>${layers}${route}</div></div>`;
   }
   // walking bob for the travelling couple: two steps for every little bit of scrolling, so they only "walk" while you scroll
+  HOOKS.wedding_img = (p, root) => {
+    const ph = p * 36;
+    root.style.setProperty("--bob", (-Math.abs(Math.sin(ph)) * 3).toFixed(1) + "px");
+    root.style.setProperty("--sway", (Math.sin(ph) * 0.8).toFixed(2) + "deg");
+  };
   HOOKS.usa_img = (p, root) => {
     const ph = p * 46;
     root.style.setProperty("--bob", (-Math.abs(Math.sin(ph)) * 7).toFixed(1) + "px");
@@ -453,8 +450,8 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
      One fixed "veil" sits over the story. Around each chapter boundary a number --c rises from 0 to 1 and back, and --t runs 0 to 1.
      Every transition is built only from your artwork: rose/lavender bush panels that part, a wisteria arch you pass through,
      and flocks of doves and butterflies. The next chapter arrives while the veil is at its fullest, so there is no hard cut. */
-  const KINDS = ["rise", "bushA", "flock", "bushB", "plane", "wave", "arch", "bushB", "arch"];
-  const WIN = [2.2]; // the cover -> first chapter transition is slow: it lasts 2.2 screens of scrolling // boundary i = chapter i -> i+1 (0 is cover -> first chapter)
+  const KINDS = ["rise", "bushA", "flock", "bushB", "plane", "wave", "bushA", "flock", "rise"];
+  const WIN = [2.2, 1, 1, 1, 1, 1, 1, 1, 1.7]; // the cover -> first chapter transition is slow: it lasts 2.2 screens of scrolling // boundary i = chapter i -> i+1 (0 is cover -> first chapter)
   function rng(seed) { let a = seed; return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
   function veilHtml() {
     const r = rng(11);
@@ -474,23 +471,30 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
       <div class="v-arch"><img src="scenes/web/arch.webp" alt="" decoding="async"></div>
       <div class="v-rise">${rise}</div><div class="v-wave">${waves}</div>
       <div class="v-plane"><div class="sky"></div>
-        <img class="cl c1" src="scenes/web/cloud_blue.webp" alt=""><img class="cl c2" src="scenes/web/cloud_cream.webp" alt=""><img class="cl c3" src="scenes/web/cloud_pink.webp" alt=""><img class="cl c4" src="scenes/web/cloud_cream.webp" alt="">
-        <img class="jet" src="scenes/web/airliner.webp" alt="">
+        <img class="cl c1" src="scenes/web/cloud1.webp" alt=""><img class="cl c2" src="scenes/web/cloud2.webp" alt=""><img class="cl c3" src="scenes/web/cloud3.webp" alt=""><img class="cl c4" src="scenes/web/cloud4.webp" alt="">
+        <img class="jet" src="scenes/web/plane.webp" alt="">
         <div class="elev"><span>ELEVATION</span><b id="elev">0 FT</b></div></div></div>`;
   }
 
   /* ---------- corner foliage ---------- */
-  function decoHtml(i, cover) {
-    const big = cover ? " big" : "";
-    const mv = (a, b, d) => `transform:translate(calc((1 - ${S(a, b)}) * ${d[0]}%), calc((1 - ${S(a, b)}) * ${d[1]}%)) translateY(calc(var(--p) * ${d[2]}px))`;
-    return `<div class="deco${big}" aria-hidden="true">
-      <div class="d dtl" style="${mv(0, 0.2, [-30, -30, 16])}"><img class="sway" src="scenes/web/corner_tl.webp" alt="" decoding="async" loading="lazy"></div>
-      <div class="d dtr" style="${mv(0, 0.2, [30, -30, 16])}"><img class="sway b" src="scenes/web/corner_tr.webp" alt="" decoding="async" loading="lazy"></div>
-      <div class="d dbl" style="${mv(0, 0.2, [-30, 30, -22])}"><img class="sway" src="scenes/web/blob_purple.webp" alt="" decoding="async" loading="lazy"></div>
-      <div class="d dbr" style="${mv(0, 0.2, [30, 30, -22])}"><img class="sway b" src="scenes/web/blob_pink.webp" alt="" decoding="async" loading="lazy"></div>
-      <div class="d dlv" style="transform:translateY(calc(var(--p) * -14px))"><img class="sway" src="scenes/web/lavender2.webp" alt="" decoding="async" loading="lazy"></div>
-      <div class="d ddy" style="transform:translateY(calc(var(--p) * -18px))"><img class="sway b" src="scenes/web/daisy.webp" alt="" decoding="async" loading="lazy"></div>
-    </div>`;
+  // Corner and edge flowers: a different arrangement for every scene, built from your flower pieces.
+  // item = [piece, position class, slide-in x %, slide-in y %, rotation when hidden]
+  const DECO = {
+    cover: [["blob_purple", "c-bl", -35, 35, -8], ["blob_pink", "c-br", 35, 35, 8], ["lavender2", "p-s1", 0, 60, 0], ["daisy", "p-s2", 0, 60, 0]],
+    sunway: [["corner_tl", "p-tl", -40, -40, -10], ["corner_tr", "p-tr", 40, -40, 10], ["blob_purple", "p-bl", -40, 40, -6], ["blob_pink", "p-br", 40, 40, 6]],
+    library: [["strip_lav", "p-ml", -60, 0, -6], ["strip_rose", "p-mr", 60, 0, 6], ["bouquet_lav", "p-bl2", -30, 50, -12], ["bouquet_pink", "p-br2", 30, 50, 12]],
+    map: [["branch1", "p-tl2", -50, -30, -14], ["branch2", "p-tr2", 50, -30, 14], ["garland_lav", "p-bot", 0, 60, 0], ["bluebell2", "p-s1", 0, 60, 0], ["daisy", "p-s2", 0, 60, 0]],
+    keys: [["bush_purple_l", "p-ml", -60, 0, 0], ["bush_pink_r", "p-mr", 60, 0, 0], ["corner_tr", "p-tr", 40, -40, 10], ["bouquet_pink", "p-bl2", -30, 50, -12]],
+    usa: [["garland_pink", "p-top", 0, -60, 0], ["garland_lav", "p-bot", 0, 60, 0], ["bluebell2", "p-s1", -30, 60, -10], ["lavender2", "p-s2", 30, 60, 10]],
+    sg: [["corner_tr", "p-tr", 40, -40, 10], ["blob_purple", "p-bl", -40, 40, -6], ["rosebud", "p-s2", 30, 60, 12], ["bouquet_lav", "p-br2", 30, 50, 12]],
+    life: [["corner_tl", "p-tl", -40, -40, -10], ["bouquet_pink", "p-br2", 30, 50, 12], ["strip_lav", "p-mr", 60, 0, 6], ["daisy", "p-s1", -30, 60, -10]],
+    proposal: [["corner_tl", "p-tl", -40, -40, -10], ["corner_tr", "p-tr", 40, -40, 10], ["blob_pink", "p-bl", -40, 40, -6], ["blob_purple", "p-br", 40, 40, 6]],
+    wedding: [["bush_pink_l", "p-ml", -60, 0, 0], ["bush_purple_r", "p-mr", 60, 0, 0], ["garland_pink", "p-top", 0, -60, 0], ["bouquet_lav", "p-bl2", -30, 50, -12], ["bouquet_pink", "p-br2", 30, 50, 12]],
+  };
+  function decoHtml(id, cover) {
+    const list = DECO[id] || DECO.sunway;
+    return `<div class="deco${cover ? " big" : ""}" aria-hidden="true">${list.map(([src, pos, dx, dy, rot], k) =>
+      `<div class="d ${pos}" style="--dx:${dx}%;--dy:${dy}%;--dr:${rot}deg"><img class="sway${k % 2 ? " b" : ""}" src="scenes/web/${src}.webp" alt="" decoding="async" loading="lazy"></div>`).join("")}</div>`;
   }
 
   let obs = null, raf = 0, chaps = [], active = new Set(), tops = [], vh = 0, lastY = -1;
@@ -507,11 +511,11 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
     const ch = W.chapters;
     const t = (k) => T(W.storyUi[k], lang);
     const cover = `<section class="chap cover ${hasImg("cover") ? "imgc" : ""}" data-id="cover" style="--bg:${hasImg("cover") ? "#fff" : BG.cover}"><div class="stage">
-      ${sceneHtml("cover", true)}${decoHtml(0, true)}
+      ${sceneHtml("cover", true)}${decoHtml("cover", true)}
       <div class="cap top"><div class="eyebrow">${t("kicker")}</div><h1>${T(W.couple.names, lang).replace(" & ", " <i>&amp;</i> ")}</h1><p>${t("sub")}</p></div>
       <div class="scrollcue" aria-hidden="true"><span></span>${t("scroll")}</div></div></section>`;
-    const body = ORDER.map((id, i) => `<section class="chap ${hasImg(id) ? "imgc" : ""}" data-id="${id}" style="--bg:${hasImg(id) ? WASH[id] || "#fff" : BG[id]}"><div class="stage">
-      ${sceneHtml(id)}${decoHtml(i + 1)}${id === "usa" && window.FIGS && window.FIGS.usa ? `<div class="walker" aria-hidden="true"><img src="scenes/web/fig_usa.webp" alt="" decoding="async"></div>` : ""}
+    const body = ORDER.map((id, i) => `<section class="chap ${hasImg(id) ? "imgc" : ""}" data-id="${id}" style="--bg:${hasImg(id) ? "#fffdfb" : BG[id]}"><div class="stage">
+      ${sceneHtml(id)}${decoHtml(id)}${id === "usa" && window.FIGS && window.FIGS.usa ? `<div class="walker" aria-hidden="true"><img src="scenes/web/fig_usa.webp" alt="" decoding="async"></div>` : ""}
       <div class="cap"><div class="num">${i + 1} / ${ORDER.length}</div><h2>${T(ch[i].title, lang)}</h2><p>${T(ch[i].text, lang)}</p>
       ${id === "wedding" ? `<button class="enter" data-act="enter">${t("enter")}</button>` : ""}</div></div></section>`).join("");
     return `${DEFS}${veilHtml()}<div class="story-bar"><div class="bar-fill"></div>
@@ -537,7 +541,7 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
     fitScenes();
     tops = chaps.map((c) => ({ top: c.offsetTop, h: c.offsetHeight }));
   }
-  let veilEl = null, curKind = "";
+  let veilEl = null, curKind = "", hidIdx = -1;
   function driveVeil(y) {
     if (!veilEl) veilEl = document.getElementById("veil");
     if (!veilEl) return;
@@ -548,7 +552,10 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
     }
     const kind = b >= 0 ? KINDS[b] || "wash" : "";
     if (kind !== curKind) { curKind = kind; veilEl.dataset.kind = kind; }
-    if (!kind) { if (chaps[0] && y < tops[0].top + tops[0].h - vh * 2.2) chaps[0].style.setProperty("--hide", "0"); return; }
+    if (!kind) {
+      if (hidIdx >= 0 && y < tops[hidIdx].top + tops[hidIdx].h - vh * (WIN[hidIdx] || 1)) { chaps[hidIdx].style.setProperty("--hide", "0"); hidIdx = -1; }
+      return;
+    }
     const ease = (x) => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
     let c;
     if (kind === "rise") c = t < 0.62 ? ease(t / 0.62) : ease((1 - t) / 0.38); // grows slowly until the couple are hidden, then opens on the next chapter
@@ -556,7 +563,7 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
     veilEl.style.setProperty("--c", c.toFixed(3));
     veilEl.style.setProperty("--t", t.toFixed(3));
     // the cover (the couple) disappears while the bushes fully cover it, so it does not reappear as they open
-    if (chaps[0]) chaps[0].style.setProperty("--hide", kind === "rise" ? ease((t - 0.42) / 0.14).toFixed(3) : "0");
+    if (kind === "rise" && chaps[b]) { chaps[b].style.setProperty("--hide", ease((t - 0.42) / 0.14).toFixed(3)); hidIdx = b; }
     if (kind === "plane") { const el = veilEl.querySelector("#elev"); if (el) el.textContent = (Math.round(Math.sin(Math.PI * t) * 294) * 100).toLocaleString("en-US") + " FT"; }
   }
   function frame() {
