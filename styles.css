@@ -352,3 +352,24 @@ html[lang="zh-Hans"] .hero .date { font-family: "Noto Sans SC", sans-serif; font
 .hero .date { font-size: 24px; }
 .count b { font-size: 30px; } .quick b { font-size: 28px; } .next .when { font-size: 28px; white-space: nowrap; }
 .card h2 { font-size: 36px; } .session-head h2 { font-size: 38px; }
+
+/* ---------- sticker decorations on the app pages ---------- */
+.session-head, .card { position: relative; }
+.stk { position: absolute; right: 6px; top: -8px; width: 66px; height: auto; transform: rotate(8deg); filter: drop-shadow(2px 3px 4px rgba(70, 60, 110, .28)); pointer-events: none; }
+.session-head .stk { top: 0; right: 4px; width: 74px; }
+.break { position: relative; }
+.break .stk.lamp { position: static; display: block; margin: 0 auto 6px; width: 56px; transform: none; }
+.gar { display: block; width: 78%; margin: 2px auto 12px; height: auto; filter: drop-shadow(1px 2px 3px rgba(70, 60, 110, .2)); }
+.hero .sprig { width: 150px; height: auto; top: -10px; left: -14px; opacity: 1; filter: drop-shadow(2px 3px 4px rgba(70, 60, 110, .2)); }
+.hero .sprig.b { top: auto; left: auto; bottom: -10px; right: -14px; transform: rotate(180deg); width: 150px; }
+.winbox { position: relative; }
+.winbox .spk { position: absolute; width: 46px; height: auto; animation: twinkle 3s ease-in-out infinite; }
+.winbox .spk.a { top: -14px; left: -8px; } .winbox .spk.b { top: -10px; right: -6px; animation-delay: -1s; } .winbox .spk.c { bottom: -12px; right: 24%; animation-delay: -2s; }
+@keyframes twinkle { 0%, 100% { opacity: .35; scale: .85; } 50% { opacity: 1; scale: 1.1; } }
+.card .stk { top: 6px; right: 8px; width: 58px; }
+
+.session-head .stk { width: 54px; top: 2px; right: 2px; }
+.session-head h2 { padding-right: 62px; }
+.hero .sprig { width: 118px; top: -8px; left: -12px; }
+.hero .sprig.b { width: 104px; bottom: -12px; right: -14px; }
+.gar { width: 70%; margin: 0 auto 10px; }

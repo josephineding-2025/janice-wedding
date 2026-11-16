@@ -3,7 +3,7 @@ alpha: sheet has a transparent background (soft grey halo is trimmed away)
 white: sheet is on a plain white background (white is kept; the page multiplies it away)"""
 import sys, os
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 from scipy import ndimage as ndi
 
 src, prefix = sys.argv[1], sys.argv[2]
@@ -42,5 +42,12 @@ for k, (sl, area, lbl) in enumerate(items):
     else:
         keep = (lab[y0:y1, x0:x1] == lbl)
         piece[~keep] = 255  # blank out neighbouring stickers that fall inside this box
-        Image.fromarray(piece[:, :, :3], "RGB").save(os.path.join(out, f"{prefix}_{k:02d}.webp"), quality=86, method=4)
+        # make the white paper transparent: only white that touches the edge of the picture (so white inside the drawing stays)
+        nw = piece[:, :, :3].min(axis=2) > 243
+        wl, wn = ndi.label(nw)
+        edge = set(np.unique(np.concatenate([wl[0], wl[-1], wl[:, 0], wl[:, -1]]))) - {0}
+        bgm = np.isin(wl, list(edge))
+        al = Image.fromarray(((~bgm) * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.9))
+        out_im = Image.fromarray(piece[:, :, :3], "RGB").convert("RGBA"); out_im.putalpha(al)
+        out_im.save(os.path.join(out, f"{prefix}_{k:02d}.webp"), quality=86, method=4)
     print(f"{prefix}_{k:02d}", piece.shape[1], "x", piece.shape[0])

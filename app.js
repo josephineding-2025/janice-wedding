@@ -120,7 +120,7 @@
       status = `<p class="date" style="margin-top:18px">${u("thanks")}</p>`;
     }
     return `
-      <section class="hero"><svg class="sprig a" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="#2d2b38" stroke-width="1" stroke-linecap="round"><path d="M4 8 Q40 20 62 52 Q76 74 78 112"/><path d="M4 8 Q30 4 56 20"/></g><g stroke="#2d2b38" stroke-width=".7" fill="#dbe8dc"><path d="M30 18 q8 -8 16 -2 q-8 8 -16 2Z"/><path d="M48 36 q10 -6 16 2 q-10 6 -16 -2Z"/><path d="M60 58 q10 -4 14 4 q-10 4 -14 -4Z"/><path d="M70 82 q8 -8 16 -2 q-6 8 -16 2Z"/><path d="M20 14 q-4 10 4 16 q6 -8 -4 -16Z"/></g><g stroke="#2d2b38" stroke-width=".7"><circle cx="58" cy="20" r="5" fill="#cfc3f3"/><circle cx="78" cy="108" r="5" fill="#b9cdf2"/><circle cx="66" cy="50" r="4" fill="#f4cfda"/><circle cx="40" cy="30" r="3.4" fill="#cfc3f3"/></g></svg><svg class="sprig b" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="#2d2b38" stroke-width="1" stroke-linecap="round"><path d="M4 8 Q40 20 62 52 Q76 74 78 112"/><path d="M4 8 Q30 4 56 20"/></g><g stroke="#2d2b38" stroke-width=".7" fill="#dbe8dc"><path d="M30 18 q8 -8 16 -2 q-8 8 -16 2Z"/><path d="M48 36 q10 -6 16 2 q-10 6 -16 -2Z"/><path d="M60 58 q10 -4 14 4 q-10 4 -14 -4Z"/><path d="M70 82 q8 -8 16 -2 q-6 8 -16 2Z"/><path d="M20 14 q-4 10 4 16 q6 -8 -4 -16Z"/></g><g stroke="#2d2b38" stroke-width=".7"><circle cx="58" cy="20" r="5" fill="#cfc3f3"/><circle cx="78" cy="108" r="5" fill="#b9cdf2"/><circle cx="66" cy="50" r="4" fill="#f4cfda"/><circle cx="40" cy="30" r="3.4" fill="#cfc3f3"/></g></svg><div class="sunmoon"></div>${[0,1,2,3,4].map((i) => `<i class="firefly" style="left:${12 + i * 19}%;top:${30 + (i * 17) % 40}%;animation-delay:${i * 0.7}s"></i>`).join("")}
+      <section class="hero"><img class="sprig a" src="scenes/web/corner_tl.webp" alt="" decoding="async"><img class="sprig b" src="scenes/web/corner_tr.webp" alt="" decoding="async"><div class="sunmoon"></div>${[0,1,2,3,4].map((i) => `<i class="firefly" style="left:${12 + i * 19}%;top:${30 + (i * 17) % 40}%;animation-delay:${i * 0.7}s"></i>`).join("")}
         <div class="eyebrow">${u("weddingOf")}</div>
         <h1>${L(W.couple.names).replace(" & ", "<br>&amp; ")}</h1>
         <div class="date">${L(W.dateText)}</div>
@@ -166,13 +166,14 @@
     el.innerHTML = cell(d, "days") + cell(h, "hours") + cell(m, "mins") + cell(s, "secs");
   }
 
+  const STK = { morning: "bouquet_lav", evening: "toast" }; // little stickers beside each session title
   function viewAgenda() {
     const now = myNow();
     const onDay = now.date === W.date;
     return W.agenda.map((s) => {
       const sLive = onDay && now.min >= toMin(s.start) && now.min < toMin(s.end);
       if (s.isBreak) {
-        return `<div class="break"><b>${L(s.title)}</b>${L(s.note)}</div>`;
+        return `<div class="break"><img class="stk lamp" src="scenes/web/lantern2.webp" alt="" decoding="async"><b>${L(s.title)}</b>${L(s.note)}</div>`;
       }
       const timed = s.items.some((i) => i.time);
       let current = -1;
@@ -189,7 +190,7 @@
         return `<li class="${cls.join(" ")}">${left}<div style="flex:1"><div class="t">${L(i.t)}</div>${desc}${songs}</div>${who}</li>`;
       }).join("");
       return `
-        <div class="session-head">
+        <div class="session-head">${STK[s.id] ? `<img class="stk" src="scenes/web/${STK[s.id]}.webp" alt="" decoding="async">` : ""}
           <h2>${L(s.title)}${sLive ? `<span class="live">${u("live")}</span>` : ""}</h2>
           <div class="time">${fmtRange(s.start, s.end)}${s.venue ? " &middot; " + L(s.venue) : ""}${s.emcee ? " &middot; " + u("emcee") + ": " + s.emcee : ""}</div>
         </div>
@@ -414,7 +415,7 @@
       store.set("bingo", bingo);
     }
     const bl = win.length && bingo.win && W.blessings[bingo.win.b], vs = win.length && bingo.win && W.verses[bingo.win.v];
-    const winHtml = win.length ? `<div class="winbox">
+    const winHtml = win.length ? `<div class="winbox"><img class="spk a" src="scenes/web/spark_y.webp" alt=""><img class="spk b" src="scenes/web/spark_p.webp" alt=""><img class="spk c" src="scenes/web/spark_b.webp" alt="">
         <div class="winhead">${u("bingoWin")}</div>
         ${bl ? `<p class="bless">${L(bl)}</p>` : ""}
         ${vs ? `<blockquote>${L(vs)}<cite>${L(vs.ref)}</cite></blockquote><div class="niv">${W.nivNotice}</div>` : ""}</div>` : "";
@@ -426,7 +427,7 @@
     const ups = bingo.on.map((i) => bItem(bingo.cells[i])).filter((b) => b.type === "photo" && uploadUrl(b.id));
     const upHtml = ups.length ? `<div class="lbl2" style="margin-top:14px">${u("uploadFor")}</div>` + ups.map((b) =>
       `<div class="uprow"><span>${L(b)}</span><a class="btn fill" href="${uploadUrl(b.id)}" target="_blank" rel="noopener">${u("upload")}</a></div>`).join("") : "";
-    return `<div class="card" id="bingo"><h2>${u("bingoTitle")}</h2><div class="muted small">${u("bingoSub")}</div>
+    return `<div class="card" id="bingo"><img class="stk" src="scenes/web/bfly_purple.webp" alt="" decoding="async"><h2>${u("bingoTitle")}</h2><div class="muted small">${u("bingoSub")}</div>
       ${winHtml}
       <div class="legend2">${legendHtml()}</div>
       <div class="bingo">${cells}</div>${upHtml}
@@ -515,7 +516,7 @@
   function viewSongs() {
     const sent = store.get("songsSent", 0);
     if (!apiOn()) return `<div class="card"><h2>${u("songTitle")}</h2><p class="soon">${u("soonOnline")}</p></div>`;
-    return `<div class="card"><h2>${u("songTitle")}</h2><p class="muted small" style="margin:0 0 10px">${u("songSub")}</p>
+    return `<div class="card"><img class="stk" src="scenes/web/key_tag.webp" alt="" decoding="async"><h2>${u("songTitle")}</h2><p class="muted small" style="margin:0 0 10px">${u("songSub")}</p>
       <form id="songForm">
         <input class="search" name="song" required maxlength="80" placeholder="${u("songPh")}" autocomplete="off">
         <textarea class="search ta" name="note" maxlength="100" placeholder="${u("songNote")}"></textarea>
@@ -570,7 +571,7 @@
     if (!apiOn()) return `<div class="card"><h2>${u("gardenTitle")}</h2><p class="soon">${u("soonOnline")}</p></div>`;
     loadWishes();
     const sent = store.get("wishSent", 0);
-    return `<div class="card"><h2>${u("gardenTitle")}</h2><p class="muted small" style="margin:0 0 8px">${u("gardenSub")}</p>
+    return `<div class="card"><img class="stk" src="scenes/web/bouquet_pink.webp" alt="" decoding="async"><h2>${u("gardenTitle")}</h2><p class="muted small" style="margin:0 0 8px">${u("gardenSub")}</p>
       <div id="gardenWrap" class="gardenWrap">${gardenSvg()}</div>${wishCard()}</div>
       <div class="card"><h3>${u("plant")}</h3>
       <form id="wishForm"><textarea class="search ta" name="message" required maxlength="140" placeholder="${u("wishPh")}"></textarea>
@@ -660,7 +661,7 @@
         if (el && lyricsIdx === i) el.innerHTML = html || `<p class="soon">${u("lyricsMissing")}</p>`;
       });
     }, 0);
-    return `<div class="session-head"><h2>${u("lyricsTitle")}</h2><div class="time">${u("lyricsSub")}</div></div>
+    return `<div class="session-head"><h2>${u("lyricsTitle")}</h2><div class="time">${u("lyricsSub")}</div></div><img class="gar" src="scenes/web/garland_lav.webp" alt="" decoding="async">
       <div class="seg" role="tablist">${W.lyrics.map((s, n) => `<button role="tab" aria-selected="${n === i}" class="${n === i ? "on" : ""}" data-act="lyric-tab" data-i="${n}">${L(s.short || s.title)}</button>`).join("")}</div>
       <div class="card lyr"><h2>${L(W.lyrics[i].title)}</h2><div class="muted small">${W.lyrics[i].by}</div><div id="lyrics-body" style="margin-top:12px"><span class="muted small">...</span></div></div>`;
   }

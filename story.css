@@ -192,3 +192,68 @@ html[lang="zh-Hans"] .cap h2, html[lang="zh-Hans"] .cover h1 { font-family: "Not
 .imgc:not(.cover) .cap { flex: 0 0 auto; padding-top: 16px; }
 .deco .bl, .deco .lav, .deco .blu { bottom: var(--sbb, calc(38svh - 34px)); }
 .deco .tr { top: calc(var(--sbt, 34px) - 70px); }
+
+/* ---------- new transitions ---------- */
+.chap.cover { height: 270vh; }
+.veil[data-kind="rise"] .v-rise, .veil[data-kind="wave"] .v-wave { display: block; }
+.v-rise, .v-wave { position: absolute; inset: 0; }
+.v-rise > img { position: absolute; max-width: none; height: auto; filter: drop-shadow(3px 4px 6px rgba(70, 60, 110, .3)); will-change: transform; }
+.v-rise { --k1: clamp(0, calc(var(--c) * 1.5), 1); --k2: clamp(0, calc((var(--c) - .12) * 1.6), 1); --k3: clamp(0, calc((var(--c) - .3) * 1.7), 1); --k4: clamp(0, calc((var(--c) - .5) * 2.1), 1); }
+.v-rise .r1 { width: 135vw; left: -42vw; bottom: -8vh; transform: translateY(calc((1 - var(--k1)) * 115%)); }
+.v-rise .r2 { width: 135vw; right: -42vw; bottom: -8vh; transform: translateY(calc((1 - var(--k1)) * 115%)); }
+.v-rise .r3 { width: 130vw; left: -40vw; bottom: 22vh; transform: translateY(calc((1 - var(--k2)) * 150%)); }
+.v-rise .r4 { width: 130vw; right: -40vw; bottom: 26vh; transform: translateY(calc((1 - var(--k2)) * 150%)); }
+.v-rise .r5 { width: 125vw; left: -36vw; bottom: 46vh; transform: translateY(calc((1 - var(--k3)) * 190%)); }
+.v-rise .r6 { width: 125vw; right: -36vw; bottom: 48vh; transform: translateY(calc((1 - var(--k3)) * 190%)); }
+.v-rise .r7 { height: 96vh; width: auto; left: -8vw; bottom: -2vh; transform: translateX(calc((1 - var(--k2)) * -130%)); }
+.v-rise .r8 { height: 96vh; width: auto; right: -8vw; bottom: -2vh; transform: translateX(calc((1 - var(--k2)) * 130%)); }
+.v-rise .r9 { width: 100vw; left: -6vw; top: -5vh; transform: translate(calc((1 - var(--k3)) * -90%), calc((1 - var(--k3)) * -90%)); }
+.v-rise .r10 { width: 100vw; right: -6vw; top: -5vh; transform: translate(calc((1 - var(--k3)) * 90%), calc((1 - var(--k3)) * -90%)); }
+.v-rise .r11 { width: 62vw; left: 4vw; bottom: 30vh; transform: translateY(calc((1 - var(--k4)) * 170%)) rotate(-7deg); }
+.v-rise .r12 { width: 62vw; right: 4vw; bottom: 42vh; transform: translateY(calc((1 - var(--k4)) * 170%)) rotate(7deg); }
+.v-rise .r13 { width: 125vw; left: -12vw; top: 26vh; transform: translateX(calc((1 - var(--k4)) * -130%)); }
+.v-rise .r14 { width: 125vw; right: -12vw; top: 42vh; transform: translateX(calc((1 - var(--k4)) * 130%)); }
+.v-wave > img { position: absolute; left: -35vw; width: 170vw; max-width: none; height: auto; bottom: calc(var(--i) * 8.6vh - 6vh); transform: translate(calc(var(--dir) * var(--t) * 16vw), calc((1 - var(--c)) * 125vh)); }
+.v-plane .cl { mix-blend-mode: multiply; -webkit-mask-image: none; mask-image: none; filter: none; }
+.v-flock > img { mix-blend-mode: multiply; }
+
+/* ---------- animated sticker bits ---------- */
+.twinkle { animation: twinkle 3.2s ease-in-out infinite; }
+.twinkle.b { animation-duration: 4.1s; animation-delay: -1.4s; }
+@keyframes twinkle { 0%, 100% { opacity: .3; scale: .86; } 50% { opacity: 1; scale: 1.1; } }
+.spin { animation: spin 60s linear infinite; }
+@keyframes spin { to { rotate: 360deg; } }
+.clink { transform-origin: 50% 100%; animation: clink 2.6s ease-in-out infinite; }
+@keyframes clink { 0%, 100% { rotate: -3deg; } 50% { rotate: 3deg; } }
+.drift { animation: drift 9s ease-in-out infinite alternate; }
+@keyframes drift { from { translate: -2.5% 0; } to { translate: 2.5% 0; } }
+.lant { transform-origin: 50% 0; animation: lant 5s ease-in-out infinite; }
+@keyframes lant { 0%, 100% { rotate: -2.5deg; } 50% { rotate: 2.5deg; } }
+.chap:not(.on) .twinkle, .chap:not(.on) .spin, .chap:not(.on) .clink, .chap:not(.on) .drift, .chap:not(.on) .lant { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .twinkle, .spin, .clink, .drift, .lant { animation: none; } }
+
+/* ---------- new corner foliage ---------- */
+.deco .d img { filter: drop-shadow(3px 4px 6px rgba(70, 60, 110, .25)); }
+.deco .dtl { left: -3%; width: 42%; top: calc(var(--sbt, 34px) - 44px); }
+.deco .dtr { right: -3%; width: 44%; top: calc(var(--sbt, 34px) - 44px); }
+.deco .dbl { left: -8%; width: 31%; bottom: var(--sbb, 100px); top: auto; }
+.deco .dbr { right: -8%; width: 31%; bottom: var(--sbb, 100px); top: auto; }
+.deco .dlv { left: 21%; width: 7%; bottom: var(--sbb, 100px); top: auto; }
+.deco .ddy { right: 22%; width: 8%; bottom: var(--sbb, 100px); top: auto; }
+.deco .bl, .deco .tr, .deco .lav, .deco .blu { display: none; }
+.deco.big .dtl, .deco.big .dtr { display: none; }
+.deco.big .dbl { width: 40%; left: -10%; bottom: 40px; } .deco.big .dbr { width: 40%; right: -10%; bottom: 40px; }
+.deco.big .dlv { left: 28%; bottom: 36px; width: 9%; } .deco.big .ddy { right: 28%; bottom: 36px; width: 10%; }
+.cover .deco.big::after { display: none; }
+
+.chap.cover .stage { opacity: calc(1 - var(--hide, 0)); }
+
+/* ---------- watercolour washes behind the paintings (fills the empty space on a phone) ---------- */
+.chap.imgc:not(.cover) { background: none; }
+.imgc:not(.cover) .stage { background: var(--bg); }
+.scene.img .stack { mix-blend-mode: multiply; }
+/* the couple walk along the strip below the title (USA chapter) */
+.walker { position: absolute; left: 0; right: 0; bottom: calc(6px + env(safe-area-inset-bottom)); height: min(158px, 20svh); z-index: 3; pointer-events: none; overflow: hidden; }
+.walker::before { content: ""; position: absolute; left: -10%; right: -10%; bottom: 2px; height: 30px; background: radial-gradient(ellipse at 50% 60%, rgba(150, 165, 220, .38), rgba(200, 180, 235, .16) 55%, transparent 72%); }
+.walker img { position: absolute; left: 0; bottom: 6px; height: 100%; width: auto; transform: translateX(calc(-30vw + clamp(0, calc((var(--p) - .04) / .9), 1) * 150vw)) translateY(var(--bob, 0px)) rotate(var(--sway, 0deg)); transform-origin: 50% 100%; filter: drop-shadow(2px 4px 5px rgba(70, 60, 110, .28)); will-change: transform; }
+.imgc[data-id="usa"] .cap { position: relative; z-index: 4; }
