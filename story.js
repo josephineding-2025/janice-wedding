@@ -328,25 +328,23 @@
       L("bluebell2", 1, -1, 10, { cls: "sway" }), L("daisy", 88, -1, 9, { cls: "sway b" }),
     ] },
     sunway: { view: [250, 0, 1150, 815], fullCoords: 1, layers: [
-      ...(FIGL("sunway", 33, 1, 33, { fx: FX.rise(40, 0.05, 0.5) }).length ? FIGL("sunway", 33, 1, 33, { fx: FX.rise(40, 0.05, 0.5) }) : [L("grads", 36, 4, 28, { cls: "cropfade", fx: FX.rise(40, 0.05, 0.5) })]),
+      ...(FIGL("sunway", 38, 1, 24, { fx: FX.rise(40, 0.05, 0.5) }).length ? FIGL("sunway", 38, 1, 24, { fx: FX.rise(40, 0.05, 0.5) }) : [L("grads", 36, 4, 28, { cls: "cropfade", fx: FX.rise(40, 0.05, 0.5) })]),
       L("dove_b", 76, 80, 9, { blend: 1, fx: across(-170, 26) }),
       L("bfly_blue", 58, 70, 5, { blend: 1, cls: "float" }), L("sparrow_c", 24, 62, 6, { blend: 1, fx: across(120, -10) }),
       spark("spark_y", 46, 60, 8),
     ] },
-    // the study: the old library painting stays as a faint background and the new study couple sits in front of it
-    library: { view: [170, 0, 1090, 1141], bg: 0.34, layers: [
-      ...FIGL("library", 16, 4, 68, { fx: FX.rise(30, 0.04, 0.4) }),
+
+    // the library: the original faceless painting
+    library: { view: [170, 0, 1090, 1141], layers: [
       L("bfly_pink", 6, 70, 6, { blend: 1, cls: "float" }), spark("spark_y", 80, 74, 9), spark("spark_p", 12, 82, 8, "b"),
     ] },
     map: { crop: [0, 0, 1010, 1233], route: { d: "M345 288 C430 372 468 440 505 500 S590 730 650 918", s: 1, sprite: PIECE("bus_side"), w: 15 }, layers: [
       L("wave2", -6, 8, 50, { blend: 1, cls: "drift" }), L("crest1", 8, 3, 13, { blend: 1 }),
       L("compass", 80, 7, 14, { cls: "spin" }), L("bfly_blue2", 70, 70, 6, { blend: 1, cls: "float" }),
     ] },
-    // the car painting; the key hand-over couple stands at the right side of the car, and the key arcs over the car
+    // the car painting; the key hand-over couple stands at the right side of the car
     keys: { view: [60, 0, 1340, 1102], fullCoords: 1, layers: [
       ...FIGL("keys", 53, 1, 34, { fx: FX.rise(36, 0.04, 0.38) }),
-      L("key_fob", 68, 44, 7, { fx: `transform:translate(calc(${S(0.55, 0.92)} * -720%), calc((1 - (2 * ${S(0.55, 0.92)} - 1) * (2 * ${S(0.55, 0.92)} - 1)) * -90px)) rotate(calc(${S(0.55, 0.92)} * -24deg));opacity:calc(${S(0.5, 0.58)} * (1 - ${S(0.93, 0.98)}))` }),
-      L("prop", 62, 90, 20, { fx: `transform:translateX(calc(${S(0.5, 1)} * -460% + 40%));opacity:${S(0.5, 0.6)}` }),
       spark("spark_y", 30, 66, 8), spark("spark_b", 52, 80, 7, "b"),
     ] },
     // the couple really travel: they walk the whole width of the scene from left to right as you scroll, with a walking bob
@@ -354,7 +352,6 @@
       ...(window.FIGS && window.FIGS.usa ? [] : [
         { src: PIECE("couple"), x: 10, b: 14, w: 22, cls: "cropfade", fx: FX.rise(40, 0.1, 0.55) },
       ]),
-      L("airliner", 0, 80, 22, { fx: `transform:translateX(calc(${S(0, 1)} * 480%));opacity:${S(0, 0.08)}` }),
       L("dove_c", 46, 72, 10, { blend: 1, fx: across(80, -20) }),
       L("wave1", -8, -1, 118, { blend: 1, cls: "drift" }), L("crest2", 34, 2, 12, { blend: 1 }),
       L("compass", 84, 66, 9, { cls: "spin" }), spark("spark_b", 40, 50, 8),
@@ -385,9 +382,9 @@
       L("bfly_pink2", 80, 56, 7, { blend: 1, cls: "float" }),
     ] },
     // walk the wedding couple up the aisle (needs fig_wedding.webp)
-    wedding: { zoom: { o: "50% 46%", k: 0.5 }, layers: [
+    wedding: { zoom: { o: "50% 46%", k: 0.78, stop: 0.6 }, layers: [
       // a smooth, eased glide (no walking bob) that ends with the couple standing on the carpet in front of the arch
-      ...FIGL("wedding", 32, 1, 36, { fx: `transform-origin:50% 100%;transform:translateY(calc(calc(${S(0.05, 0.92)} * ${S(0.05, 0.92)} * (3 - 2 * ${S(0.05, 0.92)})) * -77%)) scale(calc(1 - calc(${S(0.05, 0.92)} * ${S(0.05, 0.92)} * (3 - 2 * ${S(0.05, 0.92)})) * 0.5));opacity:${S(0, 0.08)}` }),
+      ...FIGL("wedding", 32, 1, 36, { fx: `transform-origin:50% 100%;transform:translateY(calc(calc(${S(0.04, 0.58)} * ${S(0.04, 0.58)} * (3 - 2 * ${S(0.04, 0.58)})) * -77%)) scale(calc(1 - calc(${S(0.04, 0.58)} * ${S(0.04, 0.58)} * (3 - 2 * ${S(0.04, 0.58)})) * 0.5));opacity:${S(0, 0.08)}` }),
       L("dove_a", 2, 78, 14, { blend: 1, fx: across(180, -20) }),
       L("dove_e", 82, 84, 12, { blend: 1, fx: across(-150, 30) }),
       L("bfly_purple", 70, 50, 6, { blend: 1, cls: "float b" }),
@@ -404,7 +401,7 @@
       ? (art.fullCoords ? { ...l, x: (((l.x / 100) * m.w - cr[0]) / cw) * 100, w: (((l.w / 100) * m.w) / cw) * 100 } : l)
       : { ...l, x: ((ref[0] + (l.x / 100) * rw - cr[0]) / cw) * 100, w: ((l.w / 100) * rw / cw) * 100 });
     const base = art.scale || (cw / ch > 1.4 ? 1.08 : 1);
-    const z = art.zoom ? `transform-origin:${art.zoom.o};transform:scale(calc(1 + var(--p) * ${art.zoom.k}))` : `transform:translateY(calc(var(--p) * -1.5%)) scale(calc(${base} + var(--p) * .06))`;
+    const z = art.zoom ? `transform-origin:${art.zoom.o};transform:scale(calc(1 + min(var(--p), ${art.zoom.stop || 1}) * ${art.zoom.k}))` : `transform:translateY(calc(var(--p) * -1.5%)) scale(calc(${base} + var(--p) * .06))`;
     const layers = (art.layers || []).map(remap).map((l) => `<img class="ov ${l.blend ? "mul" : ""} ${l.cls || ""}" src="${l.src}" alt="" decoding="async" style="left:${l.x}%;bottom:${l.b}%;width:${l.w}%;${l.fx || ""}">`).join("");
     let route = "";
     if (art.route) {
@@ -413,7 +410,8 @@
         <img id="imgBus" class="ov" src="${r.sprite}" alt="" style="width:${r.w}%;left:0;top:0">`;
     }
     const bgStyle = `width:${(m.w / cw) * 100}%;height:auto;left:${(-cr[0] / cw) * 100}%;top:${(-cr[1] / ch) * 100}%;max-width:none;position:absolute;opacity:${art.bg == null ? 1 : art.bg}`;
-    return `<div class="scene img" data-ar="${cw / ch}" style="--ar:${cw / ch}"><div class="stack" style="${z}"><div class="crop"><img class="bg" src="${W.sceneImages[id]}" alt="" decoding="async" loading="${cover ? "eager" : "lazy"}" style="${bgStyle}"></div>${layers}${route}</div></div>`;
+    const faces = art.svg ? `<svg class="faceSvg" viewBox="${cr[0]} ${cr[1]} ${cw} ${ch}" aria-hidden="true" style="opacity:${S(0.04, 0.22)}">${art.svg}</svg>` : "";
+    return `<div class="scene img" data-ar="${cw / ch}" style="--ar:${cw / ch}"><div class="stack" style="${z}"><div class="crop"><img class="bg" src="${W.sceneImages[id]}" alt="" decoding="async" loading="${cover ? "eager" : "lazy"}" style="${bgStyle}"></div>${faces}${layers}${route}</div></div>`;
   }
   // walking bob for the travelling couple: two steps for every little bit of scrolling, so they only "walk" while you scroll
   HOOKS.usa_img = (p, root) => {
@@ -480,9 +478,9 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
     cover: [["blob_purple", "c-bl", -35, 35, -8], ["blob_pink", "c-br", 35, 35, 8], ["lavender2", "p-s1", 0, 60, 0], ["daisy", "p-s2", 0, 60, 0]],
     sunway: [["corner_tl", "p-tl", -40, -40, -10], ["corner_tr", "p-tr", 40, -40, 10], ["blob_purple", "p-bl", -40, 40, -6], ["blob_pink", "p-br", 40, 40, 6]],
     library: [["strip_lav", "p-ml", -60, 0, -6], ["strip_rose", "p-mr", 60, 0, 6], ["bouquet_lav", "p-bl2", -30, 50, -12], ["bouquet_pink", "p-br2", 30, 50, 12]],
-    map: [["branch1", "p-tl2", -50, -30, -14], ["branch2", "p-tr2", 50, -30, 14], ["garland_lav", "p-bot", 0, 60, 0], ["bluebell2", "p-s1", 0, 60, 0], ["daisy", "p-s2", 0, 60, 0]],
-    keys: [["bush_purple_l", "p-ml", -60, 0, 0], ["bush_pink_r", "p-mr", 60, 0, 0], ["corner_tr", "p-tr", 40, -40, 10], ["bouquet_pink", "p-bl2", -30, 50, -12]],
-    usa: [["garland_pink", "p-top", 0, -60, 0], ["garland_lav", "p-bot", 0, 60, 0], ["bluebell2", "p-s1", -30, 60, -10], ["lavender2", "p-s2", 30, 60, 10]],
+    map: [["branch1", "p-tl2", -50, -30, -14], ["branch2", "p-tr2", 50, -30, 14]],
+    keys: [["bush_purple_l", "p-ml", -60, 0, 0], ["bush_pink_r", "p-mr", 60, 0, 0], ["corner_tr", "p-tr", 40, -40, 10]],
+    usa: [["garland_pink", "p-top", 0, -60, 0], ["garland_lav", "p-bot-s", 0, 60, 0], ["bluebell2", "p-s1s", -30, 60, -10], ["lavender2", "p-s2s", 30, 60, 10]],
     sg: [["corner_tr", "p-tr", 40, -40, 10], ["blob_purple", "p-bl", -40, 40, -6], ["rosebud", "p-s2", 30, 60, 12], ["bouquet_lav", "p-br2", 30, 50, 12]],
     life: [["corner_tl", "p-tl", -40, -40, -10], ["bouquet_pink", "p-br2", 30, 50, 12], ["strip_lav", "p-mr", 60, 0, 6], ["daisy", "p-s1", -30, 60, -10]],
     proposal: [["corner_tl", "p-tl", -40, -40, -10], ["corner_tr", "p-tr", 40, -40, 10], ["blob_pink", "p-bl", -40, 40, -6], ["blob_purple", "p-br", 40, 40, 6]],
@@ -529,6 +527,8 @@ const DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="t
       stack.style.width = w + "px"; stack.style.height = h + "px";
       if (!isCover) { sc.style.flex = "0 0 " + h + "px"; sc.style.height = h + "px"; }
       const st = sc.closest(".stage");
+      const cap = st.querySelector(".cap");
+      if (cap && sc.closest(".chap").dataset.id === "wedding") sc.closest(".chap").style.setProperty("--up", Math.max(0, cap.offsetTop + cap.offsetHeight / 2 - st.clientHeight / 2) + "px");
       st.style.setProperty("--sbb", st.clientHeight - sc.offsetTop - sc.offsetHeight + "px"); // foliage hugs the painting's corners
       st.style.setProperty("--sbt", sc.offsetTop + "px");
     });
