@@ -5,7 +5,7 @@
   /* ---------------- i18n ---------------- */
   const UI = {
     en: {
-      replay: "Replay our story", readVerse: "Read the passage", themeLabel: "Ceremony theme", verseLabel: "Scripture", storyCardTitle: "View our story", storyCardSub: "From Sunway University to the wedding day. Scroll through the whole journey.", storyCardBtn: "Start the story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
+      replay: "Replay our story", readVerse: "Read the passage", resetView: "Reset view", browseTables: "Browse all tables", themeLabel: "Ceremony theme", verseLabel: "Scripture", storyCardTitle: "View our story", storyCardSub: "From Sunway University to the wedding day. Scroll through the whole journey.", storyCardBtn: "Start the story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
       tile_agenda: "Agenda", tile_agenda_s: "The timeline of the day", tile_seats: "Find my seat", tile_seats_s: "Floor plan and your table",
       tile_lyrics: "Sing along", tile_lyrics_s: "Praise and worship lyrics", tile_play: "Quiz and bingo", tile_play_s: "Play and earn points",
       tile_board: "Leaderboard", tile_board_s: "See who is on top", tile_wishes: "Wish garden", tile_wishes_s: "Plant a blessing",
@@ -41,7 +41,7 @@
       contact: "Chat with us",
     },
     zh: {
-      replay: "重看我们的故事", readVerse: "阅读经文", themeLabel: "证婚礼主题", verseLabel: "经文", storyCardTitle: "观看我们的故事", storyCardSub: "从双威大学到婚礼当天，一路往下滑，看完整段旅程。", storyCardBtn: "开始故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
+      replay: "重看我们的故事", readVerse: "阅读经文", resetView: "还原视图", browseTables: "浏览所有桌子", themeLabel: "证婚礼主题", verseLabel: "经文", storyCardTitle: "观看我们的故事", storyCardSub: "从双威大学到婚礼当天，一路往下滑，看完整段旅程。", storyCardBtn: "开始故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
       tile_agenda: "流程", tile_agenda_s: "今天的时间表", tile_seats: "查找座位", tile_seats_s: "平面图与桌号",
       tile_lyrics: "一起来唱", tile_lyrics_s: "敬拜赞美歌词", tile_play: "问答与宾果", tile_play_s: "玩游戏赚积分",
       tile_board: "排行榜", tile_board_s: "看看谁领先", tile_wishes: "祝福花园", tile_wishes_s: "种下一个祝福",
@@ -122,7 +122,7 @@
     ["#agenda", "lantern2", "tile_agenda"], ["#seats", "compass", "tile_seats"],
     ["#lyrics", "lavender2", "tile_lyrics"], ["#fun/play", "bfly_purple", "tile_play"],
     ["#fun/board", "toast", "tile_board"], ["#fun/wishes", "bouquet_pink", "tile_wishes"],
-    ["#fun/songs", "sparrow_a", "tile_songs"], ["#story", "dove_a", "tile_story"],
+    
   ];
   function tileHtml([href, art, key], idx) {
     const inner = `<img class="tart" src="scenes/web/${art}.webp" alt="" decoding="async" loading="lazy"><b>${u(key)}</b><span>${u(key + "_s")}</span><i class="go" aria-hidden="true">&rarr;</i>`;
@@ -393,7 +393,7 @@
       const a = (i / 12) * Math.PI * 2;
       chairs += `<rect class="chair" x="${(x + Math.cos(a) * (r + 9) - 4.5).toFixed(1)}" y="${(y + Math.sin(a) * (r + 9) - 4.5).toFixed(1)}" width="9" height="9" rx="2"/>`;
     }
-    const filled = t.intro.en || t.intro.zh || t.guests.length;
+    const filled = t.intro.en || t.intro.zh || t.guests.length || (metaOf(t.id) && metaOf(t.id).title);
     const cls = ["tbl", filled ? "filled" : "", String(t.id) === String(selected) ? "sel" : "", hits.includes(String(t.id)) ? "hit" : ""].join(" ");
     const label = main ? (lang === "zh" ? "主桌" : "Main") : t.id;
     return `<g class="${cls}" data-table="${t.id}" role="button" tabindex="0" aria-label="${tableLabel(t)}">
@@ -440,56 +440,109 @@
     </svg>`;
   }
 
+  // ----- live guest list: the Google Sheet tab "Copy of guest list", read through the Apps Script backend (falls back to data.js) -----
+  const seatCache = { meta: null, metaAt: 0, tab: {} };
+  let hitName = "", searchTok = 0, searchTimer = 0;
+  const metaOf = (id) => (seatCache.meta || []).find((m) => String(m.id) === String(id));
+  function loadMeta() {
+    if (!apiOn()) return Promise.resolve(null);
+    if (seatCache.meta && Date.now() - seatCache.metaAt < 60000) return Promise.resolve(seatCache.meta);
+    return apiGet("titles").then((r) => { seatCache.meta = r.rows || []; seatCache.metaAt = Date.now(); return seatCache.meta; }).catch(() => null);
+  }
+  function loadTable(id) {
+    const c = seatCache.tab[id];
+    if (!apiOn() || (c && Date.now() - c.at < 60000)) return Promise.resolve(c || null);
+    return apiGet("table&id=" + encodeURIComponent(id)).then((r) => (seatCache.tab[id] = { title: r.title || "", guests: r.guests || [], at: Date.now() })).catch(() => null);
+  }
+  const mapZoom = () => {
+    if (!routeOn || !POS[selected]) return { cls: "", st: "" };
+    const [x, y] = POS[selected];
+    return { cls: " zoomed", st: `--zx:${(((x - 120) / 700) * 100).toFixed(1)}%;--zy:${(((y - 95) / 910) * 100).toFixed(1)}%;` };
+  };
+
   function tableCard() {
     const t = byId(selected);
     if (!t) return `<div class="card muted" id="tcard">${u("pickTable")}</div>`;
-    const hasAny = L(t.intro) || L(t.fun) || L(t.tag);
-    const guests = t.guests.length
-      ? `<div class="lbl2">${u("at")}</div><div class="guests">${t.guests.map((g) => `<span class="${hits.includes(String(t.id)) && g.toLowerCase().includes(query()) && query() ? "hit" : ""}">${g}</span>`).join("")}</div>`
-      : "";
+    const info = seatCache.tab[selected], meta = metaOf(selected);
+    const title = (info && info.title) || (meta && meta.title) || L(t.tag) || "";
+    const guestsList = (info && info.guests && info.guests.length) ? info.guests : t.guests;
+    const loading = apiOn() && !info && !guestsList.length;
+    const hit = (g) => (hitName && g.toLowerCase() === hitName.toLowerCase()) || (query() && g.toLowerCase().includes(query()));
+    // the same name listed several times (e.g. 3 relatives with the same title) is shown once with a count
+    const uniq = [], cnt = {};
+    guestsList.forEach((g) => { if (cnt[g]) cnt[g]++; else { cnt[g] = 1; uniq.push(g); } });
+    const guests = guestsList.length
+      ? `<div class="lbl2">${u("at")} <em>${guestsList.length}</em></div><div class="guests">${uniq.map((g, k) => `<span class="${hit(g) ? "hit" : ""}" style="--i:${Math.min(k, 24)}">${escH(g)}${cnt[g] > 1 ? ` <b>&times;${cnt[g]}</b>` : ""}</span>`).join("")}</div>`
+      : loading ? `<p class="muted small">...</p>` : "";
+    const hasAny = title || L(t.intro) || L(t.fun) || guestsList.length;
     return `<div class="card tcard" id="tcard">
-      <h2>${tableLabel(t)}</h2>
-      ${L(t.tag) ? `<span class="tag">${L(t.tag)}</span>` : ""}
-      ${hasAny ? "" : `<p class="soon">${u("soon")}</p>`}
-      ${L(t.intro) ? `<div class="lbl2">${u("who")}</div><p>${L(t.intro)}</p>` : ""}
+      <div class="tc-top"><span class="tc-num">${tableLabel(t)}</span>${apiOn() ? `<span class="tc-live" title="live">&#9679;</span>` : ""}</div>
+      ${title ? `<h2 class="ttitle">${escH(title)}</h2>` : ""}
+      ${hasAny || loading ? "" : `<p class="soon">${u("soon")}</p>`}
+      ${L(t.intro) ? `<p class="tc-intro">${L(t.intro)}</p>` : ""}
       ${L(t.fun) ? `<div class="lbl2">${u("funFact")}</div><p>${L(t.fun)}</p>` : ""}
       ${guests}
     </div>`;
+  }
+
+  function tablesList() {
+    return W.tables.map((t) => {
+      const m = metaOf(t.id), ti = (m && m.title) || L(t.tag) || "";
+      return `<button data-table="${t.id}" class="tl${String(t.id) === String(selected) ? " on" : ""}"><b>${t.id === "main" ? (lang === "zh" ? "主桌" : "Main") : t.id}</b>${ti ? `<span>${escH(ti)}</span>` : ""}</button>`;
+    }).join("");
   }
 
   let q = "";
   const query = () => q.trim().toLowerCase();
 
   function viewSeats() {
+    setTimeout(() => { loadMeta().then(() => { if (document.getElementById("mz")) refreshSeats(false); }); if (selected) loadTable(selected).then(() => document.getElementById("tcard") && refreshSeats(false)); }, 0);
+    const z = mapZoom();
     return `
       <input class="search" id="search" type="search" placeholder="${u("searchPh")}" aria-label="${u("findSeat")}" autocomplete="off" value="${q.replace(/"/g, "&quot;")}">
       <ul class="results" id="results"></ul>
       ${tableCard()}
-      <div class="mapwrap" id="map">${floorSvg()}<div class="legend">${u("tapTable")}</div></div>
-      <div class="chips" id="chips">${W.tables.map((t) => `<button data-table="${t.id}" class="${String(t.id) === String(selected) ? "on" : ""}">${t.id === "main" ? (lang === "zh" ? "主桌" : "Main") : t.id}</button>`).join("")}</div>`;
+      <div class="mapwrap" id="map"><button class="zoomreset${z.cls ? " show" : ""}" data-act="seat-reset" aria-label="${u("resetView")}">&#8854; ${u("resetView")}</button><div class="mz${z.cls}" id="mz" style="${z.st}">${floorSvg()}</div><div class="legend">${u("tapTable")}</div></div>
+      <details class="tl-wrap"><summary>${u("browseTables")}</summary><div class="tlist" id="tlist">${tablesList()}</div></details>`;
   }
 
-  function runSearch() {
-    const s = query();
+  function localFind(s) {
+    const found = [];
+    W.tables.forEach((t) => t.guests.forEach((g) => { if (g.toLowerCase().includes(s)) found.push({ g, id: String(t.id), title: L(t.tag) }); }));
+    return found;
+  }
+  function renderFound(found) {
     const out = document.getElementById("results");
-    hits = [];
-    if (s.length >= 2) {
-      const found = [];
-      W.tables.forEach((t) => t.guests.forEach((g) => { if (g.toLowerCase().includes(s)) found.push([g, t]); }));
-      hits = [...new Set(found.map(([, t]) => String(t.id)))];
-      out.innerHTML = found.length
-        ? found.slice(0, 8).map(([g, t]) => `<li><button data-table="${t.id}"><span>${g}</span><b>${tableLabel(t)}</b></button></li>`).join("")
-        : `<li class="muted small" style="padding:10px 16px">${u("noMatch")}</li>`;
-      if (found.length === 1) { selected = String(found[0][1].id); routeOn = true; }
-    } else out.innerHTML = "";
+    if (!out) return;
+    hits = [...new Set(found.map((f) => f.id))];
+    out.innerHTML = found.length
+      ? found.slice(0, 8).map((f) => `<li><button data-table="${f.id}" data-guest="${escH(f.g)}"><span>${escH(f.g)}${f.title ? `<small>${escH(f.title)}</small>` : ""}</span><b>${tableLabel(byId(f.id) || { id: f.id, name: { en: "Table " + f.id, zh: "第" + f.id + "桌" } })}</b></button></li>`).join("")
+      : `<li class="muted small" style="padding:10px 16px">${u("noMatch")}</li>`;
+    if (found.length && new Set(found.map((f) => f.id)).size === 1) { hitName = found.length === 1 ? found[0].g : ""; selectTable(found[0].id, false); return; }
     refreshSeats(false);
+  }
+  function runSearch() {
+    const s = query(), out = document.getElementById("results");
+    hits = [];
+    if (s.length < 2) { out.innerHTML = ""; hitName = ""; refreshSeats(false); return; }
+    if (apiOn()) {
+      const tok = ++searchTok;
+      out.innerHTML = `<li class="muted small" style="padding:10px 16px">...</li>`;
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        apiGet("find&q=" + encodeURIComponent(s)).then((r) => { if (tok === searchTok) renderFound((r.rows || []).map((x) => ({ g: x.name, id: String(x.id), title: x.title }))); })
+          .catch(() => { if (tok === searchTok) renderFound(localFind(s)); });
+      }, 260);
+    } else renderFound(localFind(s));
   }
 
   function refreshSeats(scroll) {
-    document.getElementById("map").innerHTML = floorSvg() + `<div class="legend">${u("tapTable")}</div>`;
-    document.getElementById("tcard").outerHTML = tableCard();
-    document.querySelectorAll("#chips button").forEach((b) => b.classList.toggle("on", b.dataset.table === String(selected)));
-    if (scroll) document.getElementById("tcard").scrollIntoView({ block: "start", behavior: "smooth" });
+    const mz = document.getElementById("mz"), z = mapZoom();
+    if (mz) { mz.innerHTML = floorSvg(); mz.className = "mz" + z.cls; mz.style.cssText = z.st; }
+    const rs = document.querySelector(".zoomreset"); if (rs) rs.classList.toggle("show", !!z.cls);
+    const tc = document.getElementById("tcard"); if (tc) tc.outerHTML = tableCard();
+    const tl = document.getElementById("tlist"); if (tl) tl.innerHTML = tablesList();
+    if (scroll) { const c = document.getElementById("tcard"); if (c) c.scrollIntoView({ block: "start", behavior: "smooth" }); }
   }
 
   function selectTable(id, scroll) {
@@ -497,6 +550,7 @@
     routeOn = true;
     history.replaceState(null, "", "#seats/" + selected);
     refreshSeats(scroll);
+    loadTable(selected).then(() => { if (String(selected) === String(id)) refreshSeats(false); });
   }
 
   /* ---------- Fun ---------- */
@@ -595,7 +649,7 @@
       const b = bItem(id), on = bingo.on.includes(i);
       const fid = String(fl[(i * 7 + 3) % fl.length]).padStart(2, "0");
       const cls = ["bt", on ? "on" : "", inLine.has(i) ? "line" : "", bingoNew === i ? "new" : ""].join(" ");
-      return `<button type="button" data-act="bingo" data-i="${i}" data-type="${b.type}" class="${cls}" style="--tilt:${TILT[i % 9]}deg" aria-pressed="${on}"><span class="ico">${CUE_ICON[b.type] || ""}</span><span class="txt">${L(b).replace("{hashtag}", W.couple.hashtag)}</span>${on ? `<img class="stamp" src="scenes/web/flw_${fid}.webp" alt="">` : ""}</button>`;
+      return `<button type="button" data-act="bingo" data-i="${i}" data-type="${b.type}" class="${cls}" style="--tilt:${TILT[i % 9]}deg" aria-pressed="${on}"><span class="ico">${CUE_ICON[b.type] || ""}</span><span class="txt">${L(b)}</span>${on ? `<img class="stamp" src="scenes/web/flw_${fid}.webp" alt="">` : ""}</button>`;
     }).join("");
     bingoNew = -1;
     const confetti = win.length && !bingo.celebrated ? (bingo.celebrated = true, store.set("bingo", bingo), `<div class="confetti" aria-hidden="true">${Array.from({ length: 16 }, (_, k) => `<img src="scenes/web/flw_${String(fl[(k * 3) % fl.length]).padStart(2, "0")}.webp" alt="" style="left:${(k * 6.4 + 2) % 96}%;--d:${(1.8 + (k % 5) * 0.35).toFixed(2)}s;--dl:${((k % 7) * 0.12).toFixed(2)}s;--r:${(k % 2 ? 1 : -1) * (90 + k * 14)}deg">`).join("")}</div>`) : "";
@@ -690,28 +744,6 @@
       <div class="ptsrules">${u("rules")}</div></div>`;
   }
 
-  /* song requests */
-  function viewSongs() {
-    const sent = store.get("songsSent", 0);
-    if (!apiOn()) return `<div class="card"><h2>${u("songTitle")}</h2><p class="soon">${u("soonOnline")}</p></div>`;
-    return `<div class="card"><img class="stk" src="scenes/web/key_tag.webp" alt="" decoding="async"><h2>${u("songTitle")}</h2><p class="muted small" style="margin:0 0 10px">${u("songSub")}</p>
-      <form id="songForm">
-        <input class="search" name="song" required maxlength="80" placeholder="${u("songPh")}" autocomplete="off">
-        <textarea class="search ta" name="note" maxlength="100" placeholder="${u("songNote")}"></textarea>
-        <button class="btn fill" type="submit" ${sent >= 3 ? "disabled" : ""}>${u("songSend")}</button>
-        <div class="muted small" id="songMsg" style="margin-top:8px">${sent >= 3 ? u("songLimit") : ""}</div>
-      </form></div>`;
-  }
-  function submitSong(form) {
-    const song = form.song.value.trim();
-    if (!song) return;
-    const msg = document.getElementById("songMsg");
-    msg.textContent = "...";
-    apiPost({ action: "song", id: uid(), name: playerName() || "Guest", song, note: form.note.value.trim() })
-      .then(() => { store.set("songsSent", store.get("songsSent", 0) + 1); form.reset(); msg.textContent = u("songDone"); if (store.get("songsSent", 0) >= 3) form.querySelector("button").disabled = true; })
-      .catch(() => { msg.textContent = u("tryAgain"); });
-  }
-
   /* wish garden: every blessing grows as a flower in one shared garden */
   let wishes = null, wishOpen = -1;
   const FLC2 = ["#c9a6f2", "#9dbaf5", "#f5b3d1", "#b9a8f0", "#8fd0e8", "#f7c98b"];
@@ -777,7 +809,7 @@
 
   /* ---------- Fun page ---------- */
   let funTab = "play";
-  const FUN_TABS = ["play", "board", "wishes", "songs"];
+  const FUN_TABS = ["play", "board", "wishes"];
   function viewFun() {
     clearInterval(boardTimer);
     const seg = `<div class="seg" role="tablist">${FUN_TABS.map((t) => `<a role="tab" class="${t === funTab ? "on" : ""}" href="#fun/${t}">${u("fun_" + t)}</a>`).join("")}</div>`;
@@ -785,11 +817,9 @@
     if (funTab === "play") {
       body = `${quizHtml()}${bingoHtml()}${factHtml()}
       <div class="card"><h2>${u("loveTitle")}</h2>
-        <p class="muted small" style="margin:0 0 10px">${u("hashtag")}: <b>${W.couple.hashtag}</b></p>
         <button class="heartbtn" data-act="heart">&#10084; ${u("loveBtn")}</button></div>`;
     } else if (funTab === "board") body = viewBoard();
-    else if (funTab === "wishes") body = viewWishes();
-    else body = viewSongs();
+    else body = viewWishes();
     return `${nameCard()}${seg}${body}`;
   }
 
@@ -940,8 +970,7 @@
 
   view.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (e.target.id === "songForm") submitSong(e.target);
-    else if (e.target.id === "wishForm") submitWish(e.target);
+    if (e.target.id === "wishForm") submitWish(e.target);
   });
   view.addEventListener("input", (e) => { if (e.target.id === "search") { q = e.target.value; runSearch(); } });
 
@@ -954,7 +983,8 @@
     const fw = e.target.closest("[data-wish]");
     if (fw) { wishOpen = +fw.dataset.wish; document.getElementById("gardenWrap").innerHTML = gardenSvg(); document.getElementById("wishCard").outerHTML = wishCard(); return; }
     const tb = e.target.closest("[data-table]");
-    if (tb) { selectTable(tb.dataset.table, true); return; }
+    if (tb) { hitName = tb.dataset.guest || ""; selectTable(tb.dataset.table, true); return; }
+    if (e.target.closest("[data-act=seat-reset]")) { routeOn = false; refreshSeats(false); return; }
     if (e.target.closest("#ics")) { downloadIcs(); return; }
     const el = e.target.closest("[data-act]"); if (!el) return;
     const act = el.dataset.act;

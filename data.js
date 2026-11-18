@@ -10,7 +10,6 @@ window.WEDDING = {
 
   couple: {
     names: { en: "Min Zheng & Janice", zh: "Min Zheng & Janice" }, // put Chinese names in zh if you like
-    hashtag: "#JaniceSettleLeow",
   },
 
   date: "2026-11-28",
@@ -152,7 +151,7 @@ window.WEDDING = {
         {
           t: { en: "Praise & worship", zh: "敬拜赞美" },
           who: "Mei Young",
-          songs: ["Goodness of God", "爱使我们勇敢 / 我们爱  Love Can Make Us Brave / We Will Love"],
+          songs: ["Goodness of God", "爱使我们勇敢 / 我们爱  Love Can Make Us Brave / We Will Love", "Song 3 (to be announced) / 第三首（待定）"],
         },
         { t: { en: "Scripture reading", zh: "经文诵读" }, who: "Ps Stella Ma" },
         { t: { en: "Sermon encouragement", zh: "勉励讲道" }, who: "Rev Benjamin" },
@@ -220,6 +219,12 @@ window.WEDDING = {
       by: "Stream of Praise 赞美之泉",
       file: "lyrics/love-can-make-us-brave.txt",
     },
+    {
+      title: { en: "Song 3 (to be announced)", zh: "第三首（待定）" },
+      short: { en: "Song 3", zh: "第三首" },
+      by: "",
+      file: "lyrics/song-3.txt", // put the lyrics in this file, then run: python build_lyrics.py
+    },
   ],
 
   // ---- Tables ----
@@ -227,7 +232,7 @@ window.WEDDING = {
   // Table ids match the floor plan: "main", 2 ... 29, "R".
   tables: [
     T("main", { en: "Main Table", zh: "主桌" }),
-    T(2), T(3), BRIDE(4), BRIDE(5), BRIDE(6), BRIDE(7), BRIDE(8), T(9), T(10),
+    T(2), T(3), T(4), T(5), T(6), T(7), T(8), T(9), T(10),
     T(11), T(12), T(13), T(14), T(15), T(16), T(17), T(18), T(19), T(20),
     T(21), T(22), T(23), T(24), T(25), T(26), T(27), T(28), T(29), T(30), T(31),
     T("R", { en: "Table R", zh: "R桌" }),
@@ -289,7 +294,7 @@ window.WEDDING = {
     { id: "handshake", type: "do", en: "Teach your table a secret handshake", zh: "教同桌一个秘密握手" },
     { id: "ring", type: "do", en: "Get the bride to show you her ring", zh: "请新娘给你看戒指" },
     { id: "meet", type: "do", en: "Meet someone from another table", zh: "认识别桌的新朋友" },
-    { id: "booth", type: "do", pin: true, en: "Take a photo and hashtag us on Insta! {hashtag}", zh: "拍张照，并在 Instagram 标记我们！{hashtag}" },
+    { id: "booth", type: "do", pin: true, en: "Take a photo at the photobooth", zh: "在拍照亭拍一张照片" },
     { id: "handHold", type: "spot", en: "Spot a guest holding the bride's hand", zh: "看到有宾客牵着新娘的手" },
     { id: "laugh", type: "spot", en: "Catch the couple laughing out loud", zh: "看到新人开怀大笑" },
     { id: "cry", type: "spot", en: "Spot someone tearing up happily", zh: "发现有人感动落泪" },

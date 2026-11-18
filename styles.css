@@ -695,3 +695,41 @@ html[lang="zh-Hans"] .theme-card.compact .th-txt { font-size: 17.5px; margin: 4p
 .cgrid b { display: block; flex: 1 1 auto; font-size: 15px; line-height: 1.35; }
 .cgrid i { flex: none; font-size: 12.5px; text-align: right; }
 .cgrid .songs { flex-basis: auto; margin-top: 0; font-size: 11.5px; padding: 2px 10px; }
+
+/* ============ interactive seating ============ */
+.mapwrap { position: relative; overflow: hidden; }
+.mz { transform-origin: var(--zx, 50%) var(--zy, 50%); transition: transform 1s cubic-bezier(.2, .8, .2, 1); will-change: transform; }
+.mz.zoomed { transform: scale(1.85); }
+.zoomreset { position: absolute; z-index: 5; top: 10px; right: 10px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--accent); background: color-mix(in srgb, var(--paper) 92%, transparent); color: var(--accent); font: 700 11px var(--sans); letter-spacing: .04em; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity .3s, transform .3s; }
+.zoomreset.show { opacity: 1; pointer-events: auto; transform: none; }
+.tbl { transition: transform .25s; transform-box: fill-box; transform-origin: center; }
+.tbl:active { transform: scale(.94); }
+.tbl.sel .top { filter: drop-shadow(0 0 6px rgba(130, 110, 220, .8)); }
+.tcard { animation: tcin .5s cubic-bezier(.2, .9, .3, 1.1) both; position: relative; }
+@keyframes tcin { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+.tc-top { display: flex; align-items: center; gap: 8px; }
+.tc-num { display: inline-block; padding: 3px 12px; border-radius: 999px; background: var(--accent); color: #fff; font: 700 12px var(--sans); letter-spacing: .06em; }
+:root[data-mode="night"] .tc-num { color: #1b1838; }
+.tc-live { font-size: 9px; color: #5fcf9a; animation: twinkle 2s ease-in-out infinite; }
+.tcard h2.ttitle { margin: 10px 0 2px; font: 400 34px/1.1 var(--script); color: var(--accent); }
+html[lang="zh-Hans"] .tcard h2.ttitle { font: 700 21px/1.35 "Noto Serif SC", serif; }
+.tc-intro { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+.tcard .lbl2 em { font-style: normal; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); letter-spacing: 0; }
+.guests span { animation: chipin .45s ease-out both; animation-delay: calc(var(--i, 0) * .03s); }
+@keyframes chipin { from { opacity: 0; transform: translateY(6px) scale(.9); } to { opacity: 1; transform: none; } }
+.guests span.hit { background: var(--accent); color: #fff; box-shadow: 0 0 0 3px var(--accent-soft); }
+:root[data-mode="night"] .guests span.hit { color: #1b1838; }
+.results button span small { display: block; font-size: 11px; color: var(--muted); font-weight: 600; }
+.tl-wrap { margin: 4px 0 14px; }
+.tl-wrap summary { cursor: pointer; list-style: none; text-align: center; font: 700 13px var(--sans); color: var(--accent); padding: 8px; }
+.tl-wrap summary::-webkit-details-marker { display: none; }
+.tl-wrap summary::after { content: " +"; } .tl-wrap[open] summary::after { content: " \2212"; }
+.tlist { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+.tlist .tl { display: flex; align-items: center; gap: 8px; text-align: left; padding: 8px 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); font: inherit; cursor: pointer; min-width: 0; }
+.tlist .tl b { flex: none; min-width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font: 700 12px var(--sans); }
+.tlist .tl span { font-size: 11.5px; line-height: 1.3; color: var(--muted); font-weight: 600; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.tlist .tl.on { border-color: var(--accent); background: var(--accent-soft); }
+.chips { display: none; }
+@media (prefers-reduced-motion: reduce) { .mz { transition: none; } .tcard, .guests span { animation: none; } .tc-live { animation: none; } }
+
+.guests span b { margin-left: 3px; font-size: 11px; opacity: .75; }
