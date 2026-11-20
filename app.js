@@ -201,6 +201,7 @@
   const STK = { morning: "bouquet_lav", evening: "toast" }; // little stickers beside each session title
   // wraps each word (or each Chinese character) so it can fade in one after another while scrolling
   const words = (t, off) => (lang === "zh" ? Array.from(String(t)) : String(t).split(" ")).map((w, k) => `<span class="wd" style="--w:${k + (off || 0)}">${w}</span>`).join(lang === "zh" ? "" : " ");
+  const whoText = (w) => (typeof w === "object" ? L(w) : w); // a name, or {en, zh} text such as "Bride's entrance"
   function viewAgenda() {
     const now = myNow();
     const onDay = now.date === W.date;
@@ -214,8 +215,8 @@
       if (s.compact) {
         // compact program: a two-column grid of numbered cards, the theme with the passage folded away
         const cells = s.items.map((i, idx) => {
-          const songs = (i.songs || []).length ? `<a class="songs" href="#lyrics/0">&#9834; ${u("lyricsTitle")} (${i.songs.length})</a>` : "";
-          return `<li class="rv" style="--d:${((idx % 2) * 0.07 + Math.floor(idx / 2) * 0.04).toFixed(2)}s"><span class="cn" aria-hidden="true"></span><div class="cb"><b>${L(i.t)}</b>${i.who ? `<i>${i.who}</i>` : ""}${songs}</div></li>`;
+          const songs = (i.songs || []).length ? `<a class="songs" href="#lyrics/${i.lyricIdx || 0}">&#9834; ${u("lyricsTitle")} (${i.songs.length})</a>` : "";
+          return `<li class="rv" style="--d:${((idx % 2) * 0.07 + Math.floor(idx / 2) * 0.04).toFixed(2)}s"><span class="cn" aria-hidden="true"></span><div class="cb"><b>${L(i.t)}</b>${i.who ? `<i>${whoText(i.who)}</i>` : ""}${songs}</div></li>`;
         }).join("");
         const th = s.theme ? `<div class="theme-card compact rv"><img class="th-fl l" src="scenes/web/flw_09.webp" alt=""><img class="th-fl r" src="scenes/web/flw_03.webp" alt="">
           <div class="th-lbl">${u("themeLabel")}</div><div class="th-txt">${L(s.theme)}</div>
@@ -238,7 +239,7 @@
         const timeLabel = timed ? `<span class="stamp">${fmt12(i.time)}</span>` : "";
         const songs = (i.songs || []).map((x, n) => `<a class="songs" href="#lyrics/${n}">&#9834; ${x}</a>`).join("");
         const desc = i.d ? `<div class="d">${words(L(i.d), 3)}</div>` : "";
-        const who = i.who ? `<div class="who">${i.who}</div>` : "";
+        const who = i.who ? `<div class="who">${whoText(i.who)}</div>` : "";
         const flw = window.FLW || [0], fn = flw[(globalIdx * 5 + (s.id === "evening" ? 11 : 2)) % flw.length];
         const bud = `<img class="bud" src="scenes/web/flw_${String(fn).padStart(2, "0")}.webp" alt="" style="--rot:${(globalIdx % 2 ? 1 : -1) * (8 + (globalIdx * 7) % 14)}deg">`;
         return `<li class="${cls.join(" ")}" style="--i:${idx}"><div class="ag-card"><div class="ag-title">${words(L(i.t))}</div>${desc}${who}${songs}${timeLabel}</div><div class="ag-dot" aria-hidden="true"></div>${bud}</li>`;
