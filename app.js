@@ -369,16 +369,10 @@
   }
 
   /* ---------- Seats ---------- */
-  // Coordinates measured from the hotel floor plan (image.png, 892 x 1070).
-  const POS = {
-    2: [311, 341], 3: [400, 342], main: [498, 398], 4: [594, 360], 5: [682, 360],
-    11: [234, 444], 10: [322, 435], 9: [409, 436], 8: [581, 455], 7: [669, 455], 6: [758, 450],
-    12: [234, 540], 13: [322, 515], 14: [409, 515], 15: [581, 543], 16: [669, 543], 17: [756, 543],
-    21: [323, 594], 20: [410, 594], 19: [581, 631], 18: [669, 630],
-    22: [322, 675], 23: [409, 675], 24: [581, 719], 25: [669, 719],
-    R: [240, 813], 31: [325, 814], 30: [408, 814], 29: [497, 813], 28: [583, 813], 27: [670, 813], 26: [758, 811],
-  };
-  const ENTR = { 1: [186, 236], 2: [186, 487], 3: [186, 737] };
+  // The room is drawn from the hotel's own floor plan PDF (see tools/build_floor.py -> scenes/web/floor.js): positions are in PDF points.
+  const FL = window.FLOOR || { vb: [20, 96, 550, 650], pos: {}, ent: {}, svg: "", texts: [] };
+  const POS = FL.pos;
+  const ENTR = FL.ent;
   let selected = null; // table id
   let hits = []; // guest search matches
   let routeOn = false; // draw the glowing path to the selected table
@@ -386,56 +380,54 @@
   const byId = (id) => W.tables.find((t) => String(t.id) === String(id));
 
   function tableSvg(t) {
-    const [x, y] = POS[t.id] || [0, 0];
+    const p = POS[t.id];
+    if (!p) return "";
+    const [x, y, pr] = p;
     const main = t.id === "main";
-    const r = main ? 30 : 22;
+    const r = pr, n = main ? 12 : 10;
     let chairs = "";
-    for (let i = 0; i < 12; i++) {
-      const a = (i / 12) * Math.PI * 2;
-      chairs += `<rect class="chair" x="${(x + Math.cos(a) * (r + 9) - 4.5).toFixed(1)}" y="${(y + Math.sin(a) * (r + 9) - 4.5).toFixed(1)}" width="9" height="9" rx="2"/>`;
+    for (let k = 0; k < n; k++) {
+      const an = (k / n) * Math.PI * 2 - Math.PI / 2;
+      chairs += `<rect class="chair" x="${(x + Math.cos(an) * (r + 6.5) - 3.6).toFixed(1)}" y="${(y + Math.sin(an) * (r + 6.5) - 3.6).toFixed(1)}" width="7.2" height="7.2" rx="1.6" transform="rotate(${((an * 180) / Math.PI + 90).toFixed(0)} ${(x + Math.cos(an) * (r + 6.5)).toFixed(1)} ${(y + Math.sin(an) * (r + 6.5)).toFixed(1)})"/>`;
     }
     const filled = t.intro.en || t.intro.zh || t.guests.length || (metaOf(t.id) && metaOf(t.id).title);
     const cls = ["tbl", filled ? "filled" : "", String(t.id) === String(selected) ? "sel" : "", hits.includes(String(t.id)) ? "hit" : ""].join(" ");
     const label = main ? (lang === "zh" ? "主桌" : "Main") : t.id;
     return `<g class="${cls}" data-table="${t.id}" role="button" tabindex="0" aria-label="${tableLabel(t)}">
-      ${chairs}<circle class="top" cx="${x}" cy="${y}" r="${r}"/><text x="${x}" y="${y}" ${main ? 'style="font-size:14px"' : ""}>${label}</text></g>`;
+      ${chairs}<circle class="top" cx="${x}" cy="${y}" r="${r}"/><circle class="hit" cx="${x}" cy="${y}" r="${r + 9}" fill="transparent"/><text x="${x}" y="${y}" ${main ? 'style="font-size:11px"' : ""}>${label}</text></g>`;
   }
 
   // glowing path from the nearest entrance to the table
   function routeSvg() {
     if (!routeOn || !POS[selected]) return "";
     const [tx, ty] = POS[selected];
-    const e = Object.keys(ENTR).sort((a, b) => Math.abs(ENTR[a][1] - ty) - Math.abs(ENTR[b][1] - ty))[0];
+    const e = Object.keys(ENTR).sort((p, q) => Math.abs(ENTR[p][1] - ty) - Math.abs(ENTR[q][1] - ty))[0];
     const [sx, sy] = ENTR[e];
     const dx = tx - sx;
-    const d = `M${sx + 6} ${sy} C${sx + dx * 0.55} ${sy}, ${tx} ${sy + (ty - sy) * 0.35}, ${tx} ${ty}`;
+    const d = `M${sx + 5} ${sy} C${sx + dx * 0.55} ${sy}, ${tx} ${sy + (ty - sy) * 0.35}, ${tx} ${ty}`;
     return `<g class="route" pointer-events="none">
       <path class="glow" d="${d}" pathLength="1"/>
       <path class="line" d="${d}" pathLength="1"/>
-      <circle class="from" cx="${sx + 6}" cy="${sy}" r="6"/>
-      <circle class="pulse" cx="${tx}" cy="${ty}" r="26"/><circle class="pulse p2" cx="${tx}" cy="${ty}" r="26"/>
-      <text class="yah" x="${sx + 24}" y="${sy - 12}">${u("youEnter")}</text></g>`;
+      <circle class="from" cx="${sx + 5}" cy="${sy}" r="5"/>
+      <circle class="pulse" cx="${tx}" cy="${ty}" r="20"/><circle class="pulse p2" cx="${tx}" cy="${ty}" r="20"/>
+      <text class="yah" x="${sx + 14}" y="${sy - 10}">${u("youEnter")}</text></g>`;
+  }
+
+  const FL_ZH = { Stage: "舞台", Screen: "屏幕", Rostrum: "讲台", "Entrance 1": "入口 1", "Entrance 2": "入口 2", "Entrance 3": "入口 3", Registration: "接待处", "Store Room": "储藏室",
+    "Carpet from external vendor": "地毯", Champagne: "香槟塔", fountain: "", Mock: "装饰蛋糕", cake: "", Notice: "公告栏", Board: "", Laptop: "控制台", control: "", Pillar: "柱" };
+  function floorText() {
+    return FL.texts.filter((t) => t.t !== "Glass" && t.t !== "Door").map((t) => {
+      const s = lang === "zh" ? (t.t in FL_ZH ? FL_ZH[t.t] : t.t) : t.t;
+      if (!s) return "";
+      const white = t.t === "Store Room" || t.t === "Pillar";
+      const size = Math.max(t.s * 1.05, 7.5) + (t.k === "ent" ? 1 : 0) + (t.t === "Stage" || t.t === "Store Room" ? 3 : 0);
+      return `<text class="fl-t${t.k === "ent" ? " e" : ""}${white ? " w" : ""}" x="${t.x}" y="${t.y}" style="font-size:${size.toFixed(1)}px">${s}</text>`;
+    }).join("");
   }
 
   function floorSvg() {
-    const ent = (n) => { const y = ENTR[n][1]; return `<rect class="ent" x="178" y="${y - 34}" width="8" height="68"/><text class="lbl ent" transform="translate(166 ${y}) rotate(-90)">${u("entrance")} ${n}</text>`; };
-    return `<svg viewBox="120 95 700 910" role="img" aria-label="Floor plan">
-      <rect class="floor" x="185" y="105" width="620" height="763"/>
-      <rect class="blk" x="185" y="105" width="115" height="73"/><rect class="blk" x="680" y="105" width="125" height="73"/>
-      <rect class="stage" x="300" y="108" width="380" height="102"/>
-      <rect x="413" y="109" width="165" height="8" fill="#fff" stroke="#333"/>
-      <text class="lbl w" x="490" y="132" style="font-size:12px">${u("screen")}</text>
-      <text class="lbl w" x="490" y="164" style="font-size:22px;font-weight:600">${u("stage")}</text>
-      <rect x="383" y="186" width="30" height="20" fill="#fff" stroke="#333"/><rect x="620" y="186" width="30" height="20" fill="#fff" stroke="#333"/>
-      <rect class="blk" x="208" y="343" width="50" height="23" rx="4"/><rect class="blk" x="730" y="341" width="50" height="24" rx="4"/>
-      <rect class="blk" x="208" y="609" width="50" height="23" rx="4"/><rect class="blk" x="730" y="609" width="50" height="24" rx="4"/>
-      <rect class="carpet" x="482" y="468" width="33" height="297"/><rect class="carpet" x="189" y="735" width="326" height="30"/>
-      <text class="lbl w" x="340" y="755" style="font-size:12px">${u("carpet")}</text>
-      <rect class="deskf" x="240" y="280" width="28" height="52"/><rect class="deskf" x="140" y="580" width="38" height="108"/>
-      <rect x="171" y="785" width="7" height="73" fill="#fff" stroke="#333"/>
-      ${ent(1)}${ent(2)}${ent(3)}
-      <rect class="blk" x="185" y="868" width="622" height="132"/>
-      <text class="lbl w" x="496" y="940" style="font-size:24px">${u("store")}</text>
+    return `<svg viewBox="${FL.vb.join(" ")}" role="img" aria-label="Floor plan">
+      ${FL.svg}${floorText()}
       ${W.tables.map(tableSvg).join("")}
       ${routeSvg()}
     </svg>`;
@@ -458,7 +450,7 @@
   const mapZoom = () => {
     if (!routeOn || !POS[selected]) return { cls: "", st: "" };
     const [x, y] = POS[selected];
-    return { cls: " zoomed", st: `--zx:${(((x - 120) / 700) * 100).toFixed(1)}%;--zy:${(((y - 95) / 910) * 100).toFixed(1)}%;` };
+    return { cls: " zoomed", st: `--zx:${(((x - FL.vb[0]) / FL.vb[2]) * 100).toFixed(1)}%;--zy:${(((y - FL.vb[1]) / FL.vb[3]) * 100).toFixed(1)}%;` };
   };
 
   function tableCard() {

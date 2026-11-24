@@ -733,3 +733,26 @@ html[lang="zh-Hans"] .tcard h2.ttitle { font: 700 21px/1.35 "Noto Serif SC", ser
 @media (prefers-reduced-motion: reduce) { .mz { transition: none; } .tcard, .guests span { animation: none; } .tc-live { animation: none; } }
 
 .guests span b { margin-left: 3px; font-size: 11px; opacity: .75; }
+
+/* ============ floor plan drawn from the hotel PDF ============ */
+.fl-floor { fill: var(--paper); stroke: var(--ink); stroke-width: 1.6; }
+.fl-stage { fill: #dcd5f4; stroke: var(--ink); stroke-width: .6; }
+.fl-step { fill: #e7a9b7; stroke: var(--ink); stroke-width: .5; }
+.fl-store { fill: #1f1c2e; }
+.fl-black { fill: #2b2840; }
+.fl-carpet { fill: #e6a1b3; stroke: var(--ink); stroke-width: .5; opacity: .9; }
+.fl-glass { fill: #f3e6c8; }
+.fl-ent { fill: #b8561d; }
+.fl-desk { fill: #cfd9f3; stroke: var(--ink); stroke-width: .5; }
+.fl-box { fill: var(--paper); stroke: var(--ink); stroke-width: .6; }
+.fl-screen { fill: none; stroke: var(--ink); stroke-width: .8; }
+.fl-wall { fill: none; stroke: var(--ink); stroke-width: 2; }
+.fl-t { font-family: var(--sans); font-weight: 700; fill: var(--muted); text-anchor: middle; paint-order: stroke; stroke: color-mix(in srgb, var(--paper) 65%, transparent); stroke-width: 2px; }
+.fl-t.e { fill: var(--accent); }
+.fl-t.w { fill: #fff; stroke: none; }
+.tbl text { font: 700 11px var(--sans); }
+.tbl .chair { fill: #dff0d8; stroke: #6f8f66; stroke-width: .5; }
+.tbl .top { stroke-width: 1; }
+.tbl.sel .chair { fill: #cdb8f5; }
+.route .glow { stroke-width: 9; } .route .line { stroke-width: 3; }
+.route .yah { font-size: 10px; }
