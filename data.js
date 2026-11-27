@@ -242,7 +242,10 @@ window.WEDDING = {
     T(2), T(3), T(4), T(5), T(6), T(7), T(8), T(9), T(10),
     T(11), T(12), T(13), T(14), T(15), T(16), T(17), T(18), T(19), T(20),
     T(21), T(22), T(23), T(24), T(25), T(26), T(27), T(28), T(29), T(30),
-    T("R", { en: "Table R", zh: "R桌" }),
+    Object.assign(T("R", { en: "Table R", zh: "R桌" }), {
+      tag: { en: "Reserved table", zh: "保留桌" },
+      intro: { en: "This table is reserved. No guests are seated here.", zh: "此桌为保留桌，不安排宾客入座。" },
+    }),
   ],
 
   // Table 2 as a worked example. Copy this shape to the other tables.
