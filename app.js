@@ -5,7 +5,7 @@
   /* ---------------- i18n ---------------- */
   const UI = {
     en: {
-      replay: "Replay our story", readVerse: "Read the passage", resetView: "Reset view", browseTables: "Browse all tables", themeLabel: "Ceremony theme", verseLabel: "Scripture", storyCardTitle: "View our story", storyCardSub: "From Sunway University to the wedding day. Scroll through the whole journey.", storyCardBtn: "Start the story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
+      replay: "Replay our story", until: "to", readVerse: "Read the passage", resetView: "Reset view", browseTables: "Browse all tables", themeLabel: "Ceremony theme", verseLabel: "Scripture", storyCardTitle: "View our story", storyCardSub: "From Sunway University to the wedding day. Scroll through the whole journey.", storyCardBtn: "Start the story", exploreTitle: "Explore the day", exploreSub: "Tap a card to jump straight in.", introLine: "Everything you need for today, in one place.",
       tile_agenda: "Agenda", tile_agenda_s: "The timeline of the day", tile_seats: "Find my seat", tile_seats_s: "Floor plan and your table",
       tile_lyrics: "Sing along", tile_lyrics_s: "Praise and worship lyrics", tile_play: "Quiz and bingo", tile_play_s: "Play and earn points",
       tile_board: "Leaderboard", tile_board_s: "See who is on top", tile_wishes: "Wish garden", tile_wishes_s: "Plant a blessing",
@@ -41,7 +41,7 @@
       contact: "Chat with us",
     },
     zh: {
-      replay: "重看我们的故事", readVerse: "阅读经文", resetView: "还原视图", browseTables: "浏览所有桌子", themeLabel: "证婚礼主题", verseLabel: "经文", storyCardTitle: "观看我们的故事", storyCardSub: "从双威大学到婚礼当天，一路往下滑，看完整段旅程。", storyCardBtn: "开始故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
+      replay: "重看我们的故事", until: "至", readVerse: "阅读经文", resetView: "还原视图", browseTables: "浏览所有桌子", themeLabel: "证婚礼主题", verseLabel: "经文", storyCardTitle: "观看我们的故事", storyCardSub: "从双威大学到婚礼当天，一路往下滑，看完整段旅程。", storyCardBtn: "开始故事", exploreTitle: "探索今天", exploreSub: "点一下卡片，直接进入。", introLine: "今天需要的一切，都在这里。",
       tile_agenda: "流程", tile_agenda_s: "今天的时间表", tile_seats: "查找座位", tile_seats_s: "平面图与桌号",
       tile_lyrics: "一起来唱", tile_lyrics_s: "敬拜赞美歌词", tile_play: "问答与宾果", tile_play_s: "玩游戏赚积分",
       tile_board: "排行榜", tile_board_s: "看看谁领先", tile_wishes: "祝福花园", tile_wishes_s: "种下一个祝福",
@@ -202,6 +202,8 @@
   // wraps each word (or each Chinese character) so it can fade in one after another while scrolling
   const words = (t, off) => (lang === "zh" ? Array.from(String(t)) : String(t).split(" ")).map((w, k) => `<span class="wd" style="--w:${k + (off || 0)}">${w}</span>`).join(lang === "zh" ? "" : " ");
   const whoText = (w) => (typeof w === "object" ? L(w) : w); // a name, or {en, zh} text such as "Bride's entrance"
+  // the session's time, venue and emcee line under its title
+  const headTime = (s) => `<div class="time">${fmtRange(s.start, s.end)}${s.venue ? " &middot; " + L(s.venue) : ""}${s.emcee ? " &middot; " + u("emcee") + ": " + s.emcee : ""}</div>`;
   function viewAgenda() {
     const now = myNow();
     const onDay = now.date === W.date;
@@ -216,14 +218,14 @@
         // compact program: a two-column grid of numbered cards, the theme with the passage folded away
         const cells = s.items.map((i, idx) => {
           const songs = (i.songs || []).length ? `<a class="songs" href="#lyrics/${i.lyricIdx || 0}">&#9834; ${u("lyricsTitle")} (${i.songs.length})</a>` : "";
-          return `<li class="rv" style="--d:${((idx % 2) * 0.07 + Math.floor(idx / 2) * 0.04).toFixed(2)}s"><span class="cn" aria-hidden="true"></span><div class="cb"><b>${L(i.t)}</b>${i.who ? `<i>${whoText(i.who)}</i>` : ""}${songs}</div></li>`;
+          return `<li class="rv" style="--d:${((idx % 2) * 0.07 + Math.floor(idx / 2) * 0.04).toFixed(2)}s"><span class="cn" aria-hidden="true"></span><div class="cb"><b>${i.time ? `<span class="ct">${fmt12(i.time)}</span>` : ""}${L(i.t)}</b>${i.who ? `<i>${whoText(i.who)}</i>` : ""}${songs}</div></li>`;
         }).join("");
         const th = s.theme ? `<div class="theme-card compact rv"><img class="th-fl l" src="scenes/web/flw_09.webp" alt=""><img class="th-fl r" src="scenes/web/flw_03.webp" alt="">
           <div class="th-lbl">${u("themeLabel")}</div><div class="th-txt">${L(s.theme)}</div>
           ${s.verse ? `<details class="th-more"><summary><span>${u("verseLabel")}</span> ${L(s.verse.ref)} <em>${u("readVerse")}</em></summary><p class="th-verse">${L(s.verse)}</p>${lang === "en" ? `<div class="niv">${W.nivNotice}</div>` : ""}</details>` : ""}</div>` : "";
         return `<div class="session-head compact">${STK[s.id] ? `<img class="stk" src="scenes/web/${STK[s.id]}.webp" alt="" decoding="async">` : ""}
           <h2>${L(s.title)}${sLive ? `<span class="live">${u("live")}</span>` : ""}</h2>
-          <div class="time">${fmtRange(s.start, s.end)}${s.venue ? " &middot; " + L(s.venue) : ""}${s.emcee ? " &middot; " + u("emcee") + ": " + s.emcee : ""}</div></div>
+          ${headTime(s)}</div>
           ${th}<ol class="cgrid">${cells}</ol>`;
       }
       const timed = s.items.some((i) => i.time);
@@ -247,7 +249,7 @@
       return `
         <div class="session-head">${STK[s.id] ? `<img class="stk" src="scenes/web/${STK[s.id]}.webp" alt="" decoding="async">` : ""}
           <h2>${L(s.title)}${sLive ? `<span class="live">${u("live")}</span>` : ""}</h2>
-          <div class="time">${fmtRange(s.start, s.end)}${s.venue ? " &middot; " + L(s.venue) : ""}${s.emcee ? " &middot; " + u("emcee") + ": " + s.emcee : ""}</div>
+          ${headTime(s)}
         </div>
         <img class="gl" src="scenes/web/garland_lav.webp" alt="" decoding="async">
         ${s.theme ? `<div class="theme-card rv"><img class="th-fl l" src="scenes/web/flw_09.webp" alt=""><img class="th-fl r" src="scenes/web/flw_03.webp" alt="">

@@ -145,7 +145,7 @@ window.WEDDING = {
         zh: "两个人总比一个人好，因为二人劳碌同得美好的果效。若是跌倒，这人可以扶起他的同伴；若是孤身跌倒，没有别人扶起他来，这人就有祸了！再者，两个人同睡就都暖和，一个人独睡怎能暖和呢？有人攻胜孤身一人，若有二人便能敌挡他；三股合成的绳子不容易折断。",
       },
       items: [
-        { t: { en: "Prelude", zh: "序乐" } },
+        { time: "10:00", t: { en: "Prelude", zh: "序乐" } },
         { t: { en: "Processional", zh: "入场礼" }, who: { en: "Bride's entrance", zh: "新娘入场" } },
         {
           t: { en: "Praise & Worship", zh: "敬拜赞美" },
